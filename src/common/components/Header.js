@@ -16,8 +16,7 @@ const HeaderContainer = styled.header`
 
 const HeaderTitle = styled.span`
   color: #d13b40;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", sans-serif;
   font-size: 5rem;
 `;
 
