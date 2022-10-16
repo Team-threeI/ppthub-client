@@ -12,6 +12,10 @@ const SlideContainer = styled.section`
   background-color: red;
   aspect-ratio: 1280 / 720;
   flex: none;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export default Slide;

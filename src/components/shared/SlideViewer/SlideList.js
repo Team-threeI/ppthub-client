@@ -10,16 +10,16 @@ function SlideList() {
       <Slide />
       <Slide />
       <Slide />
+      <Slide />
     </SlideListContainer>
   );
 }
 
-const SlideListContainer = styled.section`
+const SlideListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 1rem;
   overflow: auto;
 `;
 

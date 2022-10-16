@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import SlideList from "./shared/SlideView/SlideView";
+import SlideViewer from "./shared/SlideViewer/SlideViewer";
 
 function Main() {
   return (
     <MainContainer>
-      <SlideList />
-      <SlideList />
+      <SlideViewer />
+      <SlideViewer />
     </MainContainer>
   );
 }
