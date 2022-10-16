@@ -4,13 +4,16 @@ import styled from "styled-components";
 function Header() {
   return (
     <HeaderContainer>
-      <HeaderTitle>PPTHub</HeaderTitle>
+      <HeaderTitle>
+        PPTHub
+      </HeaderTitle>
     </HeaderContainer>
   );
 }
 
 const HeaderContainer = styled.header`
   display: flex;
+  height: 10%;
   justify-content: center;
 `;
 
