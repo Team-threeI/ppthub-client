@@ -11,10 +11,6 @@ function SlideView() {
 }
 
 const SlideViewContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   padding: 1rem;
   overflow: auto;
