@@ -1,19 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import SlideList from "./SlideList";
+import Slide from "./Slide";
 
-function SlideView() {
+function SlideList() {
   return (
-    <SlideViewContainer>
-      <SlideList />
-    </SlideViewContainer>
+    <SlideListContainer>
+      <Slide />
+      <Slide />
+      <Slide />
+      <Slide />
+      <Slide />
+    </SlideListContainer>
   );
 }
 
-const SlideViewContainer = styled.section`
+const SlideListContainer = styled.section`
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  height: 100%;
   padding: 1rem;
   overflow: auto;
 `;
 
-export default SlideView;
+export default SlideList;
