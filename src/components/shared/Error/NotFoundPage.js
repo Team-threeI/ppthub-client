@@ -2,9 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import errorImageSrc from "../../../images/error.png";
+import notFoundImageSrc from "../../../images/404.png";
 
-function ErrorPage({ errorMessage }) {
+function NotFoundPage() {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -12,19 +12,18 @@ function ErrorPage({ errorMessage }) {
   };
 
   return (
-    <ErrorPageContainer>
-      <ErrorPageImage src={errorImageSrc} alt="에러가 발생하였습니다." />
-      <BoldText>현재 {errorMessage} 문제로 인하여</BoldText>
-      <p>일시적으로 접속이 되지 않습니다.</p>
-      <p>잠시후 다시 이용 부탁드리겠습니다.</p>
+    <NotFoundContainer>
+      <NotFoundImage src={notFoundImageSrc} alt="페이지를 찾을수 없습니다." />
+      <BoledText>찾으시려는 페이지가 현재 존재하지 않습니다.</BoledText>
+      <p>주소를 다시한번 확인해 주세요</p>
       <MainButton type="button" onClick={() => handleClick()}>
         Home
       </MainButton>
-    </ErrorPageContainer>
+    </NotFoundContainer>
   );
 }
 
-const ErrorPageContainer = styled.div`
+const NotFoundContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,13 +33,13 @@ const ErrorPageContainer = styled.div`
   height: 100%;
 `;
 
-const ErrorPageImage = styled.img`
+const NotFoundImage = styled.img`
   width: 50%;
   height: 50%;
   margin: auto;
 `;
 
-const BoldText = styled.b`
+const BoledText = styled.b`
   margin-bottom: 1.2rem;
 `;
 
@@ -52,4 +51,4 @@ const MainButton = styled.button`
   font-size: 1.5rem;
 `;
 
-export default ErrorPage;
+export default NotFoundPage;
