@@ -5,8 +5,14 @@ import SideBarData from "./SideBarList";
 function SideBar() {
   return (
     <SideBarContainer>
-      <SideBarData />
-      <SideBarData />
+      <SideBarSection>
+        <SideBarHeader>Create</SideBarHeader>
+        <SideBarData />
+      </SideBarSection>
+      <SideBarSection>
+        <SideBarHeader>Undo</SideBarHeader>
+        <SideBarData />
+      </SideBarSection>
     </SideBarContainer>
   );
 }
@@ -18,35 +24,17 @@ const SideBarContainer = styled.div`
   height: 100%;
 `;
 
-const SideBarLittleTitle = styled.p`
-  font-family: "Lucida Sans", sans-serif;
-`;
-
-const SideBarCreateList = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 13%;
+const SideBarSection = styled.section`
   width: 100%;
-  height: 36%;
+  height: 100%;
+  padding-left: 1vw;
   overflow: auto;
 `;
 
-const SideBarUndoList = styled(SideBarCreateList)`
-  top: 53%;
-`;
-
-const SideBarCreate = styled(SideBarLittleTitle)`
-  position: fixed;
-  width: 100%;
+const SideBarHeader = styled.header`
   color: red;
-`;
-const SideBarUndo = styled(SideBarLittleTitle)`
-  position: fixed;
-  top: 50%;
-  width: 100%;
-  background: white;
-  color: blue;
+  font-family: "Lucida Sans", sans-serif;
+  padding-bottom: 1vw;
 `;
 
 export default SideBar;

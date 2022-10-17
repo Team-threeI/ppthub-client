@@ -4,46 +4,36 @@ import styled from "styled-components";
 function SideBarList({ sideBarData }) {
   return (
     <SideBarDataContainer>
-      <SideBarHeader>Create /리스트[n]</SideBarHeader>
       <SideBarLittleHeader>
         <strong>슬라이드 제목 1</strong>
       </SideBarLittleHeader>
-      <SideBarUl>
-        <SideBarLi>
+      <SideBarItemList>
+        <SideBarItem>
           <InputLabel>
             변경점 <CheckInput type="checkbox" />
           </InputLabel>
-        </SideBarLi>
-        <SideBarLi>
+        </SideBarItem>
+        <SideBarItem>
           <InputLabel>
             변경점 <CheckInput type="checkbox" />
           </InputLabel>
-        </SideBarLi>
-      </SideBarUl>
+        </SideBarItem>
+      </SideBarItemList>
     </SideBarDataContainer>
   );
 }
 
 const SideBarDataContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  padding-left: 1vw;
-  overflow: auto;
-`;
-
-const SideBarHeader = styled.header`
-  color: red;
-  font-family: "Lucida Sans", sans-serif;
-  padding-bottom: 1vw;
+  color: black;
 `;
 
 const SideBarLittleHeader = styled.header`
   font-size: 0.9rem;
 `;
 
-const SideBarUl = styled.ul``;
+const SideBarItemList = styled.ul``;
 
-const SideBarLi = styled.li`
+const SideBarItem = styled.li`
   padding-top: 0.3vw;
 `;
 
