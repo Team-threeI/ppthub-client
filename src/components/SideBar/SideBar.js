@@ -1,23 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import SideBarData from "./SideBarList";
 
 function SideBar() {
   return (
     <SideBarContainer>
-      <SideBarCreate>Create</SideBarCreate>
-      <SideBarFirstList>
-        <li>데이터</li>
-      </SideBarFirstList>
-      <SideBarUndo>Undo</SideBarUndo>
-      <SideBarSecondList>
-        <li> 데이터 </li>
-      </SideBarSecondList>
+      <SideBarData />
+      <SideBarData />
     </SideBarContainer>
   );
 }
 
 const SideBarContainer = styled.div`
-  width: 40%;
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
   height: 100%;
 `;
 
@@ -25,7 +22,7 @@ const SideBarLittleTitle = styled.p`
   font-family: "Lucida Sans", sans-serif;
 `;
 
-const SideBarFirstList = styled.div`
+const SideBarCreateList = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -35,7 +32,7 @@ const SideBarFirstList = styled.div`
   overflow: auto;
 `;
 
-const SideBarSecondList = styled(SideBarFirstList)`
+const SideBarUndoList = styled(SideBarCreateList)`
   top: 53%;
 `;
 
