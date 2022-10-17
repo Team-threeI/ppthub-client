@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import GlobalStyle from "./GlobalStyle";
@@ -8,12 +8,14 @@ import Main from "../components/Main";
 import Preview from "../components/Preview";
 
 function App() {
+  const [buttonType, setButtonType] = useState();
+
   return (
     <AppContainer>
       <GlobalStyle />
       <Header />
-      <Preview />
-      <Footer />
+      <Main />
+      <Footer buttonType={buttonType} />
     </AppContainer>
   );
 }

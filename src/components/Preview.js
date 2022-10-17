@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import SlideViewer from "./shared/SlideViewer/SlideViewer";
 
-function Preview() {
+function Preview({ onButtonType }) {
+  useEffect(() => {
+    onButtonType("preview");
+  }, [onButtonType]);
+
   return (
     <PreviewContainer>
       <SlideViewer />
