@@ -14,8 +14,9 @@ function ErrorPage({ errorMessage }) {
   return (
     <ErrorPageContainer>
       <ErrorPageImage src={errorImageSrc} alt="에러가 발생하였습니다." />
-      <StrongText>현재 {errorMessage} 문제로 인하여</StrongText>
       <p>
+        <strong>현재 {errorMessage} 문제로 인하여</strong>
+        <br />
         일시적으로 접속이 되지 않습니다. <br />
         잠시후 다시 이용 부탁드리겠습니다.
       </p>
@@ -39,10 +40,6 @@ const ErrorPageImage = styled.img`
   width: 50%;
   height: 50%;
   margin: auto;
-`;
-
-const StrongText = styled.strong`
-  margin-bottom: 1.2rem;
 `;
 
 const MainButton = styled.button`

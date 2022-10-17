@@ -14,8 +14,11 @@ function NotFoundPage() {
   return (
     <NotFoundContainer>
       <NotFoundImage src={notFoundImageSrc} alt="페이지를 찾을수 없습니다." />
-      <StrongText>찾으시려는 페이지가 현재 존재하지 않습니다.</StrongText>
-      <p>주소를 다시한번 확인해 주세요</p>
+      <p>
+        <strong>찾으시려는 페이지가 현재 존재하지 않습니다.</strong>
+        <br />
+        주소를 다시한번 확인해 주세요
+      </p>
       <MainButton type="button" onClick={() => handleClick()}>
         Home
       </MainButton>
@@ -36,10 +39,6 @@ const NotFoundImage = styled.img`
   width: 50%;
   height: 50%;
   margin: auto;
-`;
-
-const StrongText = styled.strong`
-  margin-bottom: 1.2rem;
 `;
 
 const MainButton = styled.button`
