@@ -7,7 +7,7 @@ function SlideViewer() {
     <SlideViewerContainer>
       <SlideList />
     </SlideViewerContainer>
-  )
+  );
 }
 
 const SlideViewerContainer = styled.section`

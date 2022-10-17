@@ -6,7 +6,7 @@ function Footer() {
     <FooterContainer>
       Footer
     </FooterContainer>
-  )
+  );
 }
 
 const FooterContainer = styled.footer`
