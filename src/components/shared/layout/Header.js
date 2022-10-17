@@ -4,9 +4,7 @@ import styled from "styled-components";
 function Header() {
   return (
     <HeaderContainer>
-      <HeaderTitle>
-        PPTHub
-      </HeaderTitle>
+      <HeaderTitle>PPTHub</HeaderTitle>
     </HeaderContainer>
   );
 }
