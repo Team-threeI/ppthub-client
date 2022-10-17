@@ -8,14 +8,14 @@ import Main from "../components/Main";
 import Preview from "../components/Preview";
 
 function App() {
-  const [buttonType, setButtonType] = useState();
+  const [pageType, setPageType] = useState("");
 
   return (
     <AppContainer>
       <GlobalStyle />
       <Header />
       <Main />
-      <Footer buttonType={buttonType} />
+      <Footer buttonType={pageType} />
     </AppContainer>
   );
 }
