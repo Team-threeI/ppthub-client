@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import notFoundImageSrc from "../../../images/404.png";
+import notFoundImageSrc from "../../images/404.png";
 
 function NotFoundPage() {
   const navigate = useNavigate();

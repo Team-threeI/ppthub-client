@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import PAGE_TYPES from "../../../config/constants/pageTypes";
+import PAGE_TYPES from "../../config/constants/pageTypes";
 
 function Footer({ buttonType }) {
   return (
