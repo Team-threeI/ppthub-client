@@ -7,6 +7,7 @@ function Footer() {
 
 const FooterContainer = styled.footer`
   height: 10%;
+  width: 100%;
   background-color: gray;
 `;
 

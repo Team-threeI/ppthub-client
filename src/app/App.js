@@ -5,13 +5,14 @@ import GlobalStyle from "./GlobalStyle";
 import Header from "../components/shared/layout/Header";
 import Footer from "../components/shared/layout/Footer";
 import Main from "../components/Main";
+import Preview from "../components/Preview";
 
 function App() {
   return (
     <AppContainer>
       <GlobalStyle />
       <Header />
-      <Main />
+      <Preview />
       <Footer />
     </AppContainer>
   );
@@ -20,6 +21,7 @@ function App() {
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 `;
