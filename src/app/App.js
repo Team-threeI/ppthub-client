@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+
 import styled from "styled-components";
 
 import GlobalStyle from "./GlobalStyle";
@@ -6,6 +8,7 @@ import Header from "../components/shared/layout/Header";
 import Footer from "../components/shared/layout/Footer";
 import Main from "../components/Main";
 import Preview from "../components/Preview";
+import NotFoundPage from "../components/shared/Error/NotFoundPage";
 
 function App() {
   const [pageType, setPageType] = useState("");
@@ -14,7 +17,11 @@ function App() {
     <AppContainer>
       <GlobalStyle />
       <Header />
-      <Main />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/:ppt_id/preview" element={<Preview />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
       <Footer buttonType={pageType} />
     </AppContainer>
   );
