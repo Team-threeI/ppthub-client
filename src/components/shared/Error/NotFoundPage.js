@@ -14,7 +14,7 @@ function NotFoundPage() {
   return (
     <NotFoundContainer>
       <NotFoundImage src={notFoundImageSrc} alt="페이지를 찾을수 없습니다." />
-      <BoledText>찾으시려는 페이지가 현재 존재하지 않습니다.</BoledText>
+      <StrongText>찾으시려는 페이지가 현재 존재하지 않습니다.</StrongText>
       <p>주소를 다시한번 확인해 주세요</p>
       <MainButton type="button" onClick={() => handleClick()}>
         Home
@@ -26,11 +26,10 @@ function NotFoundPage() {
 const NotFoundContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  overflow: auto;
+  align-items: center;
   width: 100%;
   height: 100%;
+  overflow: auto;
 `;
 
 const NotFoundImage = styled.img`
@@ -39,7 +38,7 @@ const NotFoundImage = styled.img`
   margin: auto;
 `;
 
-const BoledText = styled.b`
+const StrongText = styled.strong`
   margin-bottom: 1.2rem;
 `;
 
