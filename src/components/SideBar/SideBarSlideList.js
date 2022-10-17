@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-function SideBarList({ sideBarData }) {
+function SideBarSlideList({ sideBarData }) {
   return (
     <SideBarDataContainer>
-      <SideBarLittleHeader>
-        <strong>슬라이드 제목 1</strong>
-      </SideBarLittleHeader>
+      <SideBarLittleHeader>슬라이드 제목 1</SideBarLittleHeader>
       <SideBarItemList>
         <SideBarItem>
           <InputLabel>
@@ -23,18 +21,18 @@ function SideBarList({ sideBarData }) {
   );
 }
 
-const SideBarDataContainer = styled.div`
-  color: black;
-`;
+const SideBarDataContainer = styled.div``;
 
 const SideBarLittleHeader = styled.header`
   font-size: 0.9rem;
+  font-weight: 700;
 `;
 
 const SideBarItemList = styled.ul``;
 
 const SideBarItem = styled.li`
-  padding-top: 0.3vw;
+  padding-top: 0.3vh;
+  list-style: none;
 `;
 
 const InputLabel = styled.label`
@@ -42,10 +40,10 @@ const InputLabel = styled.label`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding-right: 3vw;
+  padding-right: 3vh;
   cursor: pointer;
 `;
 
 const CheckInput = styled.input``;
 
-export default SideBarList;
+export default SideBarSlideList;

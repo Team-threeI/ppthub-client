@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import SideBarData from "./SideBarList";
+import SideBarSlideList from "./SideBarSlideList";
 
 function SideBar() {
   return (
     <SideBarContainer>
       <SideBarSection>
         <SideBarHeader>Create</SideBarHeader>
-        <SideBarData />
+        <SideBarSlideList />
       </SideBarSection>
       <SideBarSection>
         <SideBarHeader>Undo</SideBarHeader>
-        <SideBarData />
+        <SideBarSlideList />
       </SideBarSection>
     </SideBarContainer>
   );
@@ -32,9 +32,9 @@ const SideBarSection = styled.section`
 `;
 
 const SideBarHeader = styled.header`
+  padding-bottom: 1vh;
   color: red;
   font-family: "Lucida Sans", sans-serif;
-  padding-bottom: 1vw;
 `;
 
 export default SideBar;
