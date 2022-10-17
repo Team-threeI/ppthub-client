@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import GlobalStyle from "./GlobalStyle";
 import Header from "../components/shared/layout/Header";
 import Footer from "../components/shared/layout/Footer";
 import Main from "../components/Main";
+import Preview from "../components/Preview";
 
 function App() {
+  const [pageType, setPageType] = useState("");
+
   return (
     <AppContainer>
       <GlobalStyle />
       <Header />
       <Main />
-      <Footer />
+      <Footer buttonType={pageType} />
     </AppContainer>
   );
 }
@@ -20,6 +23,7 @@ function App() {
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 `;

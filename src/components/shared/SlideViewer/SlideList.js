@@ -6,11 +6,6 @@ function SlideList() {
   return (
     <SlideListContainer>
       <Slide />
-      <Slide />
-      <Slide />
-      <Slide />
-      <Slide />
-      <Slide />
     </SlideListContainer>
   );
 }
