@@ -1,13 +1,27 @@
 import React from "react";
-import Header from "../common/components/Header";
+import styled from "styled-components";
+
+import GlobalStyle from "./GlobalStyle";
+import Header from "../components/shared/layout/Header";
+import Footer from "../components/shared/layout/Footer";
+import Main from "../components/Main";
 
 function App() {
   return (
-    <div>
+    <AppContainer>
+      <GlobalStyle />
       <Header />
-      <div> mainpage </div>
-    </div>
+      <Main />
+      <Footer />
+    </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+`;
 
 export default App;
