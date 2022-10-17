@@ -5,8 +5,10 @@ function SideBarList({ sideBarData }) {
   return (
     <SideBarDataContainer>
       <SideBarHeader>Create /리스트[n]</SideBarHeader>
+      <SideBarLittleHeader>
+        <strong>슬라이드 제목 1</strong>
+      </SideBarLittleHeader>
       <SideBarUl>
-        <strong>슬라이드 제목</strong>
         <SideBarLi>
           <InputLabel>
             변경점 <CheckInput type="checkbox" />
@@ -35,9 +37,11 @@ const SideBarHeader = styled.header`
   padding-bottom: 1vw;
 `;
 
-const SideBarUl = styled.ul`
+const SideBarLittleHeader = styled.header`
   font-size: 0.9rem;
 `;
+
+const SideBarUl = styled.ul``;
 
 const SideBarLi = styled.li`
   padding-top: 0.3vw;
