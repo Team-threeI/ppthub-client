@@ -31,7 +31,7 @@ const SideBarLittleHeader = styled.header`
 const SideBarItemList = styled.ul``;
 
 const SideBarItem = styled.li`
-  padding-top: 0.3vh;
+  padding-top: 0.31vh;
   list-style: none;
 `;
 
