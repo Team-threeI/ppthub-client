@@ -40,7 +40,7 @@ const InputLabel = styled.label`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding-right: 3vh;
+  padding-right: 3vw;
   cursor: pointer;
 `;
 
