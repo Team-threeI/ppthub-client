@@ -7,7 +7,7 @@ import FileAttachment from "./FileAttachment";
 function SlideViewer() {
   return (
     <SlideViewerContainer>
-      <SlideList />
+      <FileAttachment />
     </SlideViewerContainer>
   );
 }
