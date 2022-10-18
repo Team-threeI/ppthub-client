@@ -4,11 +4,11 @@ import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 
 import GlobalStyle from "./GlobalStyle";
-import Header from "../components/shared/layout/Header";
-import Footer from "../components/shared/layout/Footer";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 import Main from "../components/Main";
 import Preview from "../components/Preview";
-import NotFoundPage from "../components/shared/Error/NotFoundPage";
+import NotFoundPage from "../components/Error/NotFoundPage";
 
 function App() {
   const [pageType, setPageType] = useState("");
