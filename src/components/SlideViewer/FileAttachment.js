@@ -7,7 +7,7 @@ function FileAttachment() {
     const formData = new FormData();
     formData.append("pptx", event.target.files[0]);
 
-    const res = await axios.post("/api/parse", formData, {
+    const response = await axios.post("/api/parse", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
