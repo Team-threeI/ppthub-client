@@ -2,12 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import SlideList from "./SlideList";
-import FileAttachment from "./FileAttachment";
 
-function SlideViewer() {
+function SlideViewer({ pptData }) {
   return (
     <SlideViewerContainer>
-      <FileAttachment />
+      <SlideList pptData={pptData} />
     </SlideViewerContainer>
   );
 }
