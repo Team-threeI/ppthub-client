@@ -20,7 +20,7 @@ function SideBar() {
   useEffect(() => {
     setDiffDatas(Object.keys(mockDatas));
   }, [mockDatas]);
-  console.log(diffDatas);
+
   useEffect(() => {
     setAddedDatas(diffDatas.filter((key) => mockDatas[key].diff === "added"));
     setModifiedDatas(
