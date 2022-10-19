@@ -1,17 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
+import pptxParser from "../../utils/pptxParser";
 
 function FileAttachment() {
   const uploadFile = async (event) => {
-    const formData = new FormData();
-    formData.append("pptx", event.target.files[0]);
-
-    const response = await axios.post("/api/parse", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const pptData = await pptxParser(event.target.files[0]);
   };
 
   return (
