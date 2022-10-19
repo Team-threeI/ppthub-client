@@ -2,10 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import Slide from "./Slide";
 
-function SlideList() {
+function SlideList({ pptData }) {
+  const { slideWidth, slideHeight, slides } = pptData;
+
   return (
     <SlideListContainer>
-      <Slide />
+      {slides.map((slideData) => (
+        <Slide
+          key={slideData.slideId}
+          slideData={slideData}
+          slideWidth={slideWidth}
+          slideHeight={slideHeight}
+        />
+      ))}
     </SlideListContainer>
   );
 }
