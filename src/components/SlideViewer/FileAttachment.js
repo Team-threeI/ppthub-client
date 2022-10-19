@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
 import pptxParser from "../../utils/pptxParser";
 
 function FileAttachment() {
   const uploadFile = async (event) => {
-    const viewData = await pptxParser(event.target.files[0]);
+    const pptData = await pptxParser(event.target.files[0]);
   };
 
   return (

@@ -3,4 +3,4 @@ const ITEM_TYPES = {
   "p:pic": "image",
 };
 
-module.exports = ITEM_TYPES;
+export default ITEM_TYPES;

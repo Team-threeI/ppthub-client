@@ -81,4 +81,4 @@ const PRESET_COLORS = {
   },
 };
 
-module.exports = PRESET_COLORS;
+export default PRESET_COLORS;

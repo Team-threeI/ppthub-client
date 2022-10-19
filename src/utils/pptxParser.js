@@ -41,6 +41,12 @@ const getSlideId = async (slide) => {
   const slideIdXml = Array.from(IdListXml).find(
     ({ nodeName }) => nodeName === "p:extLst",
   );
+
+  if (!slideIdXml) {
+    const slideName = slide.querySelector("cSld").attributes.name.nodeValue;
+    return slideName;
+  }
+
   const creationId =
     slideIdXml.querySelector("ext creationId").attributes.val.nodeValue;
 
@@ -59,25 +65,50 @@ const getItemId = (item) => {
   };
 };
 
+const getItemPresetSize = (item) => {
+  const presetType =
+    item.querySelector("nvSpPr nvPr ph").attributes.type.nodeValue;
+
+  switch (presetType) {
+    case "ctrTitle":
+      return {
+        width: 960,
+        height: 250,
+        x: 160,
+        y: 118,
+      };
+    case "subTitle":
+      return {
+        width: 960,
+        height: 174,
+        x: 160,
+        y: 378,
+      };
+    default:
+      return "unidentified preset";
+  }
+};
+
 const getItemSize = (item) => {
+  const itemSizeXml = item.querySelector("xfrm ext");
+  const itemPositionXml = item.querySelector("off");
+
+  if (!itemSizeXml) {
+    return getItemPresetSize(item);
+  }
+
   const {
     cx: { nodeValue: widthSize },
     cy: { nodeValue: heightSize },
-  } = item.querySelector("xfrm ext").attributes;
+  } = itemSizeXml.attributes;
+  const {
+    x: { nodeValue: xSize },
+    y: { nodeValue: ySize },
+  } = itemPositionXml.attributes;
 
   return {
     width: widthSize * EMUFactor,
     height: heightSize * EMUFactor,
-  };
-};
-
-const getItemPosition = (item) => {
-  const {
-    x: { nodeValue: xSize },
-    y: { nodeValue: ySize },
-  } = item.querySelector("off").attributes;
-
-  return {
     x: xSize * EMUFactor,
     y: ySize * EMUFactor,
   };
@@ -98,7 +129,7 @@ const getTextFontColor = (item) => {
   const customFontColor =
     textAttributeXml.querySelector("solidFill srgbClr")?.attributes.val;
 
-  return customFontColor ? customFontColor.nodeValue : "#000";
+  return customFontColor ? `#${customFontColor.nodeValue}` : "#000";
 };
 
 const getTextContent = (item) => {
@@ -106,7 +137,8 @@ const getTextContent = (item) => {
   const textAttributeXml = item.querySelector("txBody p r rPr");
   const { b, i, u, sz } = textAttributeXml.attributes;
   const backgroundColor =
-    textAttributeXml.querySelector("highlight srgbClr")?.attributes.val;
+    textAttributeXml.querySelector("highlight srgbClr")?.attributes.val
+      .nodeValue;
   const fontColor = getTextFontColor(item);
 
   return {
@@ -115,8 +147,8 @@ const getTextContent = (item) => {
     isItalic: !!i?.nodeValue,
     isUnderlined: !!u?.nodeValue,
     fontColor,
-    size: sz ? (sz.nodeValue * 1) / 100 : 16,
-    backgroundColor: backgroundColor ? `#${backgroundColor.nodeValue}` : null,
+    size: sz ? sz.nodeValue / 100 : 16,
+    backgroundColor: backgroundColor ? `#${backgroundColor}` : null,
   };
 };
 
@@ -144,17 +176,16 @@ const getImageContent = async (item, slidePath, pptx) => {
   };
 };
 
-const getItemContent = async (item, itemType, slide, slidePath, pptx) => {
+const getItemContent = async (item, itemType, slidePath, pptx) => {
   if (itemType === "text") {
     return getTextContent(item);
   }
-
   if (itemType === "image") {
     const imageContent = await getImageContent(item, slidePath, pptx);
     return imageContent;
   }
 
-  return {};
+  return undefined;
 };
 
 const getSlideItems = async (slide, slidePath, pptx) => {
@@ -166,9 +197,8 @@ const getSlideItems = async (slide, slidePath, pptx) => {
     items.map(async (item, index) => {
       const type = ITEM_TYPES[item.tagName] ?? "unidentified item";
       const id = getItemId(item);
-      const { width, height } = getItemSize(item);
-      const { x, y } = getItemPosition(item);
-      const content = await getItemContent(item, type, slide, slidePath, pptx);
+      const { width, height, x, y } = getItemSize(item);
+      const content = await getItemContent(item, type, slidePath, pptx);
 
       return {
         type,
