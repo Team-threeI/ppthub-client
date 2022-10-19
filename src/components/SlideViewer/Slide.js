@@ -46,7 +46,7 @@ const SlideContainer = styled.section`
 
 const TextItem = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   position: absolute;
   top: ${({ attribute, slideHeight }) =>
