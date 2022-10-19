@@ -1,22 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import SideBarItems from "./SideBarItems";
 
-function SideBarSlideList({ sideBarData }) {
+function SideBarSlideList({ categorizedData, title, type }) {
   return (
     <SideBarDataContainer>
-      <SideBarLittleHeader>슬라이드 제목 1</SideBarLittleHeader>
-      <SideBarItemList>
-        <SideBarItem>
+      {!categorizedData.items ? (
+        <SideBarLittleHeader>
           <InputLabel>
-            변경점 <CheckInput type="checkbox" />
+            {title}
+            <CheckInput type="checkbox" />
           </InputLabel>
-        </SideBarItem>
-        <SideBarItem>
-          <InputLabel>
-            변경점 <CheckInput type="checkbox" />
-          </InputLabel>
-        </SideBarItem>
-      </SideBarItemList>
+        </SideBarLittleHeader>
+      ) : (
+        <>
+          <SideBarLittleHeader>{title}</SideBarLittleHeader>
+          <SideBarItemList>
+            <SideBarItems categorizedData={categorizedData} type={type} />
+          </SideBarItemList>
+        </>
+      )}
     </SideBarDataContainer>
   );
 }
@@ -29,11 +32,6 @@ const SideBarLittleHeader = styled.header`
 `;
 
 const SideBarItemList = styled.ul``;
-
-const SideBarItem = styled.li`
-  padding-top: 0.31vh;
-  list-style: none;
-`;
 
 const InputLabel = styled.label`
   display: flex;
