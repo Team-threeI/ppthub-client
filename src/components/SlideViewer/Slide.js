@@ -1,25 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 
-function Slide({ slideData }) {
-  const slideItems = slideData.items;
-  const textItems = slideItems.filter((item) => item.type === "text");
-  const imgItems = slideItems.filter((item) => item.type === "image");
+function Slide({ slideData, slideWidth, slideHeight }) {
+  const textItems = slideData.items.filter((item) => item.type === "text");
+  const imageItems = slideData.items.filter((item) => item.type === "image");
 
   return (
     <SlideContainer>
-      {textItems.map((item) => {
-        return (
-          <TextWrapper key={item.id} props={item}>
-            {item.content.value}
-          </TextWrapper>
-        );
-      })}
-      {imgItems.map((item) => {
-        return (
-          <ImageWrapper key={item.id} props={item} src={item.content.src} />
-        );
-      })}
+      {textItems.map((item) => (
+        <TextItem
+          key={item.id}
+          attribute={item}
+          slideWidth={slideWidth}
+          slideHeight={slideHeight}
+        >
+          {item.content.value}
+        </TextItem>
+      ))}
+      {imageItems.map((item) => (
+        <ImageItem
+          key={item.id}
+          src={item.content.src}
+          attribute={item}
+          slideWidth={slideWidth}
+          slideHeight={slideHeight}
+        />
+      ))}
     </SlideContainer>
   );
 }
@@ -29,7 +35,7 @@ const SlideContainer = styled.section`
   width: 100%;
   margin-bottom: 0.5rem;
   border: 1px solid black;
-  background-color: white;
+  background-color: #fff;
   aspect-ratio: 1280 / 720;
   flex: none;
 
@@ -38,33 +44,43 @@ const SlideContainer = styled.section`
   }
 `;
 
-const TextWrapper = styled.div`
+const TextItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: ${({ props }) => `${(props.y / 720) * 100}%`};
-  left: ${({ props }) => `${(props.x / 1280) * 100}%`};
-  width: ${({ props }) => `${(props.width / 1280) * 100}%`};
-  height: ${({ props }) => `${(props.height / 720) * 100}%`};
-  background-color: ${({ props }) => `${props.content.backgroundColor}`};
-  color: ${({ props }) => props.content.fontColor};
-  font-size: ${({ props }) => `${props.content.size}px`};
-  font-family: ${({ props }) => props.content.font};
-  text-decoration: ${({ props }) =>
-    props.content.isUnderlined ? "underline" : "none"};
-  font-weight: ${({ props }) => (props.content.isBold ? 700 : 500)};
-  font-style: ${({ props }) => (props.content.isItalic ? "italic" : "normal")};
-  z-index: ${({ props }) => props.order};
+  top: ${({ attribute, slideHeight }) =>
+    `${(attribute.y / slideHeight) * 100}%`};
+  left: ${({ attribute, slideWidth }) =>
+    `${(attribute.x / slideWidth) * 100}%`};
+  width: ${({ attribute, slideWidth }) =>
+    `${(attribute.width / slideWidth) * 100}%`};
+  height: ${({ attribute, slideHeight }) =>
+    `${(attribute.height / slideHeight) * 100}%`};
+  background-color: ${({ attribute }) =>
+    `${attribute.content.backgroundColor}`};
+  color: ${({ attribute }) => attribute.content.fontColor};
+  font-size: ${({ attribute }) => `${attribute.content.size}px`};
+  font-family: ${({ attribute }) => attribute.content.font};
+  text-decoration: ${({ attribute }) =>
+    attribute.content.isUnderlined ? "underline" : "none"};
+  font-weight: ${({ attribute }) => (attribute.content.isBold ? 700 : 500)};
+  font-style: ${({ attribute }) =>
+    attribute.content.isItalic ? "italic" : "normal"};
+  z-index: ${({ attribute }) => attribute.order};
 `;
 
-const ImageWrapper = styled.img`
+const ImageItem = styled.img`
   position: absolute;
-  bottom: ${({ props }) => `${(props.y / 720) * 100}%`};
-  left: ${({ props }) => `${(props.x / 1280) * 100}%`};
-  width: ${({ props }) => `${(props.width / 1280) * 100}%`};
-  height: ${({ props }) => `${(props.height / 720) * 100}%`};
-  z-index: ${({ props }) => props.order};
+  top: ${({ attribute, slideHeight }) =>
+    `${(attribute.y / slideHeight) * 100}%`};
+  left: ${({ attribute, slideWidth }) =>
+    `${(attribute.x / slideWidth) * 100}%`};
+  width: ${({ attribute, slideWidth }) =>
+    `${(attribute.width / slideWidth) * 100}%`};
+  height: ${({ attribute, slideHeight }) =>
+    `${(attribute.height / slideHeight) * 100}%`};
+  z-index: ${({ attribute }) => attribute.order};
 `;
 
 export default Slide;

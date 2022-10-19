@@ -5,12 +5,12 @@ import styled from "styled-components";
 
 import pptxParser from "../../utils/pptxParser";
 
-function FileAttachment({ onPptData }) {
-  const uploadFile = async (event) => {
+function FileAttachment({ onPptAdded }) {
+  const handleFileChanged = async (event) => {
     const pptData = await pptxParser(event.target.files[0]);
     const response = await axios.post("/api/ppt/save", { pptData });
 
-    onPptData(pptData.slides);
+    onPptAdded(pptData);
   };
 
   return (
@@ -19,7 +19,7 @@ function FileAttachment({ onPptData }) {
       <FileInput
         type="file"
         accept=".pptx"
-        onChange={(event) => uploadFile(event)}
+        onChange={(event) => handleFileChanged(event)}
       />
     </FileInputLabel>
   );

@@ -3,10 +3,17 @@ import styled from "styled-components";
 import Slide from "./Slide";
 
 function SlideList({ pptData }) {
+  const { slideWidth, slideHeight, slides } = pptData;
+
   return (
     <SlideListContainer>
-      {pptData.map((slideData) => (
-        <Slide key={slideData.slideId} slideData={slideData} />
+      {slides.map((slideData) => (
+        <Slide
+          key={slideData.slideId}
+          slideData={slideData}
+          slideWidth={slideWidth}
+          slideHeight={slideHeight}
+        />
       ))}
     </SlideListContainer>
   );

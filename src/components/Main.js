@@ -6,20 +6,20 @@ import SlideViewer from "./SlideViewer/SlideViewer";
 import FileAttachment from "./SlideViewer/FileAttachment";
 
 function Main() {
-  const [leftPpt, setLeftPpt] = useState([]);
-  const [rightPpt, setRightPpt] = useState([]);
+  const [originPpt, setOriginPpt] = useState();
+  const [comparePpt, setComparePpt] = useState();
 
   return (
     <MainContainer>
-      {leftPpt.length ? (
-        <SlideViewer pptData={leftPpt} />
+      {originPpt ? (
+        <SlideViewer pptData={originPpt} />
       ) : (
-        <FileAttachment onPptData={setLeftPpt} />
+        <FileAttachment onPptAdded={setOriginPpt} />
       )}
-      {rightPpt.length ? (
-        <SlideViewer pptData={rightPpt} />
+      {comparePpt ? (
+        <SlideViewer pptData={comparePpt} />
       ) : (
-        <FileAttachment onPptData={setRightPpt} />
+        <FileAttachment onPptAdded={setComparePpt} />
       )}
       <SideBar />
     </MainContainer>
