@@ -1,39 +1,39 @@
 import React from "react";
 import styled from "styled-components";
-import SideBarItems from "./SideBarItems";
+import SideBarItemList from "./SideBarItemList";
 
-function SideBarSlideList({ categorizedData, title, type }) {
+function SideBarSlideList({ slideData, title, type }) {
   return (
-    <SideBarDataContainer>
-      {!categorizedData.items ? (
-        <SideBarLittleHeader>
-          <InputLabel>
+    <SideBarSlideListContainer>
+      {slideData.diff === type ? (
+        <SideBarListHeader>
+          <SideBarSlideListLabel>
             {title}
             <CheckInput type="checkbox" />
-          </InputLabel>
-        </SideBarLittleHeader>
+          </SideBarSlideListLabel>
+        </SideBarListHeader>
       ) : (
         <>
-          <SideBarLittleHeader>{title}</SideBarLittleHeader>
-          <SideBarItemList>
-            <SideBarItems categorizedData={categorizedData} type={type} />
-          </SideBarItemList>
+          <SideBarListHeader>{title}</SideBarListHeader>
+          <SideBarItem>
+            <SideBarItemList modifiedData={slideData} type={type} />
+          </SideBarItem>
         </>
       )}
-    </SideBarDataContainer>
+    </SideBarSlideListContainer>
   );
 }
 
-const SideBarDataContainer = styled.div``;
+const SideBarSlideListContainer = styled.div``;
 
-const SideBarLittleHeader = styled.header`
+const SideBarListHeader = styled.header`
   font-size: 0.9rem;
   font-weight: 700;
 `;
 
-const SideBarItemList = styled.ul``;
+const SideBarItem = styled.ul``;
 
-const InputLabel = styled.label`
+const SideBarSlideListLabel = styled.label`
   display: flex;
   justify-content: space-between;
   width: 100%;

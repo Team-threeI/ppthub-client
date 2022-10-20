@@ -1,71 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
 import SideBarSlideList from "./SideBarSlideList";
-
 import mockDiffData from "../../mock"; // Todo: Mock Data에서 삭제, 현재 로직은 Mock Data로직 변경 필요.
 
 function SideBar() {
-  const [mockDatas, setMockDatas] = useState({});
-  const [diffDatas, setDiffDatas] = useState([]);
-  const [addedDatas, setAddedDatas] = useState([]);
-  const [modifiedDatas, setModifiedDatas] = useState([]);
-  const [deleteDatas, setDeleteDatas] = useState([]);
-
-  useEffect(() => {
-    if (!mockDiffData) return;
-    setMockDatas(mockDiffData); // Todo Data 받는 양식 mockdata가 아닌 merge 데이터 받아오는 작업
-  }, []);
-
-  useEffect(() => {
-    setDiffDatas(Object.keys(mockDatas));
-  }, [mockDatas]);
-
-  useEffect(() => {
-    setAddedDatas(diffDatas.filter((key) => mockDatas[key].diff === "added"));
-    setModifiedDatas(
-      diffDatas.filter((key) => mockDatas[key].diff === "modified"),
-    );
-    setDeleteDatas(
-      diffDatas.filter((key) => mockDatas[key].diff === "deleted"),
-    );
-  }, [mockDatas, diffDatas]);
+  const diffSlideIdList = Object.keys(mockDiffData);
+  const addedData = diffSlideIdList.filter(
+    (slideId) =>
+      mockDiffData[slideId].diff === "added" ||
+      mockDiffData[slideId].diff === "modified",
+  );
+  const deletedData = diffSlideIdList.filter(
+    (slideId) =>
+      mockDiffData[slideId].diff === "deleted" ||
+      mockDiffData[slideId].diff === "modified",
+  );
+  const typeAdded = "added";
+  const typeDeleted = "deleted";
 
   return (
     <SideBarContainer>
       <SideBarSection>
         <SideBarHeader>ADD</SideBarHeader>
-        {addedDatas.map((key) => (
+        {addedData.map((slideId) => (
           <SideBarSlideList
-            categorizedData={mockDatas[key]}
-            title={key}
-            key={key}
-          />
-        ))}
-        {modifiedDatas.map((key) => (
-          <SideBarSlideList
-            categorizedData={mockDatas[key]}
-            title={key}
-            key={key}
-            type="added"
+            slideData={mockDiffData[slideId]}
+            title={slideId}
+            key={slideId}
+            type={typeAdded}
           />
         ))}
       </SideBarSection>
       <SideBarSection>
         <SideBarHeader>Undo</SideBarHeader>
-        {deleteDatas.map((key) => (
+        {deletedData.map((slideId) => (
           <SideBarSlideList
-            categorizedData={mockDiffData[key]}
-            title={key}
-            key={key}
-          />
-        ))}
-        {modifiedDatas.map((key) => (
-          <SideBarSlideList
-            categorizedData={mockDatas[key]}
-            title={key}
-            key={key}
-            type="deleted"
+            slideData={mockDiffData[slideId]}
+            title={slideId}
+            key={slideId}
+            type={typeDeleted}
           />
         ))}
       </SideBarSection>
