@@ -1,40 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 
-function SideBarItemList({ modifiedData, type }) {
-  const modifiedIdList = Object.keys(modifiedData.items);
-  let finialTitles = [];
-
-  if (type === "added") {
-    finialTitles = modifiedIdList.filter(
-      (title) =>
-        modifiedData.items[title].diff === "added" ||
-        modifiedData.items[title].diff === "modified",
-    );
-  } else {
-    finialTitles = modifiedIdList.filter(
-      (title) =>
-        modifiedData.items[title].diff === "deleted" ||
-        modifiedData.items[title].diff === "modified",
-    );
-  }
+function SideBarItemList({ slideData }) {
+  const slideContents = Object.keys(Object.values(slideData)[0].items);
 
   return (
     <SideBarItemListContainer>
-      {finialTitles.map((title) => (
-        <SideBarItemListLabel key={title}>
-          {title}
-          <CheckInput type="checkbox" />
-        </SideBarItemListLabel>
+      {slideContents.map((content) => (
+        <SlideBarItemList>
+          <SideBarItemListLabel key={content}>
+            {content}
+            <CheckInput type="checkbox" />
+          </SideBarItemListLabel>
+        </SlideBarItemList>
       ))}
     </SideBarItemListContainer>
   );
 }
 
-const SideBarItemListContainer = styled.ul`
+const SideBarItemListContainer = styled.li`
   padding-top: 0.31vh;
   list-style: none;
 `;
+
+const SlideBarItemList = styled.li``;
 
 const SideBarItemListLabel = styled.label`
   display: flex;

@@ -2,42 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import SideBarSlideList from "./SideBarSlideList";
 
+import DIFFING_TYPES from "../../config/constants/diffingTypes";
+import filterDiffDataByType from "../../utils/filterDiffDataByType";
+
 function SideBar() {
-  const diffSlideIdList = Object.keys(mockDiffData);
-  const addedData = diffSlideIdList.filter(
-    (slideId) =>
-      mockDiffData[slideId].diff === "added" ||
-      mockDiffData[slideId].diff === "modified",
-  );
-  const deletedData = diffSlideIdList.filter(
-    (slideId) =>
-      mockDiffData[slideId].diff === "deleted" ||
-      mockDiffData[slideId].diff === "modified",
-  );
-  const typeAdded = "added";
-  const typeDeleted = "deleted";
+  const addedSlideData = filterDiffDataByType(diffData, DIFFING_TYPES.ADDITION);
+  const deletedSlideData = filterDiffDataByType(diffData, DIFFING_TYPES.DELE);
 
   return (
     <SideBarContainer>
       <SideBarSection>
         <SideBarHeader>ADD</SideBarHeader>
-        {addedData.map((slideId) => (
+        {addedSlideData.map((slideData) => (
           <SideBarSlideList
-            slideData={mockDiffData[slideId]}
-            title={slideId}
-            key={slideId}
-            type={typeAdded}
+            slideData={slideData}
+            key={slideData}
+            type={DIFFING_TYPES.ADDITION}
           />
         ))}
       </SideBarSection>
       <SideBarSection>
         <SideBarHeader>Undo</SideBarHeader>
-        {deletedData.map((slideId) => (
+        {deletedSlideData.map((slideData) => (
           <SideBarSlideList
-            slideData={mockDiffData[slideId]}
-            title={slideId}
-            key={slideId}
-            type={typeDeleted}
+            slideData={slideData}
+            key={slideData}
+            type={DIFFING_TYPES.DELE}
           />
         ))}
       </SideBarSection>

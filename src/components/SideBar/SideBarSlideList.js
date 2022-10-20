@@ -2,21 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import SideBarItemList from "./SideBarItemList";
 
-function SideBarSlideList({ slideData, title, type }) {
+function SideBarSlideList({ slideData, type }) {
+  const slidePage = Object.keys(slideData);
   return (
     <SideBarSlideListContainer>
-      {slideData.diff === type ? (
+      {Object.values(slideData)[0].diff === type ? (
         <SideBarListHeader>
           <SideBarSlideListLabel>
-            {title}
+            {slidePage}
             <CheckInput type="checkbox" />
           </SideBarSlideListLabel>
         </SideBarListHeader>
       ) : (
         <>
-          <SideBarListHeader>{title}</SideBarListHeader>
+          <SideBarListHeader>{slidePage}</SideBarListHeader>
           <SideBarItem>
-            <SideBarItemList modifiedData={slideData} type={type} />
+            <SideBarItemList slideData={slideData} />
           </SideBarItem>
         </>
       )}
