@@ -24,6 +24,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# 목데이터
-/src/.mock.js

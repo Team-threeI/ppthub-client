@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import SideBarSlideList from "./SideBarSlideList";
-import mockDiffData from "../../mock"; // Todo: Mock Data에서 삭제, 현재 로직은 Mock Data로직 변경 필요.
 
 function SideBar() {
   const diffSlideIdList = Object.keys(mockDiffData);
