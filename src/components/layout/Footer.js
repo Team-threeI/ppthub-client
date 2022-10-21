@@ -1,55 +1,46 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import styled from "styled-components";
 
-import PAGE_SEQUENCES from "../../config/constants/pageSequences";
-import VIEW_TYPES from "../../config/constants/viewTypes";
-import { changeSequence } from "../../features/pageSequenceSlice";
-import { deleteData } from "../../features/pptDataSlice";
+import SEQUENCES from "../../config/constants/sequences";
+import {
+  changeSequence,
+  changePreviousSequence,
+} from "../../features/sequenceReducer";
 
 function Footer() {
   const dispatch = useDispatch();
-  const pageSequence = useSelector((state) => state.pageSequence);
-
-  const handleOriginalFileUndo = () => {
-    dispatch(deleteData(VIEW_TYPES.ORIGINAL_FILE));
-    dispatch(changeSequence(PAGE_SEQUENCES.FILE_NOT_ADDED));
-  };
-  const handleComparableFileUndo = () => {
-    dispatch(deleteData(VIEW_TYPES.COMPARABLE_FILE));
-    dispatch(changeSequence(PAGE_SEQUENCES.ORIGINAL_FILE_ADDED));
-  };
-  const handleCompareUndo = () => {
-    dispatch(changeSequence(PAGE_SEQUENCES.COMPARABLE_FILE_ADDED));
-  };
-  const handleCompare = () => {
-    dispatch(changeSequence(PAGE_SEQUENCES.COMPARE_FILES));
+  const sequence = useSelector((state) => state.sequence);
+  const handlePreviousClick = () => {
+    dispatch(changePreviousSequence());
   };
 
-  switch (pageSequence) {
-    case PAGE_SEQUENCES.ORIGINAL_FILE_ADDED:
+  switch (sequence) {
+    case SEQUENCES.ADDED_ORIGINAL_FILE:
       return (
         <FooterContainer>
-          <FooterButton onClick={handleOriginalFileUndo}>되돌리기</FooterButton>
+          <FooterButton onClick={handlePreviousClick}>되돌리기</FooterButton>
         </FooterContainer>
       );
-    case PAGE_SEQUENCES.COMPARABLE_FILE_ADDED:
+    case SEQUENCES.ADDED_COMPARABLE_FILE:
       return (
         <FooterContainer>
-          <FooterButton onClick={handleComparableFileUndo}>
-            되돌리기
+          <FooterButton onClick={handlePreviousClick}>되돌리기</FooterButton>
+          <FooterButton
+            onClick={() => dispatch(changeSequence(SEQUENCES.COMPARISION))}
+          >
+            비교하기
           </FooterButton>
-          <FooterButton onClick={handleCompare}>비교하기</FooterButton>
         </FooterContainer>
       );
-    case PAGE_SEQUENCES.COMPARE_FILES:
+    case SEQUENCES.COMPARISION:
       return (
         <FooterContainer>
-          <FooterButton onClick={handleCompareUndo}>되돌리기</FooterButton>
           <FooterButton>병합하기</FooterButton>
         </FooterContainer>
       );
-    case PAGE_SEQUENCES.PREVIEW:
+    case SEQUENCES.PREVIEW:
       return (
         <FooterContainer>
           <FooterButton>되돌리기</FooterButton>
@@ -57,7 +48,7 @@ function Footer() {
         </FooterContainer>
       );
     default:
-      return <FooterContainer>adsf</FooterContainer>;
+      return <FooterContainer />;
   }
 }
 

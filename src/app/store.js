@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import pageSequenceReducer from "../features/pageSequenceSlice";
-import pptDataReducer from "../features/pptDataSlice";
+
+import sequenceReducer from "../features/sequenceReducer";
+import pptDataReducer from "../features/pptDataReducer";
 
 const reducer = {
-  pageSequence: pageSequenceReducer,
+  sequence: sequenceReducer,
   pptData: pptDataReducer,
 };
 

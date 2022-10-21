@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
+import SEQUENCES from "../config/constants/sequences";
 import GlobalStyle from "./GlobalStyle";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
@@ -11,16 +12,15 @@ import Main from "../components/Main";
 import Preview from "../components/Preview";
 import NotFoundPage from "../components/Error/NotFoundPage";
 import ErrorPage from "../components/Error/ErrorPage";
-import PAGE_SEQUENCES from "../config/constants/pageSequences";
 
 function App() {
-  const pageSequence = useSelector((state) => state.pageSequence);
+  const sequence = useSelector((state) => state.sequence);
 
   return (
     <AppContainer>
       <GlobalStyle />
       <Header />
-      {pageSequence === PAGE_SEQUENCES.ERROR ? (
+      {sequence === SEQUENCES.ERROR ? (
         <ErrorPage />
       ) : (
         <Routes>

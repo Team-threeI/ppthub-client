@@ -1,13 +1,14 @@
 import React from "react";
+
 import styled from "styled-components";
 
-import SlideViewer from "./SlideViewer/SlideViewer";
+import MainSection from "./MainSection/MainSection";
 import VIEW_TYPES from "../config/constants/viewTypes";
 
 function Preview() {
   return (
     <PreviewContainer>
-      <SlideViewer viewType={VIEW_TYPES.MERGED_FILE} />
+      <MainSection viewType={VIEW_TYPES.MERGED_FILE} />
     </PreviewContainer>
   );
 }
