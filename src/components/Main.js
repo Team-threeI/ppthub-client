@@ -8,10 +8,6 @@ import SEQUENCES from "../config/constants/sequences";
 import VIEW_TYPES from "../config/constants/viewTypes";
 import MainSection from "./MainSection/MainSection";
 import SideBar from "./SideBar/SideBar";
-import {
-  changeNextSequence,
-  changeSequence,
-} from "../features/sequenceReducer";
 import DIFFING_TYPES from "../config/constants/diffingTypes";
 import { originalDiffData } from "../features/diffDataReducer";
 
