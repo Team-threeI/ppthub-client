@@ -6,11 +6,11 @@ import styled from "styled-components";
 import FileAttachment from "./FileAttachment";
 import SlideList from "./SlideList";
 
-function MainSection({ viewType, onViewerChanged }) {
+function MainSection({ viewType }) {
   const viewData = useSelector(({ pptData }) => pptData[viewType]);
 
   if (!Object.keys(viewData).length) {
-    return <FileAttachment fileType={viewType} onFileAdded={onViewerChanged} />;
+    return <FileAttachment fileType={viewType} />;
   }
 
   return (

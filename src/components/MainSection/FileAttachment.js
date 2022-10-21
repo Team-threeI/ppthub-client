@@ -8,7 +8,7 @@ import pptxParser from "../../utils/pptxParser";
 import { registerData } from "../../features/pptDataReducer";
 import { changeNextSequence } from "../../features/sequenceReducer";
 
-function FileAttachment({ fileType, onFileAdded }) {
+function FileAttachment({ fileType }) {
   const dispatch = useDispatch();
 
   const handleFileChanged = async (event) => {
