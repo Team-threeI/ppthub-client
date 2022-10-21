@@ -15,8 +15,8 @@ const Spinner = styled.div`
   position: absolute;
   width: 1.25rem;
   height: 1.25rem;
-  border-radius: 50%;
   margin: 6rem auto;
+  border-radius: 50%;
   color: #f97b7b;
   font-size: 0.5rem;
   text-indent: -9999em;
@@ -29,6 +29,7 @@ const Spinner = styled.div`
   transform: translateZ(0);
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
+
   &:before,
   &:after {
     position: absolute;
@@ -42,11 +43,13 @@ const Spinner = styled.div`
     animation: ${rotation} 1.8s infinite ease-in-out;
     content: "";
   }
+
   &:before {
     left: -1.8rem;
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
   }
+
   &:after {
     left: 1.8rem;
     -webkit-animation-delay: 0s;
