@@ -16,9 +16,9 @@ const Spinner = styled.div`
   width: 2.5em;
   height: 2.5em;
   border-radius: 50%;
-  margin: 80px auto;
+  margin: 8rem auto;
   color: #f97b7b;
-  font-size: 10px;
+  font-size: 0.5em;
   text-indent: -9999em;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
