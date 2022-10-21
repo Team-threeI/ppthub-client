@@ -1,24 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SideBarItemList from "./SideBarItemList";
 
 function SideBarSlideList({ slideData, type }) {
+  const [isChecked, setIsChecked] = useState(false);
   const slidePage = Object.keys(slideData);
+
+  const handleChange = () => {
+    return isChecked ? setIsChecked(false) : setIsChecked(true);
+  };
+
+  Object.values(slideData)[0].isChecked = isChecked;
+
   return (
     <SideBarSlideListContainer>
       {Object.values(slideData)[0].diff === type ? (
         <SideBarListHeader>
           <SideBarSlideListLabel>
             {slidePage}
-            <CheckInput type="checkbox" />
+            <CheckInput type="checkbox" onChange={() => handleChange()} />
           </SideBarSlideListLabel>
         </SideBarListHeader>
       ) : (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
-          <SideBarListHeader>{slidePage}</SideBarListHeader>
-          <SideBarItem>
-            <SideBarItemList slideData={slideData} />
-          </SideBarItem>
+          {Object.keys(Object.values(slideData)[0].items).length !== 0 ? (
+            <>
+              <SideBarListHeader>{slidePage}</SideBarListHeader>
+              <SideBarItem>
+                <SideBarItemList slideData={slideData} />
+              </SideBarItem>
+            </>
+          ) : null}
         </>
       )}
     </SideBarSlideListContainer>

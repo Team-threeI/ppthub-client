@@ -1,13 +1,27 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import styled from "styled-components";
 import SideBarSlideList from "./SideBarSlideList";
 
 import DIFFING_TYPES from "../../config/constants/diffingTypes";
 import filterDiffDataByType from "../../utils/filterDiffDataByType";
 
-function SideBar() {
-  const addedSlideData = filterDiffDataByType(diffData, DIFFING_TYPES.ADDITION);
-  const deletedSlideData = filterDiffDataByType(diffData, DIFFING_TYPES.DELE);
+function SideBar({ diffType }) {
+  const originialSlideData = useSelector(
+    ({ diffData }) => diffData[diffType].data,
+  );
+
+  if (!originialSlideData) return true;
+
+  const addedSlideData = filterDiffDataByType(
+    originialSlideData,
+    DIFFING_TYPES.ADDITION,
+  );
+  const deletedSlideData = filterDiffDataByType(
+    originialSlideData,
+    DIFFING_TYPES.TYPE_DELETED,
+  );
 
   return (
     <SideBarContainer>
@@ -17,7 +31,7 @@ function SideBar() {
           <SideBarSlideList
             slideData={slideData}
             key={slideData}
-            type={DIFFING_TYPES.ADDITION}
+            type={DIFFING_TYPES.TYPE_ADDED}
           />
         ))}
       </SideBarSection>
@@ -27,7 +41,7 @@ function SideBar() {
           <SideBarSlideList
             slideData={slideData}
             key={slideData}
-            type={DIFFING_TYPES.DELE}
+            type={DIFFING_TYPES.TYPE_DELETED}
           />
         ))}
       </SideBarSection>

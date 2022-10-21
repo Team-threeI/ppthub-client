@@ -1,20 +1,55 @@
 import React from "react";
-import styled from "styled-components";
-import PAGE_TYPES from "../../config/constants/pageTypes";
+import { useDispatch, useSelector } from "react-redux";
 
-function Footer({ buttonType }) {
-  return (
-    <FooterContainer>
-      {buttonType === PAGE_TYPES.PREVIEW ? (
-        <>
-          <FooterButton>취소</FooterButton>
+import styled from "styled-components";
+
+import SEQUENCES from "../../config/constants/sequences";
+import {
+  changeSequence,
+  changePreviousSequence,
+} from "../../features/sequenceReducer";
+
+function Footer() {
+  const dispatch = useDispatch();
+  const sequence = useSelector((state) => state.sequence);
+  const handlePreviousClick = () => {
+    dispatch(changePreviousSequence());
+  };
+
+  switch (sequence) {
+    case SEQUENCES.ADDED_ORIGINAL_FILE:
+      return (
+        <FooterContainer>
+          <FooterButton onClick={handlePreviousClick}>되돌리기</FooterButton>
+        </FooterContainer>
+      );
+    case SEQUENCES.ADDED_COMPARABLE_FILE:
+      return (
+        <FooterContainer>
+          <FooterButton onClick={handlePreviousClick}>되돌리기</FooterButton>
+          <FooterButton
+            onClick={() => dispatch(changeSequence(SEQUENCES.COMPARISION))}
+          >
+            비교하기
+          </FooterButton>
+        </FooterContainer>
+      );
+    case SEQUENCES.COMPARISION:
+      return (
+        <FooterContainer>
+          <FooterButton>병합하기</FooterButton>
+        </FooterContainer>
+      );
+    case SEQUENCES.PREVIEW:
+      return (
+        <FooterContainer>
+          <FooterButton>되돌리기</FooterButton>
           <FooterButton>다운로드</FooterButton>
-        </>
-      ) : (
-        <div>footer</div>
-      )}
-    </FooterContainer>
-  );
+        </FooterContainer>
+      );
+    default:
+      return <FooterContainer />;
+  }
 }
 
 const FooterContainer = styled.footer`

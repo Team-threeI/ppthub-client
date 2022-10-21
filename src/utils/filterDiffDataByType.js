@@ -7,19 +7,19 @@ const filterDiffDataByType = (diffingData, type) => {
     Object.entries(cloneData).filter(
       ([slideId]) =>
         cloneData[slideId].diff === type ||
-        cloneData[slideId].diff === DIFFING_TYPES.MODIFICATION,
+        cloneData[slideId].diff === DIFFING_TYPES.TYPE_MODIFIED,
     ),
   );
 
   const finishedFilterDiffingData = Object.entries(firstFilter).map(
     (slideData) => {
       const cloneSlideData = slideData;
-      if (cloneSlideData[1].diff === "modified") {
+      if (cloneSlideData[1].diff === DIFFING_TYPES.TYPE_MODIFIED) {
         cloneSlideData[1].items = Object.fromEntries(
           Object.entries(cloneSlideData[1].items).filter(
             ([slideItemId]) =>
               cloneSlideData[1].items[slideItemId].diff ===
-                DIFFING_TYPES.MODIFICATION ||
+                DIFFING_TYPES.TYPE_MODIFIED ||
               cloneSlideData[1].items[slideItemId].diff === type,
           ),
         );
