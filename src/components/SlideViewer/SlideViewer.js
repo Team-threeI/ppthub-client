@@ -1,12 +1,20 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+import FileAttachment from "./FileAttachment";
 import SlideList from "./SlideList";
 
-function SlideViewer({ pptData }) {
+function SlideViewer({ viewType, onViewerChanged }) {
+  const viewData = useSelector(({ pptData }) => pptData[viewType]);
+
+  if (!Object.keys(viewData).length) {
+    return <FileAttachment fileType={viewType} onFileAdded={onViewerChanged} />;
+  }
+
   return (
     <SlideViewerContainer>
-      <SlideList pptData={pptData} />
+      <SlideList pptData={viewData} />
     </SlideViewerContainer>
   );
 }

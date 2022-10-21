@@ -1,16 +1,20 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
 import pptxParser from "../../utils/pptxParser";
+import { registerData } from "../../features/pptDataSlice";
 
-function FileAttachment({ onPptAdded }) {
+function FileAttachment({ fileType, onFileAdded }) {
+  const dispatch = useDispatch();
+
   const handleFileChanged = async (event) => {
     const pptData = await pptxParser(event.target.files[0]);
     const response = await axios.post("/api/ppt/save", { pptData });
 
-    onPptAdded(pptData);
+    dispatch(registerData({ type: fileType, data: pptData }));
+    onFileAdded();
   };
 
   return (
