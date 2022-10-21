@@ -4,21 +4,21 @@ const rotation = keyframes`
   0%,
   80%,
   100% {
-    box-shadow: 0 2.5em 0 -1.3em;
+    box-shadow: 0 2.5rem 0 -1.3rem;
   }
   40% {
-    box-shadow: 0 2.5em 0 0;
+    box-shadow: 0 2.5rem 0 0;
   }
 `;
 
 const Spinner = styled.div`
   position: absolute;
-  width: 2.5em;
-  height: 2.5em;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 50%;
-  margin: 8rem auto;
+  margin: 6rem auto;
   color: #f97b7b;
-  font-size: 0.5em;
+  font-size: 0.5rem;
   text-indent: -9999em;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
@@ -33,8 +33,8 @@ const Spinner = styled.div`
   &:after {
     position: absolute;
     top: 0;
-    width: 2.5em;
-    height: 2.5em;
+    width: 1.25rem;
+    height: 1.25rem;
     border-radius: 50%;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
@@ -43,12 +43,12 @@ const Spinner = styled.div`
     content: "";
   }
   &:before {
-    left: -3.5em;
+    left: -1.8rem;
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
   }
   &:after {
-    left: 3.5em;
+    left: 1.8rem;
     -webkit-animation-delay: 0s;
     animation-delay: 0s;
   }
