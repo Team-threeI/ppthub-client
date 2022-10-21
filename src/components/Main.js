@@ -1,29 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import styled from "styled-components";
 
+import SEQUENCES from "../config/constants/sequences";
+import VIEW_TYPES from "../config/constants/viewTypes";
+import MainSection from "./MainSection/MainSection";
 import SideBar from "./SideBar/SideBar";
-import SlideViewer from "./SlideViewer/SlideViewer";
-import FileAttachment from "./SlideViewer/FileAttachment";
+import {
+  changeNextSequence,
+  changeSequence,
+} from "../features/sequenceReducer";
 
 function Main() {
-  const [originPpt, setOriginPpt] = useState();
-  const [comparePpt, setComparePpt] = useState();
+  const dispatch = useDispatch();
+  const sequence = useSelector((state) => state.sequence);
 
-  return (
-    <MainContainer>
-      {originPpt ? (
-        <SlideViewer pptData={originPpt} />
-      ) : (
-        <FileAttachment onPptAdded={setOriginPpt} />
-      )}
-      {comparePpt ? (
-        <SlideViewer pptData={comparePpt} />
-      ) : (
-        <FileAttachment onPptAdded={setComparePpt} />
-      )}
-      <SideBar />
-    </MainContainer>
-  );
+  switch (sequence) {
+    case SEQUENCES.ADDED_ORIGINAL_FILE:
+      return (
+        <MainContainer>
+          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
+          <MainSection viewType={VIEW_TYPES.COMPARABLE_FILE} />
+        </MainContainer>
+      );
+    case SEQUENCES.ADDED_COMPARABLE_FILE:
+      return (
+        <MainContainer>
+          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
+          <MainSection viewType={VIEW_TYPES.COMPARABLE_FILE} />
+        </MainContainer>
+      );
+    case SEQUENCES.COMPARISION:
+      return (
+        <MainContainer>
+          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
+          <MainSection viewType={VIEW_TYPES.COMPARABLE_FILE} />
+          <SideBar />
+        </MainContainer>
+      );
+    case SEQUENCES.INITIAL_SEQUENCE:
+    default:
+      return (
+        <MainContainer>
+          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
+        </MainContainer>
+      );
+  }
 }
 
 const MainContainer = styled.div`
