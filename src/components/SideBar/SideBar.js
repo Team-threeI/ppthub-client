@@ -1,17 +1,49 @@
 import React from "react";
-import styled from "styled-components";
-import SideBarSlideList from "./SideBarSlideList";
+import { useSelector } from "react-redux";
 
-function SideBar() {
+import styled from "styled-components";
+
+import SideBarSlideList from "./SideBarSlideList";
+import DIFFING_TYPES from "../../config/constants/diffingTypes";
+import filterDiffDataByType from "../../utils/filterDiffDataByType";
+
+function SideBar({ diffType }) {
+  const originialSlideData = useSelector(
+    ({ diffData }) => diffData[diffType].data,
+  );
+
+  if (!originialSlideData) return true;
+
+  const addedSlideData = filterDiffDataByType(
+    originialSlideData,
+    DIFFING_TYPES.ADDITION,
+  );
+  const deletedSlideData = filterDiffDataByType(
+    originialSlideData,
+    DIFFING_TYPES.TYPE_DELETED,
+  );
+
   return (
     <SideBarContainer>
       <SideBarSection>
-        <SideBarHeader>Create</SideBarHeader>
-        <SideBarSlideList />
+        <SideBarHeader>ADD</SideBarHeader>
+        {addedSlideData.map((slideData) => (
+          <SideBarSlideList
+            slideData={slideData}
+            key={slideData}
+            type={DIFFING_TYPES.TYPE_ADDED}
+          />
+        ))}
       </SideBarSection>
       <SideBarSection>
         <SideBarHeader>Undo</SideBarHeader>
-        <SideBarSlideList />
+        {deletedSlideData.map((slideData) => (
+          <SideBarSlideList
+            slideData={slideData}
+            key={slideData}
+            type={DIFFING_TYPES.TYPE_DELETED}
+          />
+        ))}
       </SideBarSection>
     </SideBarContainer>
   );

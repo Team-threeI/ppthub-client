@@ -15,7 +15,7 @@ function MainSection({ viewType }) {
 
   return (
     <MainSectionContainer>
-      <SlideList pptData={viewData} />
+      <SlideList pptData={viewData.data} />
     </MainSectionContainer>
   );
 }

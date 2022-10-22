@@ -1,41 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import SideBarItemList from "./SideBarItemList";
 
-function SideBarSlideList({ sideBarData }) {
+function SideBarSlideList({ slideData, type }) {
+  const [isChecked, setIsChecked] = useState(false);
+  const slidePage = Object.keys(slideData);
+
+  const handleChange = () => {
+    return isChecked ? setIsChecked(false) : setIsChecked(true);
+  };
+
+  Object.values(slideData)[0].isChecked = isChecked;
+
   return (
-    <SideBarDataContainer>
-      <SideBarLittleHeader>슬라이드 제목 1</SideBarLittleHeader>
-      <SideBarItemList>
-        <SideBarItem>
-          <InputLabel>
-            변경점 <CheckInput type="checkbox" />
-          </InputLabel>
-        </SideBarItem>
-        <SideBarItem>
-          <InputLabel>
-            변경점 <CheckInput type="checkbox" />
-          </InputLabel>
-        </SideBarItem>
-      </SideBarItemList>
-    </SideBarDataContainer>
+    <SideBarSlideListContainer>
+      {Object.values(slideData)[0].diff === type ? (
+        <SideBarListHeader>
+          <SideBarSlideListLabel>
+            {slidePage}
+            <CheckInput type="checkbox" onChange={() => handleChange()} />
+          </SideBarSlideListLabel>
+        </SideBarListHeader>
+      ) : (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>
+          {Object.keys(Object.values(slideData)[0].items).length !== 0 ? (
+            <>
+              <SideBarListHeader>{slidePage}</SideBarListHeader>
+              <SideBarItem>
+                <SideBarItemList slideData={slideData} />
+              </SideBarItem>
+            </>
+          ) : null}
+        </>
+      )}
+    </SideBarSlideListContainer>
   );
 }
 
-const SideBarDataContainer = styled.div``;
+const SideBarSlideListContainer = styled.div``;
 
-const SideBarLittleHeader = styled.header`
+const SideBarListHeader = styled.header`
   font-size: 0.9rem;
   font-weight: 700;
 `;
 
-const SideBarItemList = styled.ul``;
+const SideBarItem = styled.ul``;
 
-const SideBarItem = styled.li`
-  padding-top: 0.31vh;
-  list-style: none;
-`;
-
-const InputLabel = styled.label`
+const SideBarSlideListLabel = styled.label`
   display: flex;
   justify-content: space-between;
   width: 100%;

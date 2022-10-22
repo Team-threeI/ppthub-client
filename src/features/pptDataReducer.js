@@ -13,10 +13,10 @@ const initialState = {
 
 const pptDataReducer = createReducer(initialState, {
   [registerData]: (state, action) => {
-    const { type, data } = action.payload;
+    const { type, data, dataId } = action.payload;
 
     return Object.assign(state, {
-      [type]: data,
+      [type]: { data, dataId },
     });
   },
   [deleteData]: (state, action) => {
