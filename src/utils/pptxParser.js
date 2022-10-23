@@ -1,9 +1,12 @@
 import JSZip from "jszip";
 import PRESET_COLORS from "../config/constants/presetColors";
-import ITEM_TYPES from "../config/constants/itemTypes";
 
 const parser = new DOMParser();
 const EMUFactor = 96 / 914400;
+const itemTypes = {
+  "p:sp": "text",
+  "p:pic": "image",
+};
 
 const getSlideSize = async (pptx) => {
   const presentationTextXml = await pptx
@@ -54,15 +57,9 @@ const getSlideId = async (slide) => {
 };
 
 const getItemId = (item) => {
-  const {
-    id: { nodeValue: itemId },
-    name: { nodeValue: itemName },
-  } = item.querySelector("cNvPr").attributes;
+  const itemId = item.querySelector("cNvPr").attributes.name.nodeValue;
 
-  return {
-    itemId,
-    itemName,
-  };
+  return itemId;
 };
 
 const getItemPresetSize = (item) => {
@@ -195,15 +192,15 @@ const getSlideItems = async (slide, slidePath, pptx) => {
 
   return Promise.all(
     items.map(async (item, index) => {
-      const type = ITEM_TYPES[item.tagName] ?? "unidentified item";
-      const id = getItemId(item);
+      const type = itemTypes[item.tagName] ?? "unidentified item";
+      const itemId = getItemId(item);
       const { width, height, x, y } = getItemSize(item);
       const content = await getItemContent(item, type, slidePath, pptx);
 
       return {
         type,
         order: index + 1,
-        id,
+        itemId,
         width,
         height,
         x,
@@ -218,7 +215,7 @@ const getSlides = async (pptx) => {
   const slidePaths = await getSlidePaths(pptx);
 
   return Promise.all(
-    slidePaths.map(async (path) => {
+    slidePaths.map(async (path, index) => {
       const slideTextXml = await pptx.file(path).async("text");
       const slide = parser.parseFromString(slideTextXml, "application/xml");
 
@@ -226,6 +223,7 @@ const getSlides = async (pptx) => {
       const items = await getSlideItems(slide, path, pptx);
 
       return {
+        pageNumber: index,
         slideId,
         items,
       };
