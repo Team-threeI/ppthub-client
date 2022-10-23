@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
-import SideBarSlideList from "./SideBarSlideList";
-import DIFFING_TYPES from "../../config/constants/diffingTypes";
-import filterDiffDataByType from "../../utils/filterDiffDataByType";
+import SideBarSlideList from "./SideBar/SideBarSlideList";
+import DIFFING_TYPES from "../config/constants/diffTypes";
+import filterDiffDataByType from "../utils/filterDiffDataByType";
 
 function SideBar({ diffType }) {
   const originialSlideData = useSelector(

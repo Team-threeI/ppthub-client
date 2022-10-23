@@ -1,48 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
-function Slide({ slideData, slideWidth, slideHeight }) {
-  const textItems = slideData.items.filter((item) => item.type === "text");
-  const imageItems = slideData.items.filter((item) => item.type === "image");
-
-  return (
-    <SlideContainer>
-      {textItems.map((item) => (
-        <TextItem
-          key={item.id}
-          attribute={item}
-          slideWidth={slideWidth}
-          slideHeight={slideHeight}
-        >
+function Item({ itemData }) {
+  switch (itemData.type) {
+    case "text":
+      return (
+        <TextItem key={item.id} attribute={item}>
           {item.content.value}
         </TextItem>
-      ))}
-      {imageItems.map((item) => (
-        <ImageItem
-          key={item.id}
-          src={item.content.src}
-          attribute={item}
-          slideWidth={slideWidth}
-          slideHeight={slideHeight}
-        />
-      ))}
-    </SlideContainer>
-  );
-}
-
-const SlideContainer = styled.section`
-  position: relative;
-  width: 100%;
-  margin-bottom: 0.5rem;
-  border: 1px solid black;
-  background-color: #fff;
-  aspect-ratio: 1280 / 720;
-  flex: none;
-
-  &:last-child {
-    margin-bottom: 0;
+      );
+    case "image":
+      return (
+        <ImageItem key={item.id} src={item.content.src} attribute={item} />
+      );
+    default:
+      return null;
   }
-`;
+}
 
 const TextItem = styled.div`
   display: flex;
@@ -83,4 +57,4 @@ const ImageItem = styled.img`
   z-index: ${({ attribute }) => attribute.order};
 `;
 
-export default Slide;
+export default Item;

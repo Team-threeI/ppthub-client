@@ -1,4 +1,4 @@
-import DIFFING_TYPES from "../config/constants/diffingTypes";
+import DIFFING_TYPES from "../config/constants/diffTypes";
 
 const filterDiffDataByType = (diffingData, type) => {
   const cloneData = JSON.parse(JSON.stringify(diffingData));
