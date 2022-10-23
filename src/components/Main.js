@@ -5,7 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 import SEQUENCES from "../config/constants/sequences";
-import VIEW_TYPES from "../config/constants/viewTypes";
+import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import MainSection from "./MainSection/MainSection";
 import SideBar from "./SideBar/SideBar";
 import DIFFING_TYPES from "../config/constants/diffingTypes";
@@ -15,10 +15,10 @@ function Main() {
   const dispatch = useDispatch();
   const sequence = useSelector((state) => state.sequence);
   const originalPptId = useSelector(
-    ({ pptData }) => pptData[VIEW_TYPES.ORIGINAL_FILE].dataId,
+    ({ pptData }) => pptData[PPT_DATA_TYPES.ORIGINAL_FILE].dataId,
   );
   const comparablePptId = useSelector(
-    ({ pptData }) => pptData[VIEW_TYPES.COMPARABLE_FILE].dataId,
+    ({ pptData }) => pptData[PPT_DATA_TYPES.COMPARABLE_FILE].dataId,
   );
 
   const getDiffingResult = async () => {
@@ -39,23 +39,23 @@ function Main() {
     case SEQUENCES.ADDED_ORIGINAL_FILE:
       return (
         <MainContainer>
-          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
-          <MainSection viewType={VIEW_TYPES.COMPARABLE_FILE} />
+          <MainSection viewType={PPT_DATA_TYPES.ORIGINAL_FILE} />
+          <MainSection viewType={PPT_DATA_TYPES.COMPARABLE_FILE} />
         </MainContainer>
       );
     case SEQUENCES.ADDED_COMPARABLE_FILE:
       return (
         <MainContainer>
-          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
-          <MainSection viewType={VIEW_TYPES.COMPARABLE_FILE} />
+          <MainSection viewType={PPT_DATA_TYPES.ORIGINAL_FILE} />
+          <MainSection viewType={PPT_DATA_TYPES.COMPARABLE_FILE} />
         </MainContainer>
       );
     case SEQUENCES.COMPARISION:
       getDiffingResult();
       return (
         <MainContainer>
-          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
-          <MainSection viewType={VIEW_TYPES.COMPARABLE_FILE} />
+          <MainSection viewType={PPT_DATA_TYPES.ORIGINAL_FILE} />
+          <MainSection viewType={PPT_DATA_TYPES.COMPARABLE_FILE} />
           <SideBar diffType={DIFFING_TYPES.DIFF_DATA} />
         </MainContainer>
       );
@@ -63,7 +63,7 @@ function Main() {
     default:
       return (
         <MainContainer>
-          <MainSection viewType={VIEW_TYPES.ORIGINAL_FILE} />
+          <MainSection viewType={PPT_DATA_TYPES.ORIGINAL_FILE} />
         </MainContainer>
       );
   }

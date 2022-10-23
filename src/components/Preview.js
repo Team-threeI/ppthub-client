@@ -3,12 +3,12 @@ import React from "react";
 import styled from "styled-components";
 
 import MainSection from "./MainSection/MainSection";
-import VIEW_TYPES from "../config/constants/viewTypes";
+import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 
 function Preview() {
   return (
     <PreviewContainer>
-      <MainSection viewType={VIEW_TYPES.MERGED_FILE} />
+      <MainSection viewType={PPT_DATA_TYPES.MERGED_FILE} />
     </PreviewContainer>
   );
 }
