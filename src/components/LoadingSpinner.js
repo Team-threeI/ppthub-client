@@ -11,7 +11,7 @@ const rotation = keyframes`
   }
 `;
 
-const Spinner = styled.div`
+const LoadingSpinner = styled.div`
   position: absolute;
   width: 1.25rem;
   height: 1.25rem;
@@ -57,4 +57,4 @@ const Spinner = styled.div`
   }
 `;
 
-export default Spinner;
+export default LoadingSpinner;

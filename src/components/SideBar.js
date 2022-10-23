@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
-import SideBarSlideList from "./SideBarSlideList";
-import DIFFING_TYPES from "../../config/constants/diffingTypes";
-import filterDiffDataByType from "../../utils/filterDiffDataByType";
+import SideBarSlideList from "./SideBar/SideBarSlideList";
+import DIFF_TYPES from "../config/constants/diffTypes";
+import filterDiffDataByType from "../utils/filterDiffDataByType";
 
 function SideBar({ diffType }) {
   const originialSlideData = useSelector(
@@ -16,11 +16,11 @@ function SideBar({ diffType }) {
 
   const addedSlideData = filterDiffDataByType(
     originialSlideData,
-    DIFFING_TYPES.ADDITION,
+    DIFF_TYPES.ADDITION,
   );
   const deletedSlideData = filterDiffDataByType(
     originialSlideData,
-    DIFFING_TYPES.TYPE_DELETED,
+    DIFF_TYPES.TYPE_DELETED,
   );
 
   return (
@@ -31,7 +31,7 @@ function SideBar({ diffType }) {
           <SideBarSlideList
             slideData={slideData}
             key={slideData}
-            type={DIFFING_TYPES.TYPE_ADDED}
+            type={DIFF_TYPES.TYPE_ADDED}
           />
         ))}
       </SideBarSection>
@@ -41,7 +41,7 @@ function SideBar({ diffType }) {
           <SideBarSlideList
             slideData={slideData}
             key={slideData}
-            type={DIFFING_TYPES.TYPE_DELETED}
+            type={DIFF_TYPES.TYPE_DELETED}
           />
         ))}
       </SideBarSection>
