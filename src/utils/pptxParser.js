@@ -215,7 +215,7 @@ const getSlides = async (pptx) => {
   const slidePaths = await getSlidePaths(pptx);
 
   return Promise.all(
-    slidePaths.map(async (path) => {
+    slidePaths.map(async (path, index) => {
       const slideTextXml = await pptx.file(path).async("text");
       const slide = parser.parseFromString(slideTextXml, "application/xml");
 
@@ -223,6 +223,7 @@ const getSlides = async (pptx) => {
       const items = await getSlideItems(slide, path, pptx);
 
       return {
+        pageNumber: index,
         slideId,
         items,
       };
