@@ -1,4 +1,4 @@
-const PRESET_COLORS = {
+const PPT_COLORS = {
   bg1: {
     0: "#fffff",
     95: "#f2f2f2",
@@ -81,4 +81,4 @@ const PRESET_COLORS = {
   },
 };
 
-export default PRESET_COLORS;
+export default PPT_COLORS;
