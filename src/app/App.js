@@ -4,12 +4,12 @@ import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 
 import GlobalStyle from "./GlobalStyle";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Main from "../components/Main";
 import Preview from "../components/Preview";
-import NotFoundPage from "../components/Error/NotFoundPage";
-import ErrorPage from "../components/Error/ErrorPage";
+import NotFoundPage from "../components/NotFoundPage";
+import ErrorPage from "../components/ErrorPage";
 
 function App() {
   return (

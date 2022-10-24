@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import errorImageSrc from "../../images/error.png";
+import errorImageSrc from "../images/error.png";
 
 function ErrorPage({ errorMessage }) {
   const navigate = useNavigate();

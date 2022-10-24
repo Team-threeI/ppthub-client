@@ -2,18 +2,36 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
+import axios from "axios";
 
-import SEQUENCES from "../../config/constants/sequences";
+import SEQUENCES from "../config/constants/sequences";
+import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import {
   changeSequence,
   changePreviousSequence,
-} from "../../features/sequenceReducer";
+} from "../features/sequenceReducer";
+import { initializeDiffData } from "../features/diffDataReducer";
 
 function Footer() {
   const dispatch = useDispatch();
   const sequence = useSelector((state) => state.sequence);
+
+  const { originalPptId, comparablePptId } = useSelector(({ pptData }) => ({
+    originalPptId: pptData[PPT_DATA_TYPES.ORIGINAL_PPT_DATA]?.pptId,
+    comparablePptId: pptData[PPT_DATA_TYPES.COMPARABLE_PPT_DATA]?.pptId,
+  }));
+
   const handlePreviousClick = () => {
     dispatch(changePreviousSequence());
+  };
+  const handleCompare = async () => {
+    const response = await axios.post("/api/ppts/compare", {
+      originalPptId,
+      comparablePptId,
+    });
+
+    dispatch(changeSequence(SEQUENCES.COMPARISION));
+    dispatch(initializeDiffData(response.data));
   };
 
   switch (sequence) {
@@ -27,11 +45,7 @@ function Footer() {
       return (
         <FooterContainer>
           <FooterButton onClick={handlePreviousClick}>되돌리기</FooterButton>
-          <FooterButton
-            onClick={() => dispatch(changeSequence(SEQUENCES.COMPARISION))}
-          >
-            비교하기
-          </FooterButton>
+          <FooterButton onClick={handleCompare}>비교하기</FooterButton>
         </FooterContainer>
       );
     case SEQUENCES.COMPARISION:
