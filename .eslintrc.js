@@ -15,6 +15,7 @@ module.exports = {
     semi: "warn",
     "no-unused-vars": "warn",
     "react/prop-types": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": ["warn", { extensions: [".js"] }],
   },
 };

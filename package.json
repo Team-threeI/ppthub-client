@@ -1,6 +1,6 @@
 {
   "name": "ppthub-client",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "proxy": "http://localhost:8000",
   "contributors": [
     {

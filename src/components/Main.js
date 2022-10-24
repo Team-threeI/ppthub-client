@@ -7,7 +7,7 @@ import SEQUENCES from "../config/constants/sequences";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import DIFFING_TYPES from "../config/constants/diffTypes";
 import MainSection from "./MainSection";
-import SelectionBar from "./SelectionBar";
+import RightSelectionBar from "./RightSelectionBar";
 
 function Main() {
   const sequence = useSelector((state) => state.sequence);
@@ -26,7 +26,7 @@ function Main() {
         <MainContainer>
           <MainSection fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA} />
           <MainSection fileType={PPT_DATA_TYPES.COMPARABLE_PPT_DATA} />
-          <SelectionBar diffType={DIFFING_TYPES.DIFF_DATA} />
+          <RightSelectionBar diffType={DIFFING_TYPES.DIFF_DATA} />
         </MainContainer>
       );
     case SEQUENCES.INITIAL_SEQUENCE:
