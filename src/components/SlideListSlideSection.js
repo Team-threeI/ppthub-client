@@ -59,7 +59,7 @@ const SlideContainer = styled.section`
   width: 100%;
   margin-bottom: 0.5rem;
   border: 1px solid black;
-  background-color: #fff;
+  background: ${THEME_COLORS.SLIDE_BACKGROUND};
   aspect-ratio: ${({ slideAspectRatio }) => slideAspectRatio};
   flex: none;
 
