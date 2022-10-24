@@ -3,20 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
 
-import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import DIFF_TYPES from "../config/constants/diffTypes";
 import THEME_COLORS from "../config/constants/themeColors";
 import {
   toggleSlideChecked,
   toggleSlideHovered,
 } from "../features/diffDataReducer";
-import SelectionBarItemSection from "./SelectionBarItemSection";
+import RightSelectionBarItemSection from "./RightSelectionBarItemSection";
 
-const diffByFileTypes = {
-  [PPT_DATA_TYPES.ORIGINAL_PPT_DATA]: DIFF_TYPES.ADDED,
-  [PPT_DATA_TYPES.COMPARABLE_PPT_DATA]: DIFF_TYPES.DELETED,
-};
-const highlightByDiffState = (isHovered, isChecked) => {
+const getHighlightByDiffState = (isHovered, isChecked) => {
   if (isHovered) {
     return THEME_COLORS.HIGHLIGHT_HOVERED;
   }
@@ -26,7 +21,7 @@ const highlightByDiffState = (isHovered, isChecked) => {
     : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
-function SelectionBarSlideSection({ slideData, diffType }) {
+function RightSelectionBarSlideSection({ slideData, diffType }) {
   const dispatch = useDispatch();
   const { slideId, isChecked, isHovered } = slideData;
   const slideDiffData = useSelector(({ diffData }) => diffData[slideId]);
@@ -41,7 +36,7 @@ function SelectionBarSlideSection({ slideData, diffType }) {
     <SlideSectionContainer>
       {isChangedSlide ? (
         <SlideLabel
-          highlight={highlightByDiffState(isHovered, isChecked)}
+          highlight={getHighlightByDiffState(isHovered, isChecked)}
           onMouseEnter={() => dispatch(toggleSlideHovered(slideId))}
           onMouseLeave={() => dispatch(toggleSlideHovered(slideId))}
         >
@@ -57,7 +52,7 @@ function SelectionBarSlideSection({ slideData, diffType }) {
           <SlideHeader>{slideId}</SlideHeader>
           <ModifiedSlideItems>
             {slideItems.map((item) => (
-              <SelectionBarItemSection
+              <RightSelectionBarItemSection
                 key={item[0]}
                 itemData={{ itemId: item[0], ...item[1] }}
                 slideId={slideId}
@@ -86,4 +81,4 @@ const ModifiedSlideItems = styled.ul`
   margin-left: 1rem;
 `;
 
-export default SelectionBarSlideSection;
+export default RightSelectionBarSlideSection;

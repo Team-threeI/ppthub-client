@@ -11,7 +11,7 @@ import {
   toggleItemHovered,
 } from "../features/diffDataReducer";
 
-const itemHighlightByDiffState = (
+const getItemHighlightByDiffState = (
   fileType,
   isHovered,
   isChecked,
@@ -42,7 +42,7 @@ function Item({ itemData, slideId, fileType }) {
     diff === DIFF_TYPES.ADDED || diff === DIFF_TYPES.DELETED;
   const highlightItemProps = {
     isHighlightItem: isChangedItem || isModifiedItem,
-    highlight: itemHighlightByDiffState(
+    highlight: getItemHighlightByDiffState(
       fileType,
       isHovered,
       isChecked,

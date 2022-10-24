@@ -4,18 +4,19 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
-import DIFF_TYPES from "../config/constants/diffingTypes";
+import DIFF_TYPES from "../config/constants/diffTypes";
 import SlideListSlideSection from "./SlideListSlideSection";
+
+const diffByFileTypes = {
+  [PPT_DATA_TYPES.ORIGINAL_PPT_DATA]: DIFF_TYPES.DELETED,
+  [PPT_DATA_TYPES.COMPARABLE_PPT_DATA]: DIFF_TYPES.ADDED,
+};
 
 function SlideList({ fileType }) {
   const { slides, slideWidth, slideHeight } = useSelector(
     ({ pptData }) => pptData[fileType].data,
   );
   const slideDiffData = useSelector((state) => state.diffData ?? {});
-  const diffByFileTypes = {
-    [PPT_DATA_TYPES.ORIGINAL_PPT_DATA]: DIFF_TYPES.DELETED,
-    [PPT_DATA_TYPES.COMPARABLE_PPT_DATA]: DIFF_TYPES.ADDED,
-  };
 
   return (
     <SlideListContainer>

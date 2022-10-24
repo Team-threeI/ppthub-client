@@ -6,12 +6,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #fff;
+    color: ${THEME_COLORS.FONT_COLOR};
     user-select: none;
   }
 
   body {
-    background: #1E1E1E;
+    background: ${THEME_COLORS.BACKGROUND_COLOR};
   }
 
   li {

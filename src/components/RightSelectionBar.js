@@ -4,38 +4,44 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import DIFF_TYPES from "../config/constants/diffTypes";
-import SelectionBarSlideSection from "./SelectionBarSlideSection";
+import RightSelectionBarSlideSection from "./RightSelectionBarSlideSection";
 
-function SelectionBar() {
+function RightSelectionBar() {
   const { addedList, deletedList } = useSelector((state) =>
     Object.entries(state.diffData).reduce(
-      (acc, slide) => {
+      (selectionLists, slide) => {
         const [slideId, slideDiffData] = slide;
 
         switch (slideDiffData.diff) {
           case DIFF_TYPES.ADDED:
             return {
-              ...acc,
-              addedList: acc.addedList.concat({ slideId, ...slideDiffData }),
-            };
-          case DIFF_TYPES.DELETED:
-            return {
-              ...acc,
-              deletedList: acc.addedList.concat({ slideId, ...slideDiffData }),
-            };
-          case DIFF_TYPES.MODIFIED:
-            return {
-              addedList: acc.addedList.concat({
+              ...selectionLists,
+              addedList: selectionLists.addedList.concat({
                 slideId,
                 ...slideDiffData,
               }),
-              deletedList: acc.deletedList.concat({
+            };
+          case DIFF_TYPES.DELETED:
+            return {
+              ...selectionLists,
+              deletedList: selectionLists.addedList.concat({
+                slideId,
+                ...slideDiffData,
+              }),
+            };
+          case DIFF_TYPES.MODIFIED:
+            return {
+              addedList: selectionLists.addedList.concat({
+                slideId,
+                ...slideDiffData,
+              }),
+              deletedList: selectionLists.deletedList.concat({
                 slideId,
                 ...slideDiffData,
               }),
             };
           default:
-            return acc;
+            return selectionLists;
         }
       },
       {
@@ -51,7 +57,7 @@ function SelectionBar() {
         <SelectionBarHeader>ADD</SelectionBarHeader>
         <SelectionBarList>
           {addedList.map((addedSlide) => (
-            <SelectionBarSlideSection
+            <RightSelectionBarSlideSection
               key={`${addedSlide.diff}/${addedSlide.slideId}`}
               slideData={addedSlide}
               diffType={DIFF_TYPES.TYPE_ADDED}
@@ -63,7 +69,7 @@ function SelectionBar() {
         <SelectionBarHeader>Undo</SelectionBarHeader>
         <SelectionBarList>
           {deletedList.map((deletedSlide) => (
-            <SelectionBarSlideSection
+            <RightSelectionBarSlideSection
               key={`${deletedSlide.diff}/${deletedSlide.slideId}`}
               slideData={deletedSlide}
               diffType={DIFF_TYPES.TYPE_DELETED}
@@ -97,4 +103,4 @@ const SelectionBarHeader = styled.header`
 
 const SelectionBarList = styled.ul``;
 
-export default SelectionBar;
+export default RightSelectionBar;

@@ -11,7 +11,7 @@ import {
 } from "../features/diffDataReducer";
 import SlideListItemSection from "./SlideListItemSection";
 
-const highlightByDiffState = (isHovered, isChecked) => {
+const getHighlightByDiffState = (isHovered, isChecked) => {
   if (isHovered) {
     return THEME_COLORS.HIGHLIGHT_HOVERED;
   }
@@ -31,7 +31,7 @@ function SlideListSlideSection({ slideData, fileType }) {
     diff === DIFF_TYPES.ADDED || diff === DIFF_TYPES.DELETED;
   const changedSlideProps = {
     isChangedSlide,
-    highlight: highlightByDiffState(isHovered, isChecked),
+    highlight: getHighlightByDiffState(isHovered, isChecked),
     onClick: () => dispatch(toggleSlideChecked(slideId)),
     onMouseEnter: () => dispatch(toggleSlideHovered(slideId)),
     onMouseLeave: () => dispatch(toggleSlideHovered(slideId)),
