@@ -13,8 +13,8 @@ function FileAttachment({ fileType }) {
 
   const handleFileChanged = async (event) => {
     const pptData = await pptxParser(event.target.files[0]);
-    const fineName = event.target.files[0].name.replace(".pptx", "");
-    const response = await axios.post("/api/ppts/save", { pptData, fineName });
+    const fileName = event.target.files[0].name.replace(".pptx", "");
+    const response = await axios.post("/api/ppts/save", { pptData, fileName });
 
     dispatch(
       registerData({ type: fileType, pptId: response.data, data: pptData }),
