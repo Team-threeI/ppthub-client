@@ -24,7 +24,7 @@ const pptDataReducer = createReducer(initialState, {
       [action.payload]: {},
     });
   },
-  [changePreviousSequence]: (state, action) => {
+  [changePreviousSequence]: (state) => {
     if (Object.keys(state[PPT_DATA_TYPES.MERGED_PPT_DATA]).length) {
       return state;
     }

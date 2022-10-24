@@ -1,5 +1,5 @@
 import JSZip from "jszip";
-import PRESET_COLORS from "../config/constants/presetColors";
+import PPT_COLORS from "../config/pptColors";
 
 const parser = new DOMParser();
 const EMUFactor = 96 / 914400;
@@ -57,14 +57,14 @@ const getSlideId = async (slide) => {
 };
 
 const getItemId = (item) => {
-  const itemId = item.querySelector("cNvPr").attributes.name.nodeValue;
+  const itemName = item.querySelector("cNvPr").attributes.name.nodeValue;
 
-  return itemId;
+  return itemName;
 };
 
 const getItemPresetSize = (item) => {
   const presetType =
-    item.querySelector("nvSpPr nvPr ph").attributes.type.nodeValue;
+    item.querySelector("nvSpPr nvPr ph").attributes.type?.nodeValue;
 
   switch (presetType) {
     case "ctrTitle":
@@ -120,7 +120,7 @@ const getTextFontColor = (item) => {
 
   if (presetFontColor) {
     const darkness = presetFontDarkness ? presetFontDarkness / 1000 : 0;
-    return PRESET_COLORS[presetFontColor][darkness];
+    return PPT_COLORS[presetFontColor][darkness];
   }
 
   const customFontColor =
@@ -215,7 +215,7 @@ const getSlides = async (pptx) => {
   const slidePaths = await getSlidePaths(pptx);
 
   return Promise.all(
-    slidePaths.map(async (path, index) => {
+    slidePaths.map(async (path) => {
       const slideTextXml = await pptx.file(path).async("text");
       const slide = parser.parseFromString(slideTextXml, "application/xml");
 
@@ -223,7 +223,6 @@ const getSlides = async (pptx) => {
       const items = await getSlideItems(slide, path, pptx);
 
       return {
-        pageNumber: index,
         slideId,
         items,
       };

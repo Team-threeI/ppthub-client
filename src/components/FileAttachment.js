@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
-import pptxParser from "../../utils/pptxParser";
-import { registerData } from "../../features/pptDataReducer";
-import { changeNextSequence } from "../../features/sequenceReducer";
+import pptxParser from "../utils/pptxParser";
+import { registerData } from "../features/pptDataReducer";
+import { changeNextSequence } from "../features/sequenceReducer";
 
 function FileAttachment({ fileType }) {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function FileAttachment({ fileType }) {
     const response = await axios.post("/api/ppts/save", { pptData });
 
     dispatch(
-      registerData({ type: fileType, data: pptData, dataId: response.data }),
+      registerData({ type: fileType, pptId: response.data, data: pptData }),
     );
     dispatch(changeNextSequence());
   };

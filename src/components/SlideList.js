@@ -1,20 +1,45 @@
 import React from "react";
-import styled from "styled-components";
-import Slide from "./Slide";
+import { useSelector } from "react-redux";
 
-function SlideList({ pptData }) {
-  const { slideWidth, slideHeight, slides } = pptData;
+import styled from "styled-components";
+
+import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
+import DIFF_TYPES from "../config/constants/diffingTypes";
+import SlideListSlideSection from "./SlideListSlideSection";
+
+function SlideList({ fileType }) {
+  const { slides, slideWidth, slideHeight } = useSelector(
+    ({ pptData }) => pptData[fileType].data,
+  );
+  const slideDiffData = useSelector((state) => state.diffData ?? {});
+  const diffByFileTypes = {
+    [PPT_DATA_TYPES.ORIGINAL_PPT_DATA]: DIFF_TYPES.DELETED,
+    [PPT_DATA_TYPES.COMPARABLE_PPT_DATA]: DIFF_TYPES.ADDED,
+  };
 
   return (
     <SlideListContainer>
-      {slides.map((slideData) => (
-        <Slide
-          key={slideData.slideId}
-          slideData={slideData}
-          slideWidth={slideWidth}
-          slideHeight={slideHeight}
-        />
-      ))}
+      {slides.map((slideData) => {
+        const { slideId } = slideData;
+        const slideAttribute = { ...slideData, slideWidth, slideHeight };
+        const isChangedSlide =
+          slideDiffData[slideId]?.diff === diffByFileTypes[fileType];
+
+        return isChangedSlide ? (
+          <SlideListSlideSection
+            key={slideId}
+            slideData={slideAttribute}
+            fileType={fileType}
+            isChangedSlide={isChangedSlide}
+          />
+        ) : (
+          <SlideListSlideSection
+            key={slideId}
+            slideData={slideAttribute}
+            fileType={fileType}
+          />
+        );
+      })}
     </SlideListContainer>
   );
 }

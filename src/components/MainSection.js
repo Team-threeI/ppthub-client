@@ -6,16 +6,18 @@ import styled from "styled-components";
 import FileAttachment from "./FileAttachment";
 import SlideList from "./SlideList";
 
-function MainSection({ viewType }) {
-  const viewData = useSelector(({ pptData }) => pptData[viewType]);
+function MainSection({ fileType }) {
+  const isEmpty = useSelector(
+    ({ pptData }) => !Object.keys(pptData[fileType] ?? {}).length,
+  );
 
-  if (!Object.keys(viewData).length) {
-    return <FileAttachment fileType={viewType} />;
+  if (isEmpty) {
+    return <FileAttachment fileType={fileType} />;
   }
 
   return (
     <MainSectionContainer>
-      <SlideList pptData={viewData.data} />
+      <SlideList fileType={fileType} />
     </MainSectionContainer>
   );
 }
@@ -23,7 +25,7 @@ function MainSection({ viewType }) {
 const MainSectionContainer = styled.section`
   width: 100%;
   height: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
 `;
 
 export default MainSection;
