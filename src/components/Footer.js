@@ -6,6 +6,7 @@ import axios from "axios";
 
 import SEQUENCES from "../config/constants/sequences";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
+import { registerData } from "../features/pptDataReducer";
 import {
   changeSequence,
   changePreviousSequence,
@@ -15,6 +16,7 @@ import { initializeDiffData } from "../features/diffDataReducer";
 function Footer() {
   const dispatch = useDispatch();
   const sequence = useSelector((state) => state.sequence);
+  const mergeData = useSelector((state) => state.diffData);
 
   const { originalPptId, comparablePptId } = useSelector(({ pptData }) => ({
     originalPptId: pptData[PPT_DATA_TYPES.ORIGINAL_PPT_DATA]?.pptId,
@@ -32,6 +34,21 @@ function Footer() {
 
     dispatch(changeSequence(SEQUENCES.COMPARISION));
     dispatch(initializeDiffData(response.data));
+  };
+  const handleMerge = async () => {
+    const response = await axios.post("/api/ppts/merge", {
+      originalPptId,
+      comparablePptId,
+      mergeData,
+    });
+
+    dispatch(
+      registerData({
+        type: PPT_DATA_TYPES.MERGED_PPT_DATA,
+        pptId: response.data,
+      }),
+    );
+    dispatch(changeSequence(SEQUENCES.PREVIEW));
   };
 
   switch (sequence) {
@@ -51,7 +68,7 @@ function Footer() {
     case SEQUENCES.COMPARISION:
       return (
         <FooterContainer>
-          <FooterButton>병합하기</FooterButton>
+          <FooterButton onClick={handleMerge}>병합하기</FooterButton>
         </FooterContainer>
       );
     case SEQUENCES.PREVIEW:
