@@ -70,9 +70,9 @@ const getItemPresetSize = (item) => {
     case "ctrTitle":
       return {
         width: 960,
-        height: 250,
+        height: 100,
         x: 160,
-        y: 118,
+        y: 268,
       };
     case "subTitle":
       return {
@@ -81,8 +81,20 @@ const getItemPresetSize = (item) => {
         x: 160,
         y: 378,
       };
+    case "title":
+      return {
+        width: 1104,
+        height: 90,
+        x: 88,
+        y: 88,
+      };
     default:
-      return "unidentified preset";
+      return {
+        width: 1104,
+        height: 457,
+        x: 88,
+        y: 191,
+      };
   }
 };
 
@@ -126,27 +138,78 @@ const getTextFontColor = (item) => {
   const customFontColor =
     textAttributeXml.querySelector("solidFill srgbClr")?.attributes.val;
 
-  return customFontColor ? `#${customFontColor.nodeValue}` : "#000";
+  return customFontColor ? `#${customFontColor.nodeValue}` : "#000000";
+};
+
+const getTextAlign = (item) => {
+  const textAttributeXml =
+    item.querySelector("txBody p pPr")?.attributes.algn?.nodeValue;
+
+  if (textAttributeXml === "ctr") {
+    return "center";
+  }
+  if (textAttributeXml === "r") {
+    return "right";
+  }
+
+  return "left";
 };
 
 const getTextContent = (item) => {
   const value = item.textContent;
+  const presetType =
+    item.querySelector("nvSpPr nvPr ph")?.attributes.type?.nodeValue;
+  const itemName = item.querySelector("cNvPr").attributes.name.nodeValue;
   const textAttributeXml = item.querySelector("txBody p r rPr");
   const { b, i, u, sz } = textAttributeXml.attributes;
   const backgroundColor =
     textAttributeXml.querySelector("highlight srgbClr")?.attributes.val
       .nodeValue;
-  const fontColor = getTextFontColor(item);
 
-  return {
+  const textContent = {
     value,
     isBold: !!b?.nodeValue,
     isItalic: !!i?.nodeValue,
     isUnderlined: !!u?.nodeValue,
-    fontColor,
-    size: sz ? sz.nodeValue / 100 : 16,
+    fontColor: getTextFontColor(item),
     backgroundColor: backgroundColor ? `#${backgroundColor}` : null,
   };
+
+  if (itemName.includes("Content Placeholder")) {
+    return {
+      ...textContent,
+      value: `· ${textContent.value}`,
+      size: 28,
+      align: "left",
+    };
+  }
+
+  switch (presetType) {
+    case "ctrTitle":
+      return {
+        ...textContent,
+        size: 60,
+        align: "center",
+      };
+    case "subTitle":
+      return {
+        ...textContent,
+        size: 24,
+        align: "center",
+      };
+    case "title":
+      return {
+        ...textContent,
+        size: 44,
+        align: "left",
+      };
+    default:
+      return {
+        ...textContent,
+        align: getTextAlign(item),
+        size: sz ? sz.nodeValue / 100 : 18,
+      };
+  }
 };
 
 const getImageContent = async (item, slidePath, pptx) => {
