@@ -18,10 +18,13 @@ function Footer() {
   const sequence = useSelector((state) => state.sequence);
   const mergeData = useSelector((state) => state.diffData);
 
-  const { originalPptId, comparablePptId } = useSelector(({ pptData }) => ({
-    originalPptId: pptData[PPT_DATA_TYPES.ORIGINAL_PPT_DATA]?.pptId,
-    comparablePptId: pptData[PPT_DATA_TYPES.COMPARABLE_PPT_DATA]?.pptId,
-  }));
+  const { originalPptId, comparablePptId, mergedPptId, downloadUrl } =
+    useSelector(({ pptData }) => ({
+      originalPptId: pptData[PPT_DATA_TYPES.ORIGINAL_PPT_DATA]?.pptId,
+      comparablePptId: pptData[PPT_DATA_TYPES.COMPARABLE_PPT_DATA]?.pptId,
+      mergedPptId: pptData[PPT_DATA_TYPES.MERGED_PPT_DATA]?.pptId,
+      downloadUrl: pptData[PPT_DATA_TYPES.MERGED_PPT_DATA]?.data?.downloadUrl,
+    }));
 
   const handlePreviousClick = () => {
     dispatch(changePreviousSequence());
@@ -48,7 +51,25 @@ function Footer() {
         pptId: response.data,
       }),
     );
+  };
+
+  const handlePreview = async () => {
+    const response = await axios.get("/api/:ppt_id/preview", {
+      params: { mergedPptId },
+    });
+
+    dispatch(
+      registerData({
+        type: PPT_DATA_TYPES.MERGED_PPT_DATA,
+        pptId: mergedPptId,
+        data: response.data,
+      }),
+    );
     dispatch(changeSequence(SEQUENCES.PREVIEW));
+  };
+
+  const handleDownload = () => {
+    window.location.href = downloadUrl;
   };
 
   switch (sequence) {
@@ -68,14 +89,18 @@ function Footer() {
     case SEQUENCES.COMPARISION:
       return (
         <FooterContainer>
-          <FooterButton onClick={handleMerge}>병합하기</FooterButton>
+          {mergedPptId ? (
+            <FooterButton onClick={handlePreview}>미리보기</FooterButton>
+          ) : (
+            <FooterButton onClick={handleMerge}>병합하기</FooterButton>
+          )}
         </FooterContainer>
       );
     case SEQUENCES.PREVIEW:
       return (
         <FooterContainer>
           <FooterButton>되돌리기</FooterButton>
-          <FooterButton>다운로드</FooterButton>
+          <FooterButton onClick={handleDownload}>다운로드</FooterButton>
         </FooterContainer>
       );
     default:
