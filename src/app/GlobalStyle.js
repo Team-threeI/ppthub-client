@@ -10,12 +10,20 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background: ${THEME_COLORS.BACKGROUND_COLOR};
   }
 
   li {
     list-style: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 

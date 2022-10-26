@@ -23,16 +23,16 @@ const getItemHighlightByDiffState = (
 
   if (fileType === PPT_DATA_TYPES.COMPARABLE_PPT_DATA && isModified) {
     return isChecked
-      ? THEME_COLORS.HIGHLIGHT_ADDED
-      : THEME_COLORS.HIGHLIGHT_DELETED;
+      ? THEME_COLORS.HIGHLIGHT_DELETED
+      : THEME_COLORS.HIGHLIGHT_ADDED;
   }
 
   return isChecked
-    ? THEME_COLORS.HIGHLIGHT_DELETED
-    : THEME_COLORS.HIGHLIGHT_ADDED;
+    ? THEME_COLORS.HIGHLIGHT_ADDED
+    : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
-function Item({ itemData, slideId, fileType }) {
+function SlideListItemSection({ itemData, slideId, fileType }) {
   const dispatch = useDispatch();
   const { diff, isChecked, isHovered } = useSelector(
     ({ diffData }) => diffData[slideId]?.items?.[itemData.itemId] ?? {},
@@ -68,7 +68,7 @@ function Item({ itemData, slideId, fileType }) {
       return (
         <TextItem
           position={boxPosition}
-          attribute={itemData.content}
+          attribute={{ ...itemData.content, slidWidth: itemData.slideWidth }}
           {...((isChangedItem || isModifiedItem) && highlightItemProps)}
         >
           {itemData.content.value}
@@ -104,18 +104,26 @@ const PositionBoxItem = styled.div`
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: ${highlight};
+        background-color: rgba(0, 0, 0, 0);
+        background-image: repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 11.5px,
+          ${highlight} 0,
+          ${highlight} 13px
+        );
+        border: 1.5px solid ${highlight};
+        z-index: 1;
       }
     `}
 `;
 
 const TextItem = styled(PositionBoxItem)`
   display: flex;
-  justify-content: left;
   align-items: center;
-  background-color: ${({ attribute }) => attribute.backgroundColor};
+  justify-content: ${({ attribute }) => attribute.align};
   color: ${({ attribute }) => attribute.fontColor};
-  font-size: ${({ attribute }) => `${attribute.size}px`};
+  font-size: ${({ attribute }) => `${attribute.size / 23}vw`};
   text-decoration: ${({ attribute }) =>
     attribute.isUnderlined ? "underline" : "none"};
   font-weight: ${({ attribute }) => (attribute.isBold ? 700 : 500)};
@@ -127,4 +135,4 @@ const ImageItem = styled.img`
   height: 100%;
 `;
 
-export default Item;
+export default SlideListItemSection;

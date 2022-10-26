@@ -1,5 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
+import { initializeDiffData } from "./diffDataReducer";
 import { changePreviousSequence } from "./sequenceReducer";
 
 export const registerData = createAction("registerData");
@@ -36,6 +37,13 @@ const pptDataReducer = createReducer(initialState, {
     }
     if (Object.keys(state[PPT_DATA_TYPES.ORIGINAL_PPT_DATA]).length) {
       return Object.assign(state, initialState);
+    }
+
+    return state;
+  },
+  [initializeDiffData]: (state, action) => {
+    if (Object.keys(action.payload).length === 0) {
+      return initialState;
     }
 
     return state;

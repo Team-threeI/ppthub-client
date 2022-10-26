@@ -18,20 +18,9 @@ const getItemCheckByDiffState = (diffType, isChecked, isModified) => {
   return isChecked;
 };
 
-const getItemHighlightByDiffState = (
-  diffType,
-  isHovered,
-  isChecked,
-  isModified,
-) => {
+const getItemHighlightByDiffState = (isHovered, isChecked) => {
   if (isHovered) {
     return THEME_COLORS.HIGHLIGHT_HOVERED;
-  }
-
-  if (diffType === DIFF_TYPES.DELETED && isModified) {
-    return isChecked
-      ? THEME_COLORS.HIGHLIGHT_DELETED
-      : THEME_COLORS.HIGHLIGHT_ADDED;
   }
 
   return isChecked
@@ -46,11 +35,13 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
   );
   const { isChecked, isHovered } = itemDiffData;
   const isModified = itemDiffData.diff === DIFF_TYPES.MODIFIED;
+  const isItemChecked =
+    diffType === DIFF_TYPES.ADDED && isModified ? !isChecked : isChecked;
 
   return (
     <ItemSectionContainer>
       <ItemLabel
-        highlight={getItemHighlightByDiffState(diffType, isHovered, isChecked)}
+        highlight={getItemHighlightByDiffState(isHovered, isItemChecked)}
         onMouseEnter={() =>
           dispatch(toggleItemHovered({ itemId: itemData.itemId, slideId }))
         }
@@ -60,7 +51,7 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
       >
         <ItemHeader>{itemData.itemId}</ItemHeader>
         <Checkbox
-          checked={getItemCheckByDiffState(diffType, isChecked, isModified)}
+          checked={isItemChecked}
           type="checkbox"
           onChange={() =>
             dispatch(toggleItemChecked({ itemId: itemData.itemId, slideId }))
@@ -73,12 +64,12 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
 
 const ItemSectionContainer = styled.li``;
 const ItemLabel = styled.label`
-  &:active {
-    color: red;
-    background-color: red;
-  }
+  display: block;
+  background: ${({ highlight }) => highlight};
 `;
 const ItemHeader = styled.h3``;
-const Checkbox = styled.input``;
+const Checkbox = styled.input`
+  display: none;
+`;
 
 export default RightSelectionBarItemSection;

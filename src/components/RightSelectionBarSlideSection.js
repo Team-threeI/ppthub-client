@@ -23,7 +23,7 @@ const getHighlightByDiffState = (isHovered, isChecked) => {
 
 function RightSelectionBarSlideSection({ slideData, diffType }) {
   const dispatch = useDispatch();
-  const { slideId, isChecked, isHovered } = slideData;
+  const { slideId, slideName, isChecked, isHovered } = slideData;
   const slideDiffData = useSelector(({ diffData }) => diffData[slideId]);
   const isChangedSlide =
     slideData.diff === DIFF_TYPES.ADDED ||
@@ -40,16 +40,18 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
           onMouseEnter={() => dispatch(toggleSlideHovered(slideId))}
           onMouseLeave={() => dispatch(toggleSlideHovered(slideId))}
         >
-          <SlideHeader>{slideId}</SlideHeader>
-          <Checkbox
-            type="checkbox"
-            checked={slideDiffData.isChecked}
-            onChange={() => dispatch(toggleSlideChecked(slideId))}
-          />
+          <a href={`#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`}>
+            <SlideHeader>{slideName}</SlideHeader>
+            <Checkbox
+              type="checkbox"
+              checked={slideDiffData.isChecked}
+              onChange={() => dispatch(toggleSlideChecked(slideId))}
+            />
+          </a>
         </SlideLabel>
       ) : (
-        <>
-          <SlideHeader>{slideId}</SlideHeader>
+        <a href={`#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`}>
+          <SlideHeader>{slideName}</SlideHeader>
           <ModifiedSlideItems>
             {slideItems.map((item) => (
               <RightSelectionBarItemSection
@@ -60,7 +62,7 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
               />
             ))}
           </ModifiedSlideItems>
-        </>
+        </a>
       )}
     </SlideSectionContainer>
   );

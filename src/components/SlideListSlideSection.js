@@ -38,7 +38,7 @@ function SlideListSlideSection({ slideData, fileType }) {
   };
 
   return (
-    <SlideContainer
+    <SlideSectionContainer
       slideAspectRatio={`${slideWidth} / ${slideHeight}`}
       {...(isChangedSlide && changedSlideProps)}
     >
@@ -50,11 +50,11 @@ function SlideListSlideSection({ slideData, fileType }) {
           fileType={fileType}
         />
       ))}
-    </SlideContainer>
+    </SlideSectionContainer>
   );
 }
 
-const SlideContainer = styled.section`
+const SlideSectionContainer = styled.section`
   position: relative;
   width: 100%;
   margin-bottom: 0.5rem;
@@ -75,7 +75,16 @@ const SlideContainer = styled.section`
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: ${highlight};
+        background-color: rgba(0, 0, 0, 0);
+        background-image: repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 20px,
+          ${highlight} 0,
+          ${highlight} 22px
+        );
+        border: 3px solid ${highlight};
+        z-index: 100;
       }
     `}
 `;
