@@ -10,7 +10,6 @@ import { registerData } from "../features/pptDataReducer";
 import SlideList from "./SlideList";
 import SEQUENCES from "../config/constants/sequences";
 import { changeSequence } from "../features/sequenceReducer";
-
 import LoadingSpinner from "./LoadingSpinner";
 
 function Download() {

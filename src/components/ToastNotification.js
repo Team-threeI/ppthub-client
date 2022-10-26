@@ -63,7 +63,6 @@ const TostContainer = styled.div`
 `;
 
 const TostMessage = styled.p`
-  margin: 0;
   letter-spacing: 0.1rem;
   text-align: center;
   font-weight: 700;

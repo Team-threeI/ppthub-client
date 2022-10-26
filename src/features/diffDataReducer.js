@@ -1,6 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import DIFF_TYPES from "../config/constants/diffTypes";
 
+import DIFF_TYPES from "../config/constants/diffTypes";
 import { changeSequence } from "./sequenceReducer";
 import SEQUENCES from "../config/constants/sequences";
 
