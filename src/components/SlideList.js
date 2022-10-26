@@ -9,6 +9,7 @@ function SlideList({ fileType, scrolledListRef, oppositeListRef }) {
   const { slides, slideWidth, slideHeight } = useSelector(
     ({ pptData }) => pptData[fileType].data,
   );
+
   const handleListScroll = (event) => {
     oppositeListRef.current.scrollTop = event.target.scrollTop;
   };

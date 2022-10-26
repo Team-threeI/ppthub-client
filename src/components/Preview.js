@@ -8,7 +8,7 @@ import SlideList from "./SlideList";
 function Preview() {
   return (
     <PreviewContainer>
-      <SlideList viewType={PPT_DATA_TYPES.MERGED_PPT_DATA} />
+      <SlideList fileType={PPT_DATA_TYPES.MERGED_PPT_DATA} />
     </PreviewContainer>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import axios from "axios";
@@ -17,6 +18,8 @@ function Footer() {
   const dispatch = useDispatch();
   const sequence = useSelector((state) => state.sequence);
   const mergeData = useSelector((state) => state.diffData);
+  const slideOrderList = useSelector((state) => state.slideOrderList);
+  const navigate = useNavigate();
 
   const { originalPptId, comparablePptId, mergedPptId, downloadUrl } =
     useSelector(({ pptData }) => ({
@@ -43,6 +46,7 @@ function Footer() {
       originalPptId,
       comparablePptId,
       mergeData,
+      slideOrderList,
     });
 
     dispatch(
@@ -66,9 +70,13 @@ function Footer() {
       }),
     );
     dispatch(changeSequence(SEQUENCES.PREVIEW));
+    navigate(`/${mergedPptId}/preview`);
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
+    await navigator.clipboard.writeText(
+      `https://ppthub.online/${mergedPptId}/download`,
+    );
     window.location.href = downloadUrl;
   };
 

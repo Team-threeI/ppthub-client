@@ -13,6 +13,7 @@ import NotFoundPage from "../components/NotFoundPage";
 import ErrorPage from "../components/ErrorPage";
 import RightSelectionBar from "../components/RightSelectionBar";
 import SEQUENCES from "../config/constants/sequences";
+import Download from "../components/Download";
 
 function App() {
   const sequence = useSelector((state) => state.sequence);
@@ -24,7 +25,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:ppt_id/preview" element={<Preview />} />
+          <Route path="/:id/preview" element={<Preview />} />
+          <Route path="/:id/download" element={<Download />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
