@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
@@ -10,29 +11,42 @@ import Main from "../components/Main";
 import Preview from "../components/Preview";
 import NotFoundPage from "../components/NotFoundPage";
 import ErrorPage from "../components/ErrorPage";
+import RightSelectionBar from "../components/RightSelectionBar";
+import SEQUENCES from "../config/constants/sequences";
 
 function App() {
+  const sequence = useSelector((state) => state.sequence);
+
   return (
     <AppContainer>
       <GlobalStyle />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/:ppt_id/preview" element={<Preview />} />
-        <Route path="/error" element={<ErrorPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <Footer />
+      <MainSection>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/:ppt_id/preview" element={<Preview />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        <Footer />
+      </MainSection>
+      {sequence === SEQUENCES.COMPARISION && <RightSelectionBar />}
     </AppContainer>
   );
 }
 
 const AppContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
+`;
+
+const MainSection = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default App;

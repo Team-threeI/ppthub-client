@@ -2,13 +2,13 @@ import React from "react";
 
 import styled from "styled-components";
 
-import MainSection from "./MainSection";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
+import SlideList from "./SlideList";
 
 function Preview() {
   return (
     <PreviewContainer>
-      <MainSection viewType={PPT_DATA_TYPES.MERGED_PPT_DATA} />
+      <SlideList viewType={PPT_DATA_TYPES.MERGED_PPT_DATA} />
     </PreviewContainer>
   );
 }
