@@ -10,14 +10,6 @@ import {
   toggleItemHovered,
 } from "../features/diffDataReducer";
 
-const getItemCheckByDiffState = (diffType, isChecked, isModified) => {
-  if (diffType === DIFF_TYPES.DELETED && isModified) {
-    return !isChecked;
-  }
-
-  return isChecked;
-};
-
 const getItemHighlightByDiffState = (isHovered, isChecked) => {
   if (isHovered) {
     return THEME_COLORS.HIGHLIGHT_HOVERED;
@@ -49,14 +41,16 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
           dispatch(toggleItemHovered({ itemId: itemData.itemId, slideId }))
         }
       >
-        <ItemHeader>{itemData.itemId}</ItemHeader>
-        <Checkbox
-          checked={isItemChecked}
-          type="checkbox"
-          onChange={() =>
-            dispatch(toggleItemChecked({ itemId: itemData.itemId, slideId }))
-          }
-        />
+        <a href={`#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`}>
+          <ItemHeader>{itemData.itemId}</ItemHeader>
+          <Checkbox
+            checked={isItemChecked}
+            type="checkbox"
+            onChange={() =>
+              dispatch(toggleItemChecked({ itemId: itemData.itemId, slideId }))
+            }
+          />
+        </a>
       </ItemLabel>
     </ItemSectionContainer>
   );

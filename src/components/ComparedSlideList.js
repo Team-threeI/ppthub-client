@@ -7,6 +7,7 @@ import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import SlideListSlideSection from "./SlideListSlideSection";
 
 function ComparedSlideList() {
+  const sortedSlideIdList = useSelector((state) => state.slideOrderList);
   const pptDataIdMap = useSelector(({ pptData }) => {
     const {
       [PPT_DATA_TYPES.ORIGINAL_PPT_DATA]: originalPpt,
@@ -38,7 +39,6 @@ function ComparedSlideList() {
       ),
     };
   });
-  const sortedSlideIdList = useSelector((state) => state.slideOrderList);
 
   return (
     <ComparedSlideListContainer>
@@ -76,6 +76,7 @@ const ComparedSlideListContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow: scroll;
+  scroll-behavior: smooth;
 `;
 
 const ComparedSlideSectionList = styled.div`
@@ -88,8 +89,8 @@ const ComparedSlideSectionList = styled.div`
 const EmptySlideSection = styled.div`
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
   margin-bottom: 0.5rem;
+  padding-bottom: 56.25%;
   flex: none;
 `;
 

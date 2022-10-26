@@ -1,4 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
+
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import { initializeDiffData } from "./diffDataReducer";
 import { changePreviousSequence } from "./sequenceReducer";

@@ -12,18 +12,18 @@ const slideOrderListReducer = createReducer([], {
       case PPT_DATA_TYPES.ORIGINAL_PPT_DATA:
         return Array.from(slideIds);
       case PPT_DATA_TYPES.COMPARABLE_PPT_DATA:
-        return state.reduce((acc, cur, index, array) => {
-          if (!slideIdsSet.has(cur)) {
+        return state.reduce((orederedList, cur, index, array) => {
+          if (!slideIdsSet.has(slideId)) {
             return index === array.length - 1
-              ? acc.concat([cur, ...slideIds])
-              : acc.concat(cur);
+              ? orederedList.concat([slideId, ...slideIds])
+              : orederedList.concat(slideId);
           }
 
-          const slideIdsIndex = slideIds.indexOf(cur);
+          const slideIdsIndex = slideIds.indexOf(slideId);
 
           return index === array.length - 1
-            ? acc.concat(slideIds)
-            : acc.concat(slideIds.splice(0, slideIdsIndex + 1));
+            ? orederedList.concat(slideIds)
+            : orederedList.concat(slideIds.splice(0, slideIdsIndex + 1));
         }, []);
       default:
         return state;
