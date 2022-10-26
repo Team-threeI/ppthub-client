@@ -42,13 +42,13 @@ const pptDataReducer = createReducer(initialState, {
 
     return state;
   },
-  // [initializeDiffData]: (state, action) => {
-  //   if (Object.keys(action.payload).length === 0) {
-  //     return initialState;
-  //   }
+  [initializeDiffData]: (state, action) => {
+    if (Object.keys(action.payload).length === 0) {
+      return initialState;
+    }
 
-  //   return state;
-  // },
+    return state;
+  },
 });
 
 export default pptDataReducer;

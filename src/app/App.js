@@ -8,7 +8,6 @@ import GlobalStyle from "./GlobalStyle";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Main from "../components/Main";
-import Preview from "../components/Preview";
 import NotFoundPage from "../components/NotFoundPage";
 import ErrorPage from "../components/ErrorPage";
 import RightSelectionBar from "../components/RightSelectionBar";
@@ -25,7 +24,6 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:id/preview" element={<Preview />} />
           <Route path="/:id/download" element={<Download />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<NotFoundPage />} />

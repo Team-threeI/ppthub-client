@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -8,10 +8,15 @@ import axios from "axios";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import { registerData } from "../features/pptDataReducer";
 import SlideList from "./SlideList";
+import SEQUENCES from "../config/constants/sequences";
+import { changeSequence } from "../features/sequenceReducer";
+
+import LoadingSpinner from "./LoadingSpinner";
 
 function Download() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const getPptData = async () => {
@@ -26,10 +31,16 @@ function Download() {
           data: response.data,
         }),
       );
+      dispatch(changeSequence(SEQUENCES.DOWNLOAD));
+      setIsFetching(true);
     };
 
     getPptData();
   }, [id, dispatch]);
+
+  if (!isFetching) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <DownloadContainer>

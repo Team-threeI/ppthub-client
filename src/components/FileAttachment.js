@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 
 import axios from "axios";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+import { FaArrowDown, FaRegWindowMinimize } from "react-icons/fa";
 
 import pptxParser from "../utils/pptxParser";
 import { registerData } from "../features/pptDataReducer";
 import { changeNextSequence } from "../features/sequenceReducer";
+import useDragAndDrop from "../hooks/useDragAndDrop";
+import useToast from "../hooks/useToast";
+import TOAST_MESSAGES from "../config/constants/toastMessages";
 
 function FileAttachment({ fileType }) {
   const dispatch = useDispatch();
+  const dragAndDropRef = useRef(null);
+  const [CustomToast, handleSendToast] = useToast(false);
 
   const handleFileChanged = async (event) => {
-    const pptData = await pptxParser(event.target.files[0]);
     const fileName = event.target.files[0].name.replace(".pptx", "");
+    const pptData = await pptxParser(event.target.files[0]);
     const response = await axios.post("/api/ppts/save", { pptData, fileName });
 
     dispatch(
@@ -22,22 +28,68 @@ function FileAttachment({ fileType }) {
     dispatch(changeNextSequence());
   };
 
+  const handleDragAndDropFileChanged = async (event) => {
+    if (event.dataTransfer.files[0].name.substr(-4, 4) !== "pptx") {
+      handleSendToast();
+      return false;
+    }
+
+    const fileName = event.dataTransfer.files[0].name.replace(".pptx", "");
+    const pptData = await pptxParser(event.dataTransfer.files[0]);
+    const response = await axios.post("/api/ppts/save", { pptData, fileName });
+
+    dispatch(
+      registerData({ type: fileType, pptId: response.data, data: pptData }),
+    );
+    dispatch(changeNextSequence());
+
+    return true;
+  };
+
+  const isDragging = useDragAndDrop({
+    onChange: handleDragAndDropFileChanged,
+    dragAndDropRef,
+  });
+
   return (
-    <FileInputLabel>
-      <FileAddButton />
+    <FileInputLabel ref={dragAndDropRef} isDragging={isDragging}>
+      <IconContainer>
+        <DownIcon />
+        <LineIcon />
+      </IconContainer>
       <FileInput
         type="file"
         accept=".pptx"
         onChange={(event) => handleFileChanged(event)}
       />
+      <CustomToast message={TOAST_MESSAGES.INVALID_FILE_MESSAGE} />
     </FileInputLabel>
   );
 }
 
-const FileAddButton = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #000;
+const iconAnimation = keyframes`
+  0% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(-55px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+`;
+
+const DownIcon = styled(FaArrowDown)`
+  margin-bottom: 5rem;
+  font-size: 5rem;
+  fill: #fd6347;
+`;
+
+const LineIcon = styled(FaRegWindowMinimize)`
+  position: absolute;
+  margin-top: 1.5rem;
+  font-size: 5rem;
+  fill: #fd6347;
 `;
 
 const FileInputLabel = styled.label`
@@ -48,9 +100,24 @@ const FileInputLabel = styled.label`
   height: 100%;
   cursor: pointer;
 
-  &:hover > * {
-    background-color: red;
+  ${DownIcon} {
+    animation: ${({ isDragging }) =>
+      isDragging &&
+      css`
+        ${iconAnimation} 1s ease infinite
+      `};
   }
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30vw;
+  height: 40vh;
+  margin-bottom: 5rem;
+  border: 2px dashed #fd6347;
 `;
 
 const FileInput = styled.input`
