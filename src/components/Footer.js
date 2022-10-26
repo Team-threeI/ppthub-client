@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,8 @@ import {
   changePreviousSequence,
 } from "../features/sequenceReducer";
 import { initializeDiffData } from "../features/diffDataReducer";
+import useToast from "../hooks/useToast";
+import TOAST_MESSAGES from "../config/constants/toastMessages";
 
 function Footer() {
   const dispatch = useDispatch();
@@ -20,6 +22,8 @@ function Footer() {
   const mergeData = useSelector((state) => state.diffData);
   const slideOrderList = useSelector((state) => state.slideOrderList);
   const navigate = useNavigate();
+  const [CustomToast, handleSendToast] = useToast(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   const { originalPptId, comparablePptId, mergedPptId, downloadUrl } =
     useSelector(({ pptData }) => ({
@@ -57,8 +61,8 @@ function Footer() {
     );
   };
 
-  const handlePreview = async () => {
-    const response = await axios.get("/api/:ppt_id/preview", {
+  const handleDownloadPage = async () => {
+    const response = await axios.get("/api/:ppt_id/download", {
       params: { mergedPptId },
     });
 
@@ -69,14 +73,16 @@ function Footer() {
         data: response.data,
       }),
     );
-    dispatch(changeSequence(SEQUENCES.PREVIEW));
-    navigate(`/${mergedPptId}/preview`);
+    dispatch(changeSequence(SEQUENCES.DOWNLOAD));
+    navigate(`/${mergedPptId}/download`);
   };
 
-  const handleDownload = async () => {
+  const handleFileDownload = async () => {
     await navigator.clipboard.writeText(
       `https://ppthub.online/${mergedPptId}/download`,
     );
+    handleSendToast();
+    setNotificationMessage(TOAST_MESSAGES.COPY_CLIPBOARD_MESSAGE);
     window.location.href = downloadUrl;
   };
 
@@ -98,17 +104,20 @@ function Footer() {
       return (
         <FooterContainer>
           {mergedPptId ? (
-            <FooterButton onClick={handlePreview}>미리보기</FooterButton>
+            <FooterButton onClick={handleDownloadPage}>
+              다운로드 페이지로
+            </FooterButton>
           ) : (
             <FooterButton onClick={handleMerge}>병합하기</FooterButton>
           )}
         </FooterContainer>
       );
-    case SEQUENCES.PREVIEW:
+    case SEQUENCES.DOWNLOAD:
       return (
         <FooterContainer>
           <FooterButton>되돌리기</FooterButton>
-          <FooterButton onClick={handleDownload}>다운로드</FooterButton>
+          <FooterButton onClick={handleFileDownload}>다운로드</FooterButton>
+          <CustomToast message={notificationMessage} />
         </FooterContainer>
       );
     default:
