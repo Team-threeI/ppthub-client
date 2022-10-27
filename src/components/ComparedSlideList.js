@@ -6,7 +6,7 @@ import styled from "styled-components";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import SlideListSlideSection from "./SlideListSlideSection";
 
-function ComparedSlideList() {
+function ComparedSlideList({ onListScroll }) {
   const sortedSlideIdList = useSelector((state) => state.slideOrderList);
   const pptDataIdMap = useSelector(({ pptData }) => {
     const {
@@ -41,7 +41,12 @@ function ComparedSlideList() {
   });
 
   return (
-    <ComparedSlideListContainer>
+    <ComparedSlideListContainer
+      onScroll={(event) => {
+        const { scrollHeight, offsetHeight, scrollTop } = event.target;
+        onListScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
+      }}
+    >
       {[
         PPT_DATA_TYPES.ORIGINAL_PPT_DATA,
         PPT_DATA_TYPES.COMPARABLE_PPT_DATA,
@@ -49,19 +54,18 @@ function ComparedSlideList() {
         <ComparedSlideSectionList key={fileType}>
           {sortedSlideIdList.map((slideId) =>
             pptDataIdMap[fileType].has(slideId) ? (
-              <>
-                <div id={`${slideId}-${fileType}`}></div>
+              <React.Fragment key={slideId}>
+                <div id={`${slideId}-${fileType}`} />
                 <SlideListSlideSection
-                  key={slideId}
                   slideData={pptDataIdMap[fileType].get(slideId)}
                   fileType={fileType}
                 />
-              </>
+              </React.Fragment>
             ) : (
-              <>
-                <div id={`${slideId}-${fileType}`}></div>
-                <EmptySlideSection key={slideId} />
-              </>
+              <React.Fragment key={slideId}>
+                <div id={`${slideId}-${fileType}`} />
+                <EmptySlideSection />
+              </React.Fragment>
             ),
           )}
         </ComparedSlideSectionList>

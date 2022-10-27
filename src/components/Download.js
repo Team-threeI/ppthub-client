@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import styled from "styled-components";
 import axios from "axios";
@@ -9,19 +9,24 @@ import SlideList from "./SlideList";
 import LoadingSpinner from "./LoadingSpinner";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import SEQUENCES from "../config/constants/sequences";
+import CONFIG from "../config/constants/config";
 import { changeSequence } from "../features/sequenceReducer";
 import { registerData } from "../features/pptDataReducer";
 
-function Download() {
+function Download({ onListScroll }) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const getPptData = async () => {
-      const response = await axios.get("/api/:ppt_id/download", {
-        params: { mergedPptId: id },
-      });
+      const response = await axios.get(
+        `${CONFIG.API_SERVER_URL}/:ppt_id/download`,
+        {
+          params: { mergedPptId: id },
+        },
+      );
 
       dispatch(
         registerData({
@@ -30,19 +35,28 @@ function Download() {
           data: response.data,
         }),
       );
-      dispatch(changeSequence(SEQUENCES.DOWNLOAD));
       setIsFetching(true);
     };
 
-    getPptData();
-  }, [id, dispatch]);
+    try {
+      dispatch(changeSequence(SEQUENCES.DOWNLOAD));
+      getPptData();
+    } catch (error) {
+      navigate("/error");
+    }
+  }, [id, dispatch, navigate]);
+
+  const handleListScroll = (event) => {
+    const { scrollHeight, offsetHeight, scrollTop } = event.target;
+    onListScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
+  };
 
   if (!isFetching) {
     return <LoadingSpinner />;
   }
 
   return (
-    <DownloadContainer>
+    <DownloadContainer onScroll={handleListScroll}>
       <SlideList fileType={PPT_DATA_TYPES.MERGED_PPT_DATA} />
     </DownloadContainer>
   );

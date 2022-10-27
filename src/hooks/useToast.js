@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import ToastNotification from "../components/ToastNotification";
 
 function useToast(initialState = false) {
-  const [sendToast, setSendToast] = useState(initialState);
-  const handleSendToast = () => setSendToast(true);
+  const [isSendToast, setIsSendToast] = useState(initialState);
+  const handleSendToast = () => setIsSendToast(true);
   const customToast = ({ message }) => (
     <ToastNotification
       message={message}
-      sendToast={sendToast}
-      setSendToast={setSendToast}
+      isSendToast={isSendToast}
+      setIsSendToast={setIsSendToast}
     />
   );
 

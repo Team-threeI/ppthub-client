@@ -21,7 +21,7 @@ const getHighlightByDiffState = (isHovered, isChecked) => {
     : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
-function SlideListSlideSection({ slideData, fileType }) {
+function SlideListSlideSection({ slideData }) {
   const dispatch = useDispatch();
   const { slideId, slideWidth, slideHeight } = slideData;
   const { diff, isChecked, isHovered } = useSelector(
@@ -47,7 +47,6 @@ function SlideListSlideSection({ slideData, fileType }) {
           key={item.itemId}
           itemData={{ ...item, slideWidth, slideHeight }}
           slideId={slideId}
-          fileType={fileType}
         />
       ))}
     </SlideSectionContainer>
@@ -82,9 +81,9 @@ const SlideSectionContainer = styled.section`
         background-image: repeating-linear-gradient(
           -45deg,
           transparent,
-          transparent 20px,
+          transparent 50px,
           ${highlight} 0,
-          ${highlight} 22px
+          ${highlight} 51.5px
         );
         z-index: 100;
       }

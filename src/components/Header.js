@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import THEME_COLORS from "../config/constants/themeColors";
 
-function Header() {
+function Header({ scroll }) {
   return (
     <HeaderContainer>
-      <HeaderTitle>PPTHub</HeaderTitle>
+      <HeaderTitle scroll={scroll}>PPTHub</HeaderTitle>
     </HeaderContainer>
   );
 }
@@ -36,7 +36,7 @@ const HeaderTitle = styled.h1`
     display: block;
     position: absolute;
     bottom: calc(-1rem - ((5px - 1px) / 2));
-    left: calc(50% - 1rem);
+    left: ${({ scroll }) => `calc(${scroll}% - 1rem)`};
     width: 2rem;
     height: 5px;
     background-color: #000000;

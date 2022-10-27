@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import DIFF_TYPES from "../config/constants/diffTypes";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
@@ -23,13 +23,13 @@ const getItemHighlightByDiffState = (
 
   if (fileType === PPT_DATA_TYPES.COMPARABLE_PPT_DATA && isModified) {
     return isChecked
-      ? THEME_COLORS.HIGHLIGHT_DELETED
-      : THEME_COLORS.HIGHLIGHT_ADDED;
+      ? THEME_COLORS.HIGHLIGHT_ADDED
+      : THEME_COLORS.HIGHLIGHT_DELETED;
   }
 
   return isChecked
-    ? THEME_COLORS.HIGHLIGHT_ADDED
-    : THEME_COLORS.HIGHLIGHT_DELETED;
+    ? THEME_COLORS.HIGHLIGHT_DELETED
+    : THEME_COLORS.HIGHLIGHT_ADDED;
 };
 
 function SlideListItemSection({ itemData, slideId, fileType }) {
@@ -95,27 +95,7 @@ const PositionBoxItem = styled.div`
   width: ${({ position }) => position.width};
   height: ${({ position }) => position.height};
   z-index: ${({ position }) => position.order};
-
-  ${({ isHighlightItem, highlight }) =>
-    isHighlightItem &&
-    css`
-      &::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0);
-        background-image: repeating-linear-gradient(
-          -45deg,
-          transparent,
-          transparent 11.5px,
-          ${highlight} 0,
-          ${highlight} 13px
-        );
-        border: 1.5px solid ${highlight};
-        z-index: 1;
-      }
-    `}
+  background: ${({ highlight }) => highlight};
 `;
 
 const TextItem = styled(PositionBoxItem)`
@@ -123,7 +103,7 @@ const TextItem = styled(PositionBoxItem)`
   align-items: center;
   justify-content: ${({ attribute }) => attribute.align};
   color: ${({ attribute }) => attribute.fontColor};
-  font-size: ${({ attribute }) => `${attribute.size / 23}vw`};
+  font-size: ${({ attribute }) => `${attribute.size / 24}vw`};
   text-decoration: ${({ attribute }) =>
     attribute.isUnderlined ? "underline" : "none"};
   font-weight: ${({ attribute }) => (attribute.isBold ? 700 : 500)};

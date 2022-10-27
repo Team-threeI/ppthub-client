@@ -66,7 +66,8 @@ const ItemLabel = styled.label`
 `;
 
 const ItemHeader = styled.h2`
-  margin: 0.7rem 0 0 0.7rem;
+  position: relative;
+  margin: 1rem 0 0 3rem;
   font-size: 1.1rem;
   text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   color: ${({ highlight }) => highlight};
@@ -77,8 +78,10 @@ const Checkbox = styled.input`
 `;
 
 const CheckStatus = styled.span`
+  position: absolute;
+  left: -1rem;
+  top: -0.2rem;
   font-size: 1.4rem;
-  margin-right: 0.5rem;
   color: inherit;
   text-shadow: none;
 `;

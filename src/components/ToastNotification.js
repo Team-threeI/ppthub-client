@@ -5,16 +5,16 @@ import styled from "styled-components";
 import THEME_COLORS from "../config/constants/themeColors";
 import ToastPortal from "../ToastPortal";
 
-function ToastNotification({ message, sendToast, setSendToast }) {
+function ToastNotification({ message, isSendToast, setIsSendToast }) {
   useEffect(() => {
     const removeToast = setTimeout(() => {
-      setSendToast(false);
+      setIsSendToast(false);
     }, 2000);
 
     return () => clearTimeout(removeToast);
-  }, [setSendToast]);
+  }, [setIsSendToast]);
 
-  if (!sendToast) {
+  if (!isSendToast) {
     return null;
   }
 
@@ -39,13 +39,13 @@ const TostContainer = styled.div`
   max-width: 18rem;
   min-height: 3rem;
   padding: 0.5rem;
-  border: none;
-  border-radius: 5px;
+  border-radius: 0.25rem;
   background-color: ${THEME_COLORS.MAIN_COLOR};
   animation-name: slideIn, slideOut;
   animation-delay: 0s, 1.5s;
   animation-duration: 1s, 1s;
   animation-iteration-count: 1;
+  z-index: 10;
 
   @keyframes slideIn {
     from {
@@ -67,9 +67,9 @@ const TostContainer = styled.div`
 `;
 
 const TostMessage = styled.p`
-  letter-spacing: 0.1rem;
   text-align: center;
   font-weight: 700;
+  color: #000000;
 `;
 
 export default ToastNotification;

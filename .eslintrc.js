@@ -18,5 +18,6 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "react/self-closing-comp": "off",
     "react/jsx-filename-extension": ["warn", { extensions: [".js"] }],
+    "no-param-reassign": 0,
   },
 };
