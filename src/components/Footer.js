@@ -7,14 +7,15 @@ import axios from "axios";
 
 import SEQUENCES from "../config/constants/sequences";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
+import TOAST_MESSAGES from "../config/constants/toastMessages";
+import THEME_COLORS from "../config/constants/themeColors";
 import { registerData } from "../features/pptDataReducer";
+import { initializeDiffData } from "../features/diffDataReducer";
 import {
   changeSequence,
   changePreviousSequence,
 } from "../features/sequenceReducer";
-import { initializeDiffData } from "../features/diffDataReducer";
 import useToast from "../hooks/useToast";
-import TOAST_MESSAGES from "../config/constants/toastMessages";
 
 function Footer() {
   const dispatch = useDispatch();
@@ -61,18 +62,7 @@ function Footer() {
     );
   };
 
-  const handleDownloadPage = async () => {
-    const response = await axios.get("/api/:ppt_id/download", {
-      params: { mergedPptId },
-    });
-
-    dispatch(
-      registerData({
-        type: PPT_DATA_TYPES.MERGED_PPT_DATA,
-        pptId: mergedPptId,
-        data: response.data,
-      }),
-    );
+  const handleDownloadPage = () => {
     dispatch(changeSequence(SEQUENCES.DOWNLOAD));
     navigate(`/${mergedPptId}/download`);
   };
@@ -126,21 +116,42 @@ function Footer() {
 }
 
 const FooterContainer = styled.footer`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 10%;
-  text-align: center;
-  background-color: gray;
+  height: 13vh;
+  background: ${THEME_COLORS.SECTION_BACKGROUND};
+  box-shadow: #30343f 10px 10px 20px;
+  z-index: 0;
 `;
 
 const FooterButton = styled.button`
-  width: 10vw;
-  height: 5vh;
-  margin: 1vmin 1vmin;
-  border: none;
-  border-radius: 1vmin;
-  background-color: #4e6af5;
-  color: #ffffff;
+  padding: 0.8rem 2rem;
+  margin-left: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  background-color: ${THEME_COLORS.MAIN_COLOR};
+  color: rgba(0, 0, 0, 0.85);
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
   font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.25s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    border-color: rgba(0, 0, 0, 0.15);
+    background-color: #f0f0f1;
+    color: rgba(0, 0, 0, 0.65);
+    transform: translateY(0);
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
 `;
 
 export default Footer;

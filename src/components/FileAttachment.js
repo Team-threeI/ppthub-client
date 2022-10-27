@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { FaArrowDown, FaRegWindowMinimize } from "react-icons/fa";
 
 import axios from "axios";
 import styled, { keyframes, css } from "styled-components";
-import { FaArrowDown, FaRegWindowMinimize } from "react-icons/fa";
 
 import pptxParser from "../utils/pptxParser";
 import { registerData } from "../features/pptDataReducer";
@@ -11,6 +11,7 @@ import { changeNextSequence } from "../features/sequenceReducer";
 import useDragAndDrop from "../hooks/useDragAndDrop";
 import useToast from "../hooks/useToast";
 import TOAST_MESSAGES from "../config/constants/toastMessages";
+import THEME_COLORS from "../config/constants/themeColors";
 
 function FileAttachment({ fileType }) {
   const dispatch = useDispatch();
@@ -80,16 +81,15 @@ const iconAnimation = keyframes`
 `;
 
 const DownIcon = styled(FaArrowDown)`
-  margin-bottom: 5rem;
+  margin-bottom: -5rem;
   font-size: 5rem;
-  fill: #fd6347;
+  fill: ${THEME_COLORS.MAIN_COLOR};
 `;
 
 const LineIcon = styled(FaRegWindowMinimize)`
-  position: absolute;
-  margin-top: 1.5rem;
-  font-size: 5rem;
-  fill: #fd6347;
+  height: 10rem;
+  width: 5rem;
+  fill: ${THEME_COLORS.MAIN_COLOR};
 `;
 
 const FileInputLabel = styled.label`
@@ -114,10 +114,10 @@ const IconContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: fixed;
   width: 30vw;
   height: 40vh;
-  margin-bottom: 5rem;
-  border: 2px dashed #fd6347;
+  border: 2px dashed ${THEME_COLORS.MAIN_COLOR};
 `;
 
 const FileInput = styled.input`

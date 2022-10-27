@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import THEME_COLORS from "../config/constants/themeColors";
+import "../fonts/font.css";
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -10,12 +11,9 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
-    background: ${THEME_COLORS.BACKGROUND_COLOR};
+    background: ${THEME_COLORS.MAIN_BACKGROUND};
+    font: 16px "GMarket", "sans-serif";
   }
 
   li {

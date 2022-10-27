@@ -5,12 +5,12 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
-import { registerData } from "../features/pptDataReducer";
 import SlideList from "./SlideList";
+import LoadingSpinner from "./LoadingSpinner";
+import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import SEQUENCES from "../config/constants/sequences";
 import { changeSequence } from "../features/sequenceReducer";
-import LoadingSpinner from "./LoadingSpinner";
+import { registerData } from "../features/pptDataReducer";
 
 function Download() {
   const { id } = useParams();
@@ -52,8 +52,13 @@ const DownloadContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  padding: 0 10vw;
   overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Download;

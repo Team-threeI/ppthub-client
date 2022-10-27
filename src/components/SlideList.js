@@ -9,7 +9,6 @@ function SlideList({ fileType, scrolledListRef, oppositeListRef }) {
   const { slides, slideWidth, slideHeight } = useSelector(
     ({ pptData }) => pptData[fileType].data,
   );
-
   const handleListScroll = (event) => {
     oppositeListRef.current.scrollTop = event.target.scrollTop;
   };
@@ -34,10 +33,10 @@ function SlideList({ fileType, scrolledListRef, oppositeListRef }) {
 const SlideListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0.5rem;
   width: 100%;
-  height: 100%;
-  overflow: auto;
+  height: 80%;
+  margin: 0.5rem;
+  margin-top: 1rem;
 `;
 
 export default SlideList;

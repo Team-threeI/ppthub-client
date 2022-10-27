@@ -40,17 +40,25 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
           onMouseEnter={() => dispatch(toggleSlideHovered(slideId))}
           onMouseLeave={() => dispatch(toggleSlideHovered(slideId))}
         >
-          <a href={`#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`}>
-            <SlideHeader>{slideName}</SlideHeader>
-            <Checkbox
-              type="checkbox"
-              checked={slideDiffData.isChecked}
-              onChange={() => dispatch(toggleSlideChecked(slideId))}
-            />
-          </a>
+          <SlideHeader
+            isChanged={isChangedSlide}
+            isShadowed={isChecked}
+            highlight={getHighlightByDiffState(isHovered, isChecked)}
+          >
+            <CheckStatus>{isChecked ? "+" : "-"}</CheckStatus>
+            {slideName}
+          </SlideHeader>
+          <Checkbox
+            type="checkbox"
+            checked={slideDiffData.isChecked}
+            onChange={() => {
+              window.location.href = `#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`;
+              dispatch(toggleSlideChecked(slideId));
+            }}
+          />
         </SlideLabel>
       ) : (
-        <a href={`#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`}>
+        <>
           <SlideHeader>{slideName}</SlideHeader>
           <ModifiedSlideItems>
             {slideItems.map((item) => (
@@ -62,25 +70,39 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
               />
             ))}
           </ModifiedSlideItems>
-        </a>
+        </>
       )}
     </SlideSectionContainer>
   );
 }
 
-const SlideSectionContainer = styled.li``;
+const SlideSectionContainer = styled.li`
+  overflow: auto;
+`;
 const SlideLabel = styled.label`
   display: block;
-  width: 100%;
-  height: 100%;
-  background-color: ${({ highlight }) => highlight};
+  height: 1.7rem;
+  margin-top: 1rem;
+  overflow-y: hidden;
 `;
-const SlideHeader = styled.h1``;
+const SlideHeader = styled.h1`
+  margin: 0.3rem 0 0 1rem;
+  font-size: 1.4rem;
+  text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  color: ${({ highlight }) => highlight};
+`;
 const Checkbox = styled.input`
   display: none;
 `;
 const ModifiedSlideItems = styled.ul`
   margin-left: 1rem;
+`;
+
+const CheckStatus = styled.span`
+  margin-right: 0.5rem;
+  font-size: 1.4rem;
+  color: inherit;
+  text-shadow: none;
 `;
 
 export default RightSelectionBarSlideSection;

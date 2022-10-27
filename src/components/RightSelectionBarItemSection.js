@@ -41,16 +41,20 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
           dispatch(toggleItemHovered({ itemId: itemData.itemId, slideId }))
         }
       >
-        <a href={`#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`}>
-          <ItemHeader>{itemData.itemId}</ItemHeader>
-          <Checkbox
-            checked={isItemChecked}
-            type="checkbox"
-            onChange={() =>
-              dispatch(toggleItemChecked({ itemId: itemData.itemId, slideId }))
-            }
-          />
-        </a>
+        <ItemHeader
+          highlight={getItemHighlightByDiffState(isHovered, isItemChecked)}
+        >
+          <CheckStatus>{isItemChecked ? "+" : "-"}</CheckStatus>
+          {itemData.itemId}
+        </ItemHeader>
+        <Checkbox
+          checked={isItemChecked}
+          type="checkbox"
+          onChange={() => {
+            window.location.href = `#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`;
+            dispatch(toggleItemChecked({ itemId: itemData.itemId, slideId }));
+          }}
+        />
       </ItemLabel>
     </ItemSectionContainer>
   );
@@ -59,11 +63,24 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
 const ItemSectionContainer = styled.li``;
 const ItemLabel = styled.label`
   display: block;
-  background: ${({ highlight }) => highlight};
 `;
-const ItemHeader = styled.h3``;
+
+const ItemHeader = styled.h2`
+  margin: 0.7rem 0 0 0.7rem;
+  font-size: 1.1rem;
+  text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  color: ${({ highlight }) => highlight};
+`;
+
 const Checkbox = styled.input`
   display: none;
+`;
+
+const CheckStatus = styled.span`
+  font-size: 1.4rem;
+  margin-right: 0.5rem;
+  color: inherit;
+  text-shadow: none;
 `;
 
 export default RightSelectionBarItemSection;

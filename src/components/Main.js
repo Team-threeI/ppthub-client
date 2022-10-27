@@ -57,7 +57,13 @@ const MainContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Main;
