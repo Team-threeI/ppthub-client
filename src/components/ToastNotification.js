@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
+
 import styled from "styled-components";
+
+import THEME_COLORS from "../config/constants/themeColors";
 import ToastPortal from "../ToastPortal";
 
 function ToastNotification({ message, sendToast, setSendToast }) {
@@ -38,11 +41,12 @@ const TostContainer = styled.div`
   padding: 0.5rem;
   border: none;
   border-radius: 5px;
-  background-color: #fd6347;
+  background-color: ${THEME_COLORS.MAIN_COLOR};
   animation-name: slideIn, slideOut;
   animation-delay: 0s, 1.5s;
   animation-duration: 1s, 1s;
   animation-iteration-count: 1;
+
   @keyframes slideIn {
     from {
       transform: translateX(-100%);

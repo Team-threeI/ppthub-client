@@ -1,4 +1,13 @@
+import React from "react";
 import styled, { keyframes } from "styled-components";
+
+function LoadingSpinner() {
+  return (
+    <LoadingSpinnerContainer>
+      <LoadingSpinnerMotion />
+    </LoadingSpinnerContainer>
+  );
+}
 
 const rotation = keyframes`
   0%,
@@ -11,15 +20,20 @@ const rotation = keyframes`
   }
 `;
 
-const LoadingSpinner = styled.div`
+const LoadingSpinnerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const LoadingSpinnerMotion = styled.div`
   position: absolute;
+  top: 35%;
+  left: 50%;
   width: 1.25rem;
   height: 1.25rem;
   margin: 6rem auto;
   border-radius: 50%;
-  color: #f97b7b;
   font-size: 0.5rem;
-  text-indent: -9999em;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation: ${rotation} 1.8s infinite ease-in-out;

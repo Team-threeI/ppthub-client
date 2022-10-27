@@ -72,11 +72,18 @@ function ComparedSlideList() {
 
 const ComparedSlideListContainer = styled.div`
   display: flex;
-  margin: 0.5rem;
   width: 100%;
   height: 100%;
+  margin: 0.5rem;
+  margin-top: 1rem;
   overflow: scroll;
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ComparedSlideSectionList = styled.div`
@@ -89,7 +96,6 @@ const ComparedSlideSectionList = styled.div`
 const EmptySlideSection = styled.div`
   position: relative;
   width: 100%;
-  margin-bottom: 0.5rem;
   padding-bottom: 56.25%;
   flex: none;
 `;

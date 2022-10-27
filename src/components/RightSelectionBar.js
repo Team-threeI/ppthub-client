@@ -2,9 +2,10 @@ import React from "react";
 import { createSelector } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import DIFF_TYPES from "../config/constants/diffTypes";
+import THEME_COLORS from "../config/constants/themeColors";
 import RightSelectionBarSlideSection from "./RightSelectionBarSlideSection";
 
 function RightSelectionBar() {
@@ -62,47 +63,82 @@ function RightSelectionBar() {
 
   return (
     <SelectionBarContainer>
-      <SelectionBarHeader>ADD</SelectionBarHeader>
-      <SelectionBarList>
-        {addedList.map((addedSlide) => (
-          <RightSelectionBarSlideSection
-            key={`${addedSlide.diff}/${addedSlide.slideId}`}
-            slideData={addedSlide}
-            diffType={DIFF_TYPES.ADDED}
-          />
-        ))}
-      </SelectionBarList>
-      <SelectionBarHeader>Undo</SelectionBarHeader>
-      <SelectionBarList>
-        {deletedList.map((deletedSlide) => (
-          <RightSelectionBarSlideSection
-            key={`${deletedSlide.diff}/${deletedSlide.slideId}`}
-            slideData={deletedSlide}
-            diffType={DIFF_TYPES.DELETED}
-          />
-        ))}
-      </SelectionBarList>
+      <SelectionBarSection>
+        <SelectionBarHeader>ADD</SelectionBarHeader>
+        <SelectionBarList>
+          {addedList.map((addedSlide) => (
+            <RightSelectionBarSlideSection
+              key={`${addedSlide.diff}/${addedSlide.slideId}`}
+              slideData={addedSlide}
+              diffType={DIFF_TYPES.ADDED}
+            />
+          ))}
+        </SelectionBarList>
+      </SelectionBarSection>
+      <SelectionBarSection>
+        <SelectionBarHeader>DELETE</SelectionBarHeader>
+        <SelectionBarList>
+          {deletedList.map((deletedSlide) => (
+            <RightSelectionBarSlideSection
+              key={`${deletedSlide.diff}/${deletedSlide.slideId}`}
+              slideData={deletedSlide}
+              diffType={DIFF_TYPES.DELETED}
+            />
+          ))}
+        </SelectionBarList>
+      </SelectionBarSection>
     </SelectionBarContainer>
   );
 }
 
+const slide = keyframes`
+  from {
+    width: 0;
+  }
+  to {
+    width: 25%;
+  }
+`;
+
 const SelectionBarContainer = styled.section`
+  padding: 8rem 0;
   display: flex;
   flex-direction: column;
-  width: 20vw;
+  width: 25%;
   height: 100%;
-  padding: 3rem 0;
-  background-color: #000;
+  background-color: ${THEME_COLORS.MAIN_BACKGROUND};
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  animation: ${slide} 1s ease-out;
+  z-index: 2;
+  overflow: hidden;
+`;
+
+const SelectionBarSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0 0 1rem 1rem;
 `;
 
 const SelectionBarHeader = styled.header`
-  padding-bottom: 1vh;
-  color: red;
-  font-family: "Lucida Sans", sans-serif;
+  width: 100%;
+  height: 2rem;
+  font-size: 1.7rem;
+  font-weight: 900;
 `;
 
 const SelectionBarList = styled.ul`
+  margin-top: 0.7rem;
   overflow: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default RightSelectionBar;

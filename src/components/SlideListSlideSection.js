@@ -56,12 +56,14 @@ function SlideListSlideSection({ slideData, fileType }) {
 
 const SlideSectionContainer = styled.section`
   position: relative;
-  width: 100%;
-  margin-bottom: 0.5rem;
-  border: 1px solid black;
+  margin: 1rem;
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
   background: ${THEME_COLORS.SLIDE_BACKGROUND};
+  box-shadow: rgba(6, 24, 44, 0.65) 0px 4px 6px -1px;
   aspect-ratio: ${({ slideAspectRatio }) => slideAspectRatio};
   flex: none;
+  font-family: "sans-serif";
 
   &:last-child {
     margin-bottom: 0;
@@ -75,6 +77,7 @@ const SlideSectionContainer = styled.section`
         position: absolute;
         width: 100%;
         height: 100%;
+        border: 1px solid ${highlight};
         background-color: rgba(0, 0, 0, 0);
         background-image: repeating-linear-gradient(
           -45deg,
@@ -83,7 +86,6 @@ const SlideSectionContainer = styled.section`
           ${highlight} 0,
           ${highlight} 22px
         );
-        border: 3px solid ${highlight};
         z-index: 100;
       }
     `}
