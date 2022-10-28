@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -16,15 +16,19 @@ import Download from "../components/Download";
 
 function App() {
   const sequence = useSelector((state) => state.sequence);
+  const [headerScroll, setHeaderScroll] = useState(50);
 
   return (
     <AppContainer>
       <GlobalStyle />
       <MainSection>
-        <Header />
+        <Header scroll={headerScroll} />
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/:id/download" element={<Download />} />
+          <Route path="/" element={<Main onListScroll={setHeaderScroll} />} />
+          <Route
+            path="/:id/download"
+            element={<Download onListScroll={setHeaderScroll} />}
+          />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

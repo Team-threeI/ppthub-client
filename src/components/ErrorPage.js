@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import errorImageSrc from "../images/error.png";
 
-function ErrorPage({ errorMessage }) {
+function ErrorPage() {
   const navigate = useNavigate();
 
   const handleClick = () => {

@@ -9,6 +9,7 @@ import SEQUENCES from "../config/constants/sequences";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import TOAST_MESSAGES from "../config/constants/toastMessages";
 import THEME_COLORS from "../config/constants/themeColors";
+import CONFIG from "../config/constants/config";
 import { registerData } from "../features/pptDataReducer";
 import { initializeDiffData } from "../features/diffDataReducer";
 import {
@@ -38,28 +39,43 @@ function Footer() {
     dispatch(changePreviousSequence());
   };
   const handleCompare = async () => {
-    const response = await axios.post("/api/ppts/compare", {
-      originalPptId,
-      comparablePptId,
-    });
+    try {
+      const response = await axios.post(
+        `${CONFIG.API_SERVER_URL}/ppts/compare`,
+        {
+          originalPptId,
+          comparablePptId,
+        },
+      );
+      dispatch(initializeDiffData(response.data));
+    } catch (error) {
+      navigate("/error");
+    }
 
     dispatch(changeSequence(SEQUENCES.COMPARISION));
-    dispatch(initializeDiffData(response.data));
   };
   const handleMerge = async () => {
-    const response = await axios.post("/api/ppts/merge", {
-      originalPptId,
-      comparablePptId,
-      mergeData,
-      slideOrderList,
-    });
+    try {
+      const response = await axios.post(`${CONFIG.API_SERVER_URL}/ppts/merge`, {
+        originalPptId,
+        comparablePptId,
+        mergeData,
+        slideOrderList,
+      });
 
-    dispatch(
-      registerData({
-        type: PPT_DATA_TYPES.MERGED_PPT_DATA,
-        pptId: response.data,
-      }),
-    );
+      dispatch(
+        registerData({
+          type: PPT_DATA_TYPES.MERGED_PPT_DATA,
+          pptId: response.data,
+        }),
+      );
+      handleSendToast();
+      setNotificationMessage(TOAST_MESSAGES.SUCCESS_MERGE_MESSAGE);
+    } catch (error) {
+      handleSendToast();
+      setNotificationMessage(TOAST_MESSAGES.FAILURE_MERGE_MESSAGE);
+      navigate("/error");
+    }
   };
 
   const handleDownloadPage = () => {
@@ -69,50 +85,55 @@ function Footer() {
 
   const handleFileDownload = async () => {
     await navigator.clipboard.writeText(
-      `https://ppthub.online/${mergedPptId}/download`,
+      `${CONFIG.CLIENT_URL}/${mergedPptId}/download`,
     );
-    handleSendToast();
     setNotificationMessage(TOAST_MESSAGES.COPY_CLIPBOARD_MESSAGE);
+    handleSendToast();
     window.location.href = downloadUrl;
   };
 
-  switch (sequence) {
-    case SEQUENCES.ADDED_ORIGINAL_FILE:
-      return (
-        <FooterContainer>
-          <FooterButton onClick={handlePreviousClick}>되돌리기</FooterButton>
-        </FooterContainer>
-      );
-    case SEQUENCES.ADDED_COMPARABLE_FILE:
-      return (
-        <FooterContainer>
-          <FooterButton onClick={handlePreviousClick}>되돌리기</FooterButton>
-          <FooterButton onClick={handleCompare}>비교하기</FooterButton>
-        </FooterContainer>
-      );
-    case SEQUENCES.COMPARISION:
-      return (
-        <FooterContainer>
-          {mergedPptId ? (
-            <FooterButton onClick={handleDownloadPage}>
-              다운로드 페이지로
-            </FooterButton>
-          ) : (
-            <FooterButton onClick={handleMerge}>병합하기</FooterButton>
-          )}
-        </FooterContainer>
-      );
-    case SEQUENCES.DOWNLOAD:
-      return (
-        <FooterContainer>
-          <FooterButton>되돌리기</FooterButton>
-          <FooterButton onClick={handleFileDownload}>다운로드</FooterButton>
-          <CustomToast message={notificationMessage} />
-        </FooterContainer>
-      );
-    default:
-      return <FooterContainer />;
-  }
+  return (
+    <FooterContainer>
+      {(() => {
+        switch (sequence) {
+          case SEQUENCES.ADDED_ORIGINAL_FILE:
+            return (
+              <FooterButton onClick={handlePreviousClick}>
+                되돌리기
+              </FooterButton>
+            );
+          case SEQUENCES.ADDED_COMPARABLE_FILE:
+            return (
+              <>
+                <FooterButton onClick={handlePreviousClick}>
+                  되돌리기
+                </FooterButton>
+                <FooterButton onClick={handleCompare}>비교하기</FooterButton>
+              </>
+            );
+          case SEQUENCES.COMPARISION:
+            return mergedPptId ? (
+              <FooterButton onClick={handleDownloadPage}>
+                다운로드 페이지로
+              </FooterButton>
+            ) : (
+              <FooterButton onClick={handleMerge}>합치기</FooterButton>
+            );
+          case SEQUENCES.DOWNLOAD:
+            return (
+              <FooterButton onClick={handleFileDownload}>다운로드</FooterButton>
+            );
+          case SEQUENCES.COMPLETE_DOWNLOAD:
+            return (
+              <FooterButton onClick={handleFileDownload}>처음으로</FooterButton>
+            );
+          default:
+            return null;
+        }
+      })()}
+      <CustomToast message={notificationMessage} />
+    </FooterContainer>
+  );
 }
 
 const FooterContainer = styled.footer`
@@ -137,6 +158,7 @@ const FooterButton = styled.button`
   font-weight: 700;
   font-size: 1.1rem;
   transition: all 0.25s;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);

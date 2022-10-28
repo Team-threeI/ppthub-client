@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FaArrowDown, FaRegWindowMinimize } from "react-icons/fa";
 
 import axios from "axios";
@@ -12,21 +13,30 @@ import useDragAndDrop from "../hooks/useDragAndDrop";
 import useToast from "../hooks/useToast";
 import TOAST_MESSAGES from "../config/constants/toastMessages";
 import THEME_COLORS from "../config/constants/themeColors";
+import CONFIG from "../config/constants/config";
 
 function FileAttachment({ fileType }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const dragAndDropRef = useRef(null);
   const [CustomToast, handleSendToast] = useToast(false);
 
   const handleFileChanged = async (event) => {
     const fileName = event.target.files[0].name.replace(".pptx", "");
-    const pptData = await pptxParser(event.target.files[0]);
-    const response = await axios.post("/api/ppts/save", { pptData, fileName });
 
-    dispatch(
-      registerData({ type: fileType, pptId: response.data, data: pptData }),
-    );
-    dispatch(changeNextSequence());
+    try {
+      const pptData = await pptxParser(event.target.files[0]);
+      const response = await axios.post(`${CONFIG.API_SERVER_URL}/ppts/save`, {
+        pptData,
+        fileName,
+      });
+      dispatch(
+        registerData({ type: fileType, pptId: response.data, data: pptData }),
+      );
+      dispatch(changeNextSequence());
+    } catch (error) {
+      navigate("/error");
+    }
   };
 
   const handleDragAndDropFileChanged = async (event) => {
@@ -35,16 +45,22 @@ function FileAttachment({ fileType }) {
       return false;
     }
 
-    const fileName = event.dataTransfer.files[0].name.replace(".pptx", "");
-    const pptData = await pptxParser(event.dataTransfer.files[0]);
-    const response = await axios.post("/api/ppts/save", { pptData, fileName });
+    try {
+      const fileName = event.dataTransfer.files[0].name.replace(".pptx", "");
+      const pptData = await pptxParser(event.dataTransfer.files[0]);
+      const response = await axios.post(`${CONFIG.API_SERVER_URL}/ppts/save`, {
+        pptData,
+        fileName,
+      });
 
-    dispatch(
-      registerData({ type: fileType, pptId: response.data, data: pptData }),
-    );
-    dispatch(changeNextSequence());
+      dispatch(
+        registerData({ type: fileType, pptId: response.data, data: pptData }),
+      );
+    } catch (error) {
+      navigate("/error");
+    }
 
-    return true;
+    return dispatch(changeNextSequence());
   };
 
   const isDragging = useDragAndDrop({
@@ -81,14 +97,14 @@ const iconAnimation = keyframes`
 `;
 
 const DownIcon = styled(FaArrowDown)`
-  margin-bottom: -5rem;
+  margin: 1rem 0 -2rem;
   font-size: 5rem;
   fill: ${THEME_COLORS.MAIN_COLOR};
 `;
 
 const LineIcon = styled(FaRegWindowMinimize)`
-  height: 10rem;
   width: 5rem;
+  height: 4rem;
   fill: ${THEME_COLORS.MAIN_COLOR};
 `;
 

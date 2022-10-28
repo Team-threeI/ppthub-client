@@ -59,7 +59,13 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
         </SlideLabel>
       ) : (
         <>
-          <SlideHeader>{slideName}</SlideHeader>
+          <SlideHeader
+            onClick={() => {
+              window.location.href = `#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`;
+            }}
+          >
+            {slideName}
+          </SlideHeader>
           <ModifiedSlideItems>
             {slideItems.map((item) => (
               <RightSelectionBarItemSection
@@ -81,12 +87,11 @@ const SlideSectionContainer = styled.li`
 `;
 const SlideLabel = styled.label`
   display: block;
-  height: 1.7rem;
-  margin-top: 1rem;
   overflow-y: hidden;
 `;
 const SlideHeader = styled.h1`
-  margin: 0.3rem 0 0 1rem;
+  position: relative;
+  margin: 1rem 0 0 2.5rem;
   font-size: 1.4rem;
   text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   color: ${({ highlight }) => highlight};
@@ -99,7 +104,8 @@ const ModifiedSlideItems = styled.ul`
 `;
 
 const CheckStatus = styled.span`
-  margin-right: 0.5rem;
+  position: absolute;
+  left: -1.2rem;
   font-size: 1.4rem;
   color: inherit;
   text-shadow: none;

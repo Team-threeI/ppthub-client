@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import styled from "styled-components";
@@ -9,38 +9,38 @@ import FileAttachment from "./FileAttachment";
 import SlideList from "./SlideList";
 import ComparedSlideList from "./ComparedSlideList";
 
-function Main() {
+function Main({ onListScroll }) {
   const sequence = useSelector((state) => state.sequence);
-  const originalScrolledList = useRef(null);
-  const comparableScrolledList = useRef(null);
+  const handleListScroll = (event) => {
+    const { scrollHeight, offsetHeight, scrollTop } = event.target;
+    onListScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
+  };
 
   switch (sequence) {
     case SEQUENCES.ADDED_ORIGINAL_FILE:
       return (
-        <MainContainer>
-          <SlideList fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA} />
+        <MainContainer onScroll={handleListScroll}>
+          <SlideList
+            fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA}
+            resetScroll={onListScroll}
+          />
           <FileAttachment fileType={PPT_DATA_TYPES.COMPARABLE_PPT_DATA} />
         </MainContainer>
       );
     case SEQUENCES.ADDED_COMPARABLE_FILE:
       return (
-        <MainContainer>
+        <MainContainer onScroll={handleListScroll}>
           <SlideList
             fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA}
-            scrolledListRef={originalScrolledList}
-            oppositeListRef={comparableScrolledList}
+            resetScroll={onListScroll}
           />
-          <SlideList
-            fileType={PPT_DATA_TYPES.COMPARABLE_PPT_DATA}
-            scrolledListRef={comparableScrolledList}
-            oppositeListRef={originalScrolledList}
-          />
+          <SlideList fileType={PPT_DATA_TYPES.COMPARABLE_PPT_DATA} />
         </MainContainer>
       );
     case SEQUENCES.COMPARISION:
       return (
         <MainContainer>
-          <ComparedSlideList />
+          <ComparedSlideList onListScroll={onListScroll} />
         </MainContainer>
       );
     case SEQUENCES.INITIAL_SEQUENCE:
@@ -66,4 +66,4 @@ const MainContainer = styled.div`
   }
 `;
 
-export default Main;
+export default React.memo(Main);

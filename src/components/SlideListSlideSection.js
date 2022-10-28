@@ -82,9 +82,9 @@ const SlideSectionContainer = styled.section`
         background-image: repeating-linear-gradient(
           -45deg,
           transparent,
-          transparent 20px,
+          transparent 50px,
           ${highlight} 0,
-          ${highlight} 22px
+          ${highlight} 51.5px
         );
         z-index: 100;
       }
