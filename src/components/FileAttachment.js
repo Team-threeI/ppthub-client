@@ -6,20 +6,17 @@ import { FaArrowDown, FaRegWindowMinimize } from "react-icons/fa";
 import axios from "axios";
 import styled, { keyframes, css } from "styled-components";
 
-import pptxParser from "../utils/pptxParser";
-import { registerData } from "../features/pptDataReducer";
-import { changeNextSequence } from "../features/sequenceReducer";
-import useDragAndDrop from "../hooks/useDragAndDrop";
-import useToast from "../hooks/useToast";
-import TOAST_MESSAGES from "../config/constants/toastMessages";
 import THEME_COLORS from "../config/constants/themeColors";
 import CONFIG from "../config/constants/config";
+import useDragAndDrop from "../hooks/useDragAndDrop";
+import { registerData } from "../features/pptDataReducer";
+import { changeNextSequence } from "../features/sequenceReducer";
+import pptxParser from "../utils/pptxParser";
 
 function FileAttachment({ fileType }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dragAndDropRef = useRef(null);
-  const [CustomToast, handleSendToast] = useToast(false);
 
   const handleFileChanged = async (event) => {
     const fileName = event.target.files[0].name.replace(".pptx", "");
@@ -41,7 +38,6 @@ function FileAttachment({ fileType }) {
 
   const handleDragAndDropFileChanged = async (event) => {
     if (event.dataTransfer.files[0].name.substr(-4, 4) !== "pptx") {
-      handleSendToast();
       return false;
     }
 
@@ -79,7 +75,6 @@ function FileAttachment({ fileType }) {
         accept=".pptx"
         onChange={(event) => handleFileChanged(event)}
       />
-      <CustomToast message={TOAST_MESSAGES.INVALID_FILE_MESSAGE} />
     </FileInputLabel>
   );
 }

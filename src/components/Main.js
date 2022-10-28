@@ -20,20 +20,14 @@ function Main({ onListScroll }) {
     case SEQUENCES.ADDED_ORIGINAL_FILE:
       return (
         <MainContainer onScroll={handleListScroll}>
-          <SlideList
-            fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA}
-            resetScroll={onListScroll}
-          />
+          <SlideList fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA} />
           <FileAttachment fileType={PPT_DATA_TYPES.COMPARABLE_PPT_DATA} />
         </MainContainer>
       );
     case SEQUENCES.ADDED_COMPARABLE_FILE:
       return (
         <MainContainer onScroll={handleListScroll}>
-          <SlideList
-            fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA}
-            resetScroll={onListScroll}
-          />
+          <SlideList fileType={PPT_DATA_TYPES.ORIGINAL_PPT_DATA} />
           <SlideList fileType={PPT_DATA_TYPES.COMPARABLE_PPT_DATA} />
         </MainContainer>
       );

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
+import SEQUENCES from "../config/constants/sequences";
 import GlobalStyle from "./GlobalStyle";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -11,7 +12,6 @@ import Main from "../components/Main";
 import NotFoundPage from "../components/NotFoundPage";
 import ErrorPage from "../components/ErrorPage";
 import RightSelectionBar from "../components/RightSelectionBar";
-import SEQUENCES from "../config/constants/sequences";
 import Download from "../components/Download";
 
 function App() {

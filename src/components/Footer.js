@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,6 @@ import axios from "axios";
 
 import SEQUENCES from "../config/constants/sequences";
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
-import TOAST_MESSAGES from "../config/constants/toastMessages";
 import THEME_COLORS from "../config/constants/themeColors";
 import CONFIG from "../config/constants/config";
 import { registerData } from "../features/pptDataReducer";
@@ -15,17 +14,18 @@ import { initializeDiffData } from "../features/diffDataReducer";
 import {
   changeSequence,
   changePreviousSequence,
+  initializeSequence,
 } from "../features/sequenceReducer";
-import useToast from "../hooks/useToast";
+import { useToast } from "../hooks/useToast";
+import TOAST_MESSAGES from "../config/constants/toastMessages";
 
 function Footer() {
+  const toast = useToast();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const sequence = useSelector((state) => state.sequence);
   const mergeData = useSelector((state) => state.diffData);
   const slideOrderList = useSelector((state) => state.slideOrderList);
-  const navigate = useNavigate();
-  const [CustomToast, handleSendToast] = useToast(false);
-  const [notificationMessage, setNotificationMessage] = useState("");
 
   const { originalPptId, comparablePptId, mergedPptId, downloadUrl } =
     useSelector(({ pptData }) => ({
@@ -38,6 +38,7 @@ function Footer() {
   const handlePreviousClick = () => {
     dispatch(changePreviousSequence());
   };
+
   const handleCompare = async () => {
     try {
       const response = await axios.post(
@@ -54,6 +55,7 @@ function Footer() {
 
     dispatch(changeSequence(SEQUENCES.COMPARISION));
   };
+
   const handleMerge = async () => {
     try {
       const response = await axios.post(`${CONFIG.API_SERVER_URL}/ppts/merge`, {
@@ -69,27 +71,31 @@ function Footer() {
           pptId: response.data,
         }),
       );
-      handleSendToast();
-      setNotificationMessage(TOAST_MESSAGES.SUCCESS_MERGE_MESSAGE);
+      toast(TOAST_MESSAGES.SUCCESS_MERGE_MESSAGE);
     } catch (error) {
-      handleSendToast();
-      setNotificationMessage(TOAST_MESSAGES.FAILURE_MERGE_MESSAGE);
+      toast(TOAST_MESSAGES.FAILURE_MERGE_MESSAGE);
       navigate("/error");
     }
   };
 
   const handleDownloadPage = () => {
     dispatch(changeSequence(SEQUENCES.DOWNLOAD));
-    navigate(`/${mergedPptId}/download`);
+    navigate(`/${mergedPptId}/download`, { replace: true });
   };
 
   const handleFileDownload = async () => {
     await navigator.clipboard.writeText(
       `${CONFIG.CLIENT_URL}/${mergedPptId}/download`,
     );
-    setNotificationMessage(TOAST_MESSAGES.COPY_CLIPBOARD_MESSAGE);
-    handleSendToast();
+
+    toast(TOAST_MESSAGES.COPY_CLIPBOARD_MESSAGE);
     window.location.href = downloadUrl;
+    dispatch(changeSequence(SEQUENCES.COMPLETED_DOWNLOAD));
+  };
+
+  const handleInitialClick = () => {
+    dispatch(initializeSequence());
+    navigate("/", { replace: true });
   };
 
   return (
@@ -123,15 +129,14 @@ function Footer() {
             return (
               <FooterButton onClick={handleFileDownload}>다운로드</FooterButton>
             );
-          case SEQUENCES.COMPLETE_DOWNLOAD:
+          case SEQUENCES.COMPLETED_DOWNLOAD:
             return (
-              <FooterButton onClick={handleFileDownload}>처음으로</FooterButton>
+              <FooterButton onClick={handleInitialClick}>처음으로</FooterButton>
             );
           default:
             return null;
         }
       })()}
-      <CustomToast message={notificationMessage} />
     </FooterContainer>
   );
 }

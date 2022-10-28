@@ -1,11 +1,26 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
+
 import THEME_COLORS from "../config/constants/themeColors";
+import { initializeSequence } from "../features/sequenceReducer";
 
 function Header({ scroll }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleInitialClick = () => {
+    dispatch(initializeSequence());
+    navigate("/", { replace: true });
+  };
+
   return (
     <HeaderContainer>
-      <HeaderTitle scroll={scroll}>PPTHub</HeaderTitle>
+      <HeaderTitle onClick={handleInitialClick} scroll={scroll}>
+        PPTHub
+      </HeaderTitle>
     </HeaderContainer>
   );
 }
@@ -19,6 +34,7 @@ const HeaderContainer = styled.header`
   box-shadow: rgba(0, 0, 0, 0.4) 1px 0.25px 10px 0.5px;
   background: ${THEME_COLORS.SECTION_BACKGROUND};
   z-index: 1;
+  cursor: pointer;
 `;
 
 const HeaderTitle = styled.h1`

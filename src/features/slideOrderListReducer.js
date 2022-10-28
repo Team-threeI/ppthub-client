@@ -1,6 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
+
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import { registerData } from "./pptDataReducer";
+import { initializeSequence } from "./sequenceReducer";
 
 const slideOrderListReducer = createReducer([], {
   [registerData]: (state, action) => {
@@ -28,6 +30,9 @@ const slideOrderListReducer = createReducer([], {
       default:
         return state;
     }
+  },
+  [initializeSequence]: () => {
+    return [];
   },
 });
 

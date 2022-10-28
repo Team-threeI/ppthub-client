@@ -1,8 +1,8 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
-import { changeSequence } from "./sequenceReducer";
 import DIFF_TYPES from "../config/constants/diffTypes";
 import SEQUENCES from "../config/constants/sequences";
+import { changeSequence, initializeSequence } from "./sequenceReducer";
 
 export const initializeDiffData = createAction("initializeDiffData");
 export const toggleSlideChecked = createAction("toggleSlideChecked");
@@ -101,6 +101,9 @@ const diffDataReducer = createReducer(initialState, {
     }
 
     return {};
+  },
+  [initializeSequence]: () => {
+    return initialState;
   },
 });
 
