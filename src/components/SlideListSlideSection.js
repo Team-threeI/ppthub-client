@@ -21,7 +21,7 @@ const getHighlightByDiffState = (isHovered, isChecked) => {
     : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
-function SlideListSlideSection({ slideData }) {
+function SlideListSlideSection({ slideData, fileType }) {
   const dispatch = useDispatch();
   const { slideId, slideWidth, slideHeight } = slideData;
   const { diff, isChecked, isHovered } = useSelector(
@@ -47,6 +47,7 @@ function SlideListSlideSection({ slideData }) {
           key={item.itemId}
           itemData={{ ...item, slideWidth, slideHeight }}
           slideId={slideId}
+          fileType={fileType}
         />
       ))}
     </SlideSectionContainer>

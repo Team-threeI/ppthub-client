@@ -97,15 +97,14 @@ const iconAnimation = keyframes`
 `;
 
 const DownIcon = styled(FaArrowDown)`
-  margin-top: 1rem;
-  margin-bottom: -2rem;
+  margin: 1rem 0 -2rem;
   font-size: 5rem;
   fill: ${THEME_COLORS.MAIN_COLOR};
 `;
 
 const LineIcon = styled(FaRegWindowMinimize)`
-  height: 4rem;
   width: 5rem;
+  height: 4rem;
   fill: ${THEME_COLORS.MAIN_COLOR};
 `;
 

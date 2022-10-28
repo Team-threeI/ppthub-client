@@ -79,8 +79,8 @@ const Checkbox = styled.input`
 
 const CheckStatus = styled.span`
   position: absolute;
-  left: -1rem;
   top: -0.2rem;
+  left: -1rem;
   font-size: 1.4rem;
   color: inherit;
   text-shadow: none;
