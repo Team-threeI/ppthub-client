@@ -85,7 +85,7 @@ function Footer() {
 
   const handleFileDownload = async () => {
     await navigator.clipboard.writeText(
-      `https://ppthub.online/${mergedPptId}/download`,
+      `${CONFIG.CLIENT_URL}/${mergedPptId}/download`,
     );
     setNotificationMessage(TOAST_MESSAGES.COPY_CLIPBOARD_MESSAGE);
     handleSendToast();
@@ -158,6 +158,7 @@ const FooterButton = styled.button`
   font-weight: 700;
   font-size: 1.1rem;
   transition: all 0.25s;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
