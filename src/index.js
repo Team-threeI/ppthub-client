@@ -5,12 +5,15 @@ import { Provider } from "react-redux";
 
 import App from "./app/App";
 import store from "./app/store";
+import { ToastProvider } from "./hooks/useToast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <ToastProvider>
+        <App />
+      </ToastProvider>
     </Router>
   </Provider>,
 );
