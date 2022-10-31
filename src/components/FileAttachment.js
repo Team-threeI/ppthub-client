@@ -11,11 +11,14 @@ import CONFIG from "../config/constants/config";
 import useDragAndDrop from "../hooks/useDragAndDrop";
 import { registerData } from "../features/pptDataReducer";
 import { changeNextSequence } from "../features/sequenceReducer";
+import { useToast } from "../hooks/useToast";
+import TOAST_MESSAGES from "../config/constants/toastMessages";
 import pptxParser from "../utils/pptxParser";
 
 function FileAttachment({ fileType }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
   const dragAndDropRef = useRef(null);
 
   const handleFileChanged = async (event) => {
@@ -38,7 +41,7 @@ function FileAttachment({ fileType }) {
 
   const handleDragAndDropFileChanged = async (event) => {
     if (event.dataTransfer.files[0].name.substr(-4, 4) !== "pptx") {
-      return false;
+      return toast(TOAST_MESSAGES.INVALID_FILE_MESSAGE);
     }
 
     try {
