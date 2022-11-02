@@ -112,7 +112,6 @@ const FileInputLabel = styled.label`
   align-items: center;
   width: 100%;
   height: 100%;
-  cursor: pointer;
 
   ${DownIcon} {
     animation: ${({ isDragging }) =>
@@ -132,6 +131,7 @@ const IconContainer = styled.div`
   width: 30vw;
   height: 40vh;
   border: 2px dashed ${THEME_COLORS.MAIN_COLOR};
+  cursor: pointer;
 `;
 
 const FileInput = styled.input`

@@ -85,10 +85,12 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
 const SlideSectionContainer = styled.li`
   overflow: auto;
 `;
+
 const SlideLabel = styled.label`
   display: block;
   overflow-y: hidden;
 `;
+
 const SlideHeader = styled.h1`
   position: relative;
   margin: 1rem 0 0 2.5rem;
@@ -96,9 +98,11 @@ const SlideHeader = styled.h1`
   text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   color: ${({ highlight }) => highlight};
 `;
+
 const Checkbox = styled.input`
   display: none;
 `;
+
 const ModifiedSlideItems = styled.ul`
   margin-left: 1rem;
 `;
