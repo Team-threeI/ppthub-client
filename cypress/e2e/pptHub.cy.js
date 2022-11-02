@@ -23,9 +23,9 @@ describe("PPTHub 테스트", () => {
     cy.viewport(1536, 960);
   });
 
-  it("처음 사이트에 접속할 시 타이틀과 샘플 다운로드 버튼이 보임", () => {
+  it("처음 사이트에 접속할 시 타이틀과 샘플 파일 첨부가 보임", () => {
     cy.title().should("include", "PPTHub");
-    cy.findByText("비교용 샘플 파일 다운로드").should("exist");
+    cy.findByText("샘플 파일 첨부").should("exist");
   });
 
   it("두개의 ppt파일을 업로드하면 화면에 렌더링되고 비교하기 버튼이 나타남", () => {
