@@ -25,12 +25,12 @@ function App() {
       <GlobalStyle />
       <MainSection>
         <Header scroll={headerScroll} setIsOpenModal={setIsOpenModal} />
-        {isOpenModal ? (
+        {isOpenModal && (
           <ExplainModal
             isOpenModal={isOpenModal}
             setIsOpenModal={setIsOpenModal}
           />
-        ) : undefined}
+        )}
         <Routes>
           <Route path="/" element={<Main onListScroll={setHeaderScroll} />} />
           <Route
