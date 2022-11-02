@@ -4,8 +4,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
 
 import THEME_COLORS from "../config/constants/themeColors";
+import CONFIG from "../config/constants/config";
 
-function ExplainModal({ isOpenModal, setIsOpenModal }) {
+function ExplainModal({ isOpenModal, onModalStatusChanged }) {
   if (!isOpenModal) {
     return null;
   }
@@ -14,18 +15,18 @@ function ExplainModal({ isOpenModal, setIsOpenModal }) {
     event.stopPropagation();
 
     if (event.currentTarget === event.target) {
-      setIsOpenModal(false);
+      onModalStatusChanged(false);
     }
   };
 
   return (
     <ExplainModalContainer onClick={handleOuterClick} data-testid="modal">
       <ExplainModalBox>
-        <CloseButton onClick={() => setIsOpenModal(false)}>
+        <CloseButton onClick={() => onModalStatusChanged(false)}>
           <CloseIcon />
         </CloseButton>
         <VideoIframe
-          src="https://www.youtube.com/embed/37LBz-SKdxM"
+          src={CONFIG.EXPLAIN_YOUTUBE_URL}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -48,6 +49,7 @@ const ExplainModalContainer = styled.div`
   animation-name: fadeIn;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
+
   @keyframes fadeIn {
     from {
       opacity: 0;

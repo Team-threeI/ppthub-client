@@ -8,7 +8,7 @@ import styled from "styled-components";
 import THEME_COLORS from "../config/constants/themeColors";
 import { initializeSequence } from "../features/sequenceReducer";
 
-function Header({ scroll, setIsOpenModal }) {
+function Header({ scroll, onModalStatusChanged }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,12 +20,12 @@ function Header({ scroll, setIsOpenModal }) {
   const handleClick = (event) => {
     event.preventDefault();
 
-    setIsOpenModal(true);
+    onModalStatusChanged(true);
   };
 
   return (
     <HeaderContainer>
-      <BsQuestionCircle className="logo" onClick={handleClick} />
+      <ExplainIcon onClick={handleClick} />
       <HeaderTitle onClick={handleInitialClick} scroll={scroll}>
         PPTHub
       </HeaderTitle>
@@ -43,13 +43,13 @@ const HeaderContainer = styled.header`
   background: ${THEME_COLORS.SECTION_BACKGROUND};
   z-index: 1;
   cursor: pointer;
+`;
 
-  .logo {
-    position: fixed;
-    top: 5%;
-    left: 2%;
-    font-size: 2rem;
-  }
+const ExplainIcon = styled(BsQuestionCircle)`
+  position: fixed;
+  top: 5%;
+  left: 2%;
+  font-size: 2rem;
 `;
 
 const HeaderTitle = styled.h1`

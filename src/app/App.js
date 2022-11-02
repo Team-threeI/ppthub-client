@@ -24,11 +24,11 @@ function App() {
     <AppContainer>
       <GlobalStyle />
       <MainSection>
-        <Header scroll={headerScroll} setIsOpenModal={setIsOpenModal} />
+        <Header scroll={headerScroll} onModalStatusChanged={setIsOpenModal} />
         {isOpenModal && (
           <ExplainModal
             isOpenModal={isOpenModal}
-            setIsOpenModal={setIsOpenModal}
+            onModalStatusChanged={setIsOpenModal}
           />
         )}
         <Routes>
