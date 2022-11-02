@@ -4,7 +4,12 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ["airbnb", "airbnb/hooks", "plugin:prettier/recommended"],
+  extends: [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:cypress/recommended",
+    "plugin:prettier/recommended",
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: "latest",

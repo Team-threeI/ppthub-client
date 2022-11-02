@@ -31,7 +31,7 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
     diffType === DIFF_TYPES.ADDED && isModified ? !isChecked : isChecked;
 
   return (
-    <ItemSectionContainer>
+    <li>
       <ItemLabel
         highlight={getItemHighlightByDiffState(isHovered, isItemChecked)}
         onMouseEnter={() =>
@@ -56,11 +56,10 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
           }}
         />
       </ItemLabel>
-    </ItemSectionContainer>
+    </li>
   );
 }
 
-const ItemSectionContainer = styled.li``;
 const ItemLabel = styled.label`
   display: block;
 `;
