@@ -7,6 +7,7 @@ import styled from "styled-components";
 import SEQUENCES from "../config/constants/sequences";
 import GlobalStyle from "./GlobalStyle";
 import Header from "../components/Header";
+import ExplainModal from "../components/ExplainModal";
 import Footer from "../components/Footer";
 import Main from "../components/Main";
 import NotFoundPage from "../components/NotFoundPage";
@@ -17,12 +18,19 @@ import Download from "../components/Download";
 function App() {
   const sequence = useSelector((state) => state.sequence);
   const [headerScroll, setHeaderScroll] = useState(50);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <AppContainer>
       <GlobalStyle />
       <MainSection>
-        <Header scroll={headerScroll} />
+        <Header scroll={headerScroll} setIsOpenModal={setIsOpenModal} />
+        {isOpenModal ? (
+          <ExplainModal
+            isOpenModal={isOpenModal}
+            setIsOpenModal={setIsOpenModal}
+          />
+        ) : undefined}
         <Routes>
           <Route path="/" element={<Main onListScroll={setHeaderScroll} />} />
           <Route
