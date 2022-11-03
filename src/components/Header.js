@@ -42,7 +42,6 @@ const HeaderContainer = styled.header`
   box-shadow: rgba(0, 0, 0, 0.4) 1px 0.25px 10px 0.5px;
   background: ${THEME_COLORS.SECTION_BACKGROUND};
   z-index: 1;
-  cursor: pointer;
 `;
 
 const ExplainIcon = styled(BsQuestionCircle)`
@@ -50,6 +49,7 @@ const ExplainIcon = styled(BsQuestionCircle)`
   top: 5%;
   left: 2%;
   font-size: 2rem;
+  cursor: pointer;
 `;
 
 const HeaderTitle = styled.h1`
@@ -61,6 +61,7 @@ const HeaderTitle = styled.h1`
   color: ${THEME_COLORS.MAIN_COLOR};
   text-align: center;
   text-transform: uppercase;
+  cursor: pointer;
 
   &:before {
     content: "";
