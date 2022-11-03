@@ -8,7 +8,7 @@ import styled from "styled-components";
 import THEME_COLORS from "../config/constants/themeColors";
 import { initializeSequence } from "../features/sequenceReducer";
 
-function Header({ scroll, onModalStatusChanged }) {
+function Header({ scroll, toggleModal }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ function Header({ scroll, onModalStatusChanged }) {
   const handleClick = (event) => {
     event.preventDefault();
 
-    onModalStatusChanged(true);
+    toggleModal();
   };
 
   return (

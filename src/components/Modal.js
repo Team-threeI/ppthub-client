@@ -1,12 +1,17 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 
 import styled from "styled-components";
 
 import THEME_COLORS from "../config/constants/themeColors";
-import CONFIG from "../config/constants/config";
 
-function ExplainModal({ isOpenModal, onModalStatusChanged }) {
+function ModalPortal({ children }) {
+  const ModalRoot = document.getElementById("portal-root");
+  return ReactDOM.createPortal(children, ModalRoot);
+}
+
+function Modal({ children, isOpenModal, onModalStatusChanged }) {
   if (!isOpenModal) {
     return null;
   }
@@ -20,24 +25,20 @@ function ExplainModal({ isOpenModal, onModalStatusChanged }) {
   };
 
   return (
-    <ExplainModalContainer onClick={handleOuterClick} data-testid="modal">
-      <ExplainModalBox>
-        <CloseButton onClick={() => onModalStatusChanged(false)}>
-          <CloseIcon />
-        </CloseButton>
-        <VideoIframe
-          src={CONFIG.EXPLAIN_YOUTUBE_URL}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        />
-      </ExplainModalBox>
-    </ExplainModalContainer>
+    <ModalPortal>
+      <ModalContainer onClick={handleOuterClick} data-testid="modal">
+        <ModalBox>
+          <CloseButton onClick={() => onModalStatusChanged(false)}>
+            <CloseIcon />
+          </CloseButton>
+          {children}
+        </ModalBox>
+      </ModalContainer>
+    </ModalPortal>
   );
 }
 
-const ExplainModalContainer = styled.div`
+const ModalContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -60,7 +61,7 @@ const ExplainModalContainer = styled.div`
   }
 `;
 
-const ExplainModalBox = styled.div`
+const ModalBox = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -96,9 +97,4 @@ const CloseIcon = styled(AiOutlineClose)`
   font-size: 1.1rem;
 `;
 
-const VideoIframe = styled.iframe`
-  width: 100%;
-  height: 100%;
-`;
-
-export default ExplainModal;
+export default Modal;
