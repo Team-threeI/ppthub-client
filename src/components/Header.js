@@ -25,7 +25,7 @@ function Header({ scroll, toggleModal }) {
 
   return (
     <HeaderContainer>
-      <ExplainIcon onClick={handleClick} />
+      <ExplainIcon title="Guide for Using PPTHUB" onClick={handleClick} />
       <HeaderTitle onClick={handleInitialClick} scroll={scroll}>
         PPTHub
       </HeaderTitle>
