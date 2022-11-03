@@ -6,11 +6,14 @@ import { BsQuestionCircle } from "react-icons/bs";
 import styled from "styled-components";
 
 import THEME_COLORS from "../config/constants/themeColors";
+import CONFIG from "../config/constants/config";
 import { initializeSequence } from "../features/sequenceReducer";
+import useModal from "../hooks/useModal";
 
-function Header({ scroll, toggleModal }) {
+function Header({ scroll }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ExplainModal, toggleModal] = useModal();
 
   const handleInitialClick = () => {
     dispatch(initializeSequence());
@@ -29,6 +32,15 @@ function Header({ scroll, toggleModal }) {
       <HeaderTitle onClick={handleInitialClick} scroll={scroll}>
         PPTHub
       </HeaderTitle>
+      <ExplainModal>
+        <VideoIframe
+          src={CONFIG.EXPLAIN_YOUTUBE_URL}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      </ExplainModal>
     </HeaderContainer>
   );
 }
@@ -84,6 +96,11 @@ const HeaderTitle = styled.h1`
     bottom: -1rem;
     background-color: #000000;
   }
+`;
+
+const VideoIframe = styled.iframe`
+  width: 100%;
+  height: 100%;
 `;
 
 export default Header;
