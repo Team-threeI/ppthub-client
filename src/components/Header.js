@@ -1,26 +1,46 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { BsQuestionCircle } from "react-icons/bs";
 
 import styled from "styled-components";
 
 import THEME_COLORS from "../config/constants/themeColors";
+import CONFIG from "../config/constants/config";
 import { initializeSequence } from "../features/sequenceReducer";
+import useModal from "../hooks/useModal";
 
 function Header({ scroll }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ExplainModal, toggleModal] = useModal();
 
   const handleInitialClick = () => {
     dispatch(initializeSequence());
     navigate("/", { replace: true });
   };
 
+  const handleClick = (event) => {
+    event.preventDefault();
+
+    toggleModal();
+  };
+
   return (
     <HeaderContainer>
+      <ExplainIcon title="Guide for Using PPTHUB" onClick={handleClick} />
       <HeaderTitle onClick={handleInitialClick} scroll={scroll}>
         PPTHub
       </HeaderTitle>
+      <ExplainModal>
+        <VideoIframe
+          src={CONFIG.EXPLAIN_YOUTUBE_URL}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      </ExplainModal>
     </HeaderContainer>
   );
 }
@@ -34,6 +54,13 @@ const HeaderContainer = styled.header`
   box-shadow: rgba(0, 0, 0, 0.4) 1px 0.25px 10px 0.5px;
   background: ${THEME_COLORS.SECTION_BACKGROUND};
   z-index: 1;
+`;
+
+const ExplainIcon = styled(BsQuestionCircle)`
+  position: fixed;
+  top: 5%;
+  left: 2%;
+  font-size: 2rem;
   cursor: pointer;
 `;
 
@@ -46,6 +73,7 @@ const HeaderTitle = styled.h1`
   color: ${THEME_COLORS.MAIN_COLOR};
   text-align: center;
   text-transform: uppercase;
+  cursor: pointer;
 
   &:before {
     content: "";
@@ -68,6 +96,11 @@ const HeaderTitle = styled.h1`
     bottom: -1rem;
     background-color: #000000;
   }
+`;
+
+const VideoIframe = styled.iframe`
+  width: 100%;
+  height: 100%;
 `;
 
 export default Header;
