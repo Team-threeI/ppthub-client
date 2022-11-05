@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import THEME_COLORS from "../config/constants/themeColors";
-import "../fonts/font.css";
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
