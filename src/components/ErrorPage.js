@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import styled from "styled-components";
-import SEQUENCES from "../config/constants/sequences";
 
+import SEQUENCES from "../config/constants/sequences";
 import THEME_COLORS from "../config/constants/themeColors";
 import { changeSequence } from "../features/sequenceReducer";
 

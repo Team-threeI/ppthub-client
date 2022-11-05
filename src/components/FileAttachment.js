@@ -6,15 +6,15 @@ import { FaArrowDown, FaRegWindowMinimize } from "react-icons/fa";
 import axios from "axios";
 import styled, { keyframes, css } from "styled-components";
 
-import THEME_COLORS from "../config/constants/themeColors";
 import CONFIG from "../config/constants/config";
+import THEME_COLORS from "../config/constants/themeColors";
+import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
+import TOAST_MESSAGES from "../config/constants/toastMessages";
+import { useToast } from "../hooks/useToast";
 import useDragAndDrop from "../hooks/useDragAndDrop";
 import { registerData } from "../features/pptDataReducer";
 import { changeNextSequence } from "../features/sequenceReducer";
-import { useToast } from "../hooks/useToast";
-import TOAST_MESSAGES from "../config/constants/toastMessages";
 import pptxParser from "../utils/pptxParser";
-import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 
 function FileAttachment({ fileType }) {
   const navigate = useNavigate();
@@ -38,14 +38,14 @@ function FileAttachment({ fileType }) {
     }
   };
 
-  const handleFileUpload = async (event) => {
+  const handleFileUpload = (event) => {
     const pptxFile = event.target.files[0];
     const fileName = pptxFile.name.replace(".pptx", "");
 
     registerPptxFile(pptxFile, fileName);
   };
 
-  const handleDragAndDropFileUpload = async (event) => {
+  const handleDragAndDropFileUpload = (event) => {
     const pptxFile = event.dataTransfer.files[0];
 
     if (
@@ -56,6 +56,7 @@ function FileAttachment({ fileType }) {
     }
 
     const fileName = pptxFile.name.replace(".pptx", "");
+
     return registerPptxFile(pptxFile, fileName);
   };
 
@@ -177,6 +178,7 @@ const SampleFileAttachement = styled.p`
   left: calc(50% + 15vw - 9rem);
   color: rgba(0, 0, 0, 0.5);
   font-size: 0.9rem;
+  cursor: pointer;
 
   &:hover {
     font-weight: 900;
