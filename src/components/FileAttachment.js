@@ -14,6 +14,7 @@ import { changeNextSequence } from "../features/sequenceReducer";
 import { useToast } from "../hooks/useToast";
 import TOAST_MESSAGES from "../config/constants/toastMessages";
 import pptxParser from "../utils/pptxParser";
+import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 
 function FileAttachment({ fileType }) {
   const navigate = useNavigate();
@@ -21,11 +22,9 @@ function FileAttachment({ fileType }) {
   const toast = useToast();
   const dragAndDropRef = useRef(null);
 
-  const handleFileChanged = async (event) => {
-    const fileName = event.target.files[0].name.replace(".pptx", "");
-
+  const registerPptxFile = async (pptxFile, fileName) => {
     try {
-      const pptData = await pptxParser(event.target.files[0]);
+      const pptData = await pptxParser(pptxFile);
       const response = await axios.post(`${CONFIG.API_SERVER_URL}/ppts/save`, {
         pptData,
         fileName,
@@ -39,48 +38,80 @@ function FileAttachment({ fileType }) {
     }
   };
 
-  const handleDragAndDropFileChanged = async (event) => {
-    if (event.dataTransfer.files[0].name.substr(-4, 4) !== "pptx") {
+  const handleFileUpload = async (event) => {
+    const pptxFile = event.target.files[0];
+    const fileName = pptxFile.name.replace(".pptx", "");
+
+    registerPptxFile(pptxFile, fileName);
+  };
+
+  const handleDragAndDropFileUpload = async (event) => {
+    const pptxFile = event.dataTransfer.files[0];
+
+    if (
+      pptxFile.type !==
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    ) {
       return toast(TOAST_MESSAGES.INVALID_FILE_MESSAGE);
     }
 
-    try {
-      const fileName = event.dataTransfer.files[0].name.replace(".pptx", "");
-      const pptData = await pptxParser(event.dataTransfer.files[0]);
-      const response = await axios.post(`${CONFIG.API_SERVER_URL}/ppts/save`, {
-        pptData,
-        fileName,
-      });
+    const fileName = pptxFile.name.replace(".pptx", "");
+    return registerPptxFile(pptxFile, fileName);
+  };
 
-      dispatch(
-        registerData({ type: fileType, pptId: response.data, data: pptData }),
-      );
+  const handleSampleFileUpload = async () => {
+    let fileUrl = null;
+
+    if (fileType === PPT_DATA_TYPES.ORIGINAL_PPT_DATA) {
+      fileUrl = CONFIG.SAMPLE_ORIGINAL_FILE_URL;
+    } else if (fileType === PPT_DATA_TYPES.COMPARABLE_PPT_DATA) {
+      fileUrl = CONFIG.SAMPLE_COMPARABLE_FILE_URL;
+    } else {
+      return navigate("/error");
+    }
+
+    try {
+      const response = await axios.get(fileUrl, {
+        responseType: "arraybuffer",
+      });
+      registerPptxFile(response.data, "samplePptxFile");
     } catch (error) {
       navigate("/error");
     }
 
-    return dispatch(changeNextSequence());
+    return null;
   };
 
   const isDragging = useDragAndDrop({
-    onChange: handleDragAndDropFileChanged,
+    onChange: handleDragAndDropFileUpload,
     dragAndDropRef,
   });
 
   return (
-    <FileInputLabel ref={dragAndDropRef} isDragging={isDragging}>
-      <IconContainer>
-        <DownIcon />
-        <LineIcon />
-      </IconContainer>
-      <FileInput
-        type="file"
-        accept=".pptx"
-        onChange={(event) => handleFileChanged(event)}
-      />
-    </FileInputLabel>
+    <Container>
+      <FileInputLabel ref={dragAndDropRef} isDragging={isDragging}>
+        <IconContainer>
+          <DownIcon />
+          <LineIcon />
+        </IconContainer>
+        <FileInput
+          type="file"
+          accept=".pptx"
+          onChange={(event) => handleFileUpload(event)}
+        />
+      </FileInputLabel>
+      <SampleFileAttachement onClick={handleSampleFileUpload}>
+        Sample 파일 첨부
+      </SampleFileAttachement>
+    </Container>
   );
 }
+
+const Container = styled.section`
+  position: sticky;
+  width: 100%;
+  height: 100%;
+`;
 
 const iconAnimation = keyframes`
   0% {
@@ -102,7 +133,8 @@ const DownIcon = styled(FaArrowDown)`
 
 const LineIcon = styled(FaRegWindowMinimize)`
   width: 5rem;
-  height: 4rem;
+  height: 5rem;
+  margin-bottom: 2rem;
   fill: ${THEME_COLORS.MAIN_COLOR};
 `;
 
@@ -127,7 +159,6 @@ const IconContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: fixed;
   width: 30vw;
   height: 40vh;
   border: 2px dashed ${THEME_COLORS.MAIN_COLOR};
@@ -136,6 +167,21 @@ const IconContainer = styled.div`
 
 const FileInput = styled.input`
   display: none;
+`;
+
+const SampleFileAttachement = styled.p`
+  position: absolute;
+  width: 9rem;
+  height: 2rem;
+  top: calc(50% + 20vh - 2rem);
+  left: calc(50% + 15vw - 9rem);
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 0.9rem;
+
+  &:hover {
+    font-weight: 900;
+    color: #000000;
+  }
 `;
 
 export default FileAttachment;
