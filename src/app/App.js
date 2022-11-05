@@ -16,19 +16,15 @@ import Download from "../components/Download";
 
 function App() {
   const sequence = useSelector((state) => state.sequence);
-  const [headerScroll, setHeaderScroll] = useState(50);
 
   return (
     <AppContainer>
       <GlobalStyle />
       <MainSection>
-        <Header scroll={headerScroll} />
+        <Header />
         <Routes>
-          <Route path="/" element={<Main onListScroll={setHeaderScroll} />} />
-          <Route
-            path="/:id/download"
-            element={<Download onListScroll={setHeaderScroll} />}
-          />
+          <Route path="/" element={<Main />} />
+          <Route path="/:id/download" element={<Download />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

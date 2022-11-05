@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import styled from "styled-components";
@@ -8,12 +8,14 @@ import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import FileAttachment from "./FileAttachment";
 import SlideList from "./SlideList";
 import ComparedSlideList from "./ComparedSlideList";
+import { useSetScroll } from "../hooks/useScroll";
 
-function Main({ onListScroll }) {
+function Main() {
+  const setScroll = useSetScroll();
   const sequence = useSelector((state) => state.sequence);
   const handleListScroll = (event) => {
     const { scrollHeight, offsetHeight, scrollTop } = event.target;
-    onListScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
+    setScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
   };
 
   switch (sequence) {
@@ -34,7 +36,7 @@ function Main({ onListScroll }) {
     case SEQUENCES.COMPARISION:
       return (
         <MainContainer>
-          <ComparedSlideList onListScroll={onListScroll} />
+          <ComparedSlideList />
         </MainContainer>
       );
     case SEQUENCES.INITIAL_SEQUENCE:
