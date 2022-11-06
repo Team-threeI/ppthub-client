@@ -5,8 +5,10 @@ import styled from "styled-components";
 
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import SlideListSlideSection from "./SlideListSlideSection";
+import { useSetScroll } from "../hooks/useScroll";
 
-function ComparedSlideList({ onListScroll }) {
+function ComparedSlideList() {
+  const setScroll = useSetScroll();
   const sortedSlideIdList = useSelector((state) => state.slideOrderList);
   const pptDataIdMap = useSelector(({ pptData }) => {
     const {
@@ -44,7 +46,7 @@ function ComparedSlideList({ onListScroll }) {
     <ComparedSlideListContainer
       onScroll={(event) => {
         const { scrollHeight, offsetHeight, scrollTop } = event.target;
-        onListScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
+        setScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
       }}
     >
       {[

@@ -1,28 +1,27 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import styled from "styled-components";
 
-import notFoundImageSrc from "../images/404.png";
+import SEQUENCES from "../config/constants/sequences";
+import THEME_COLORS from "../config/constants/themeColors";
+import { changeSequence } from "../features/sequenceReducer";
 
 function NotFoundPage() {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    navigate("/");
-  };
+  useEffect(() => {
+    dispatch(changeSequence(SEQUENCES.ERROR));
+  }, [dispatch]);
 
   return (
     <NotFoundContainer>
-      <NotFoundImage src={notFoundImageSrc} alt="페이지를 찾을수 없습니다." />
-      <p>
-        <strong>찾으시려는 페이지가 현재 존재하지 않습니다.</strong>
+      <NotFoundHeader>404</NotFoundHeader>
+      <NotFoundMessage>
+        찾으시려는 페이지가 현재 존재하지 않습니다.
         <br />
-        주소를 다시한번 확인해 주세요
-      </p>
-      <MainButton type="button" onClick={() => handleClick()}>
-        Home
-      </MainButton>
+        주소를 다시 한 번 확인해 주세요.
+      </NotFoundMessage>
     </NotFoundContainer>
   );
 }
@@ -31,23 +30,24 @@ const NotFoundContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
+  padding: 0 26vw;
   overflow: auto;
 `;
 
-const NotFoundImage = styled.img`
-  width: 50%;
-  height: 50%;
-  margin: auto;
+const NotFoundHeader = styled.h1`
+  color: ${THEME_COLORS.MAIN_COLOR};
+  font-size: 24vmin;
+  font-style: italic;
 `;
 
-const MainButton = styled.button`
-  width: 10rem;
-  height: 3rem;
-  margin: auto;
-  border-radius: 0.7rem;
-  font-size: 1.5rem;
+const NotFoundMessage = styled.p`
+  margin-top: 3rem;
+  font-size: 3vmin;
+  line-height: 4vmin;
+  text-align: left;
 `;
 
 export default NotFoundPage;

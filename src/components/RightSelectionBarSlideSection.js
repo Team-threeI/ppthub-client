@@ -21,7 +21,7 @@ const getHighlightByDiffState = (isHovered, isChecked) => {
     : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
-function RightSelectionBarSlideSection({ slideData, diffType }) {
+function RightSelectionBarSlideSection({ slideData }) {
   const dispatch = useDispatch();
   const { slideId, slideName, isChecked, isHovered } = slideData;
   const slideDiffData = useSelector(({ diffData }) => diffData[slideId]);
@@ -29,7 +29,10 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
     slideData.diff === DIFF_TYPES.ADDED ||
     slideData.diff === DIFF_TYPES.DELETED;
   const slideItems = Object.entries(slideData.items ?? {}).filter(
-    (item) => item[1].diff === DIFF_TYPES.MODIFIED || item[1].diff === diffType,
+    (item) =>
+      item[1].diff === DIFF_TYPES.MODIFIED ||
+      item[1].diff === DIFF_TYPES.ADDED ||
+      item[1].diff === DIFF_TYPES.DELETED,
   );
 
   return (
@@ -72,7 +75,6 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
                 key={item[0]}
                 itemData={{ itemId: item[0], ...item[1] }}
                 slideId={slideId}
-                diffType={diffType}
               />
             ))}
           </ModifiedSlideItems>

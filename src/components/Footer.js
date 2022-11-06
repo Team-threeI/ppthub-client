@@ -98,18 +98,12 @@ function Footer() {
     navigate("/", { replace: true });
   };
 
-  const handleSampleFileDownload = () => {
-    window.location.href = CONFIG.SAMPLE_ORIGINAL_FILE_URL;
-
-    setTimeout(() => {
-      window.location.href = CONFIG.SAMPLE_COMPARABLE_FILE_URL;
-    }, 100);
-  };
-
   return (
     <FooterContainer>
       {(() => {
         switch (sequence) {
+          case SEQUENCES.INITIAL_SEQUENCE:
+            return null;
           case SEQUENCES.ADDED_ORIGINAL_FILE:
             return (
               <FooterButton onClick={handlePreviousClick}>
@@ -137,15 +131,9 @@ function Footer() {
             return (
               <FooterButton onClick={handleFileDownload}>다운로드</FooterButton>
             );
-          case SEQUENCES.COMPLETED_DOWNLOAD:
-            return (
-              <FooterButton onClick={handleInitialClick}>처음으로</FooterButton>
-            );
           default:
             return (
-              <FooterButton onClick={handleSampleFileDownload}>
-                비교용 샘플 파일 다운로드
-              </FooterButton>
+              <FooterButton onClick={handleInitialClick}>처음으로</FooterButton>
             );
         }
       })()}

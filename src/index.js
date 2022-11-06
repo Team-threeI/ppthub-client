@@ -6,13 +6,16 @@ import { Provider } from "react-redux";
 import App from "./app/App";
 import store from "./app/store";
 import { ToastProvider } from "./hooks/useToast";
+import { ScrollProvider } from "./hooks/useScroll";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <Router>
       <ToastProvider>
-        <App />
+        <ScrollProvider>
+          <App />
+        </ScrollProvider>
       </ToastProvider>
     </Router>
   </Provider>,

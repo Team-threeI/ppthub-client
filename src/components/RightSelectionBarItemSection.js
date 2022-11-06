@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
 
-import DIFF_TYPES from "../config/constants/diffTypes";
 import THEME_COLORS from "../config/constants/themeColors";
 import {
   toggleItemChecked,
@@ -20,20 +19,16 @@ const getItemHighlightByDiffState = (isHovered, isChecked) => {
     : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
-function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
+function RightSelectionBarItemSection({ itemData, slideId }) {
   const dispatch = useDispatch();
-  const itemDiffData = useSelector(
+  const { isChecked, isHovered } = useSelector(
     ({ diffData }) => diffData[slideId].items[itemData.itemId],
   );
-  const { isChecked, isHovered } = itemDiffData;
-  const isModified = itemDiffData.diff === DIFF_TYPES.MODIFIED;
-  const isItemChecked =
-    diffType === DIFF_TYPES.ADDED && isModified ? !isChecked : isChecked;
 
   return (
     <li>
       <ItemLabel
-        highlight={getItemHighlightByDiffState(isHovered, isItemChecked)}
+        highlight={getItemHighlightByDiffState(isHovered, isChecked)}
         onMouseEnter={() =>
           dispatch(toggleItemHovered({ itemId: itemData.itemId, slideId }))
         }
@@ -42,13 +37,13 @@ function RightSelectionBarItemSection({ itemData, slideId, diffType }) {
         }
       >
         <ItemHeader
-          highlight={getItemHighlightByDiffState(isHovered, isItemChecked)}
+          highlight={getItemHighlightByDiffState(isHovered, isChecked)}
         >
-          <CheckStatus>{isItemChecked ? "+" : "-"}</CheckStatus>
+          <CheckStatus>{isChecked ? "+" : "-"}</CheckStatus>
           {itemData.itemId}
         </ItemHeader>
         <Checkbox
-          checked={isItemChecked}
+          checked={isChecked}
           type="checkbox"
           onChange={() => {
             window.location.href = `#${slideId}-PPT_DATA_TYPES/ORIGINAL_PPT_DATA`;

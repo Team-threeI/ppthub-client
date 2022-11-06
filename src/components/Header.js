@@ -8,11 +8,13 @@ import styled from "styled-components";
 import THEME_COLORS from "../config/constants/themeColors";
 import CONFIG from "../config/constants/config";
 import { initializeSequence } from "../features/sequenceReducer";
+import { useScrollValue } from "../hooks/useScroll";
 import useModal from "../hooks/useModal";
 
-function Header({ scroll }) {
+function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const scrollValue = useScrollValue();
   const [ExplainModal, toggleModal] = useModal();
 
   const handleInitialClick = () => {
@@ -20,16 +22,13 @@ function Header({ scroll }) {
     navigate("/", { replace: true });
   };
 
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    toggleModal();
-  };
-
   return (
     <HeaderContainer>
-      <ExplainIcon title="Guide for Using PPTHUB" onClick={handleClick} />
-      <HeaderTitle onClick={handleInitialClick} scroll={scroll}>
+      <ExplainIcon
+        title="Guide for Using PPTHUB"
+        onClick={() => toggleModal()}
+      />
+      <HeaderTitle onClick={handleInitialClick} scroll={scrollValue}>
         PPTHub
       </HeaderTitle>
       <ExplainModal>
@@ -46,6 +45,7 @@ function Header({ scroll }) {
 }
 
 const HeaderContainer = styled.header`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,8 +57,8 @@ const HeaderContainer = styled.header`
 `;
 
 const ExplainIcon = styled(BsQuestionCircle)`
-  position: fixed;
-  top: 5%;
+  position: absolute;
+  top: 30%;
   left: 2%;
   font-size: 2rem;
   cursor: pointer;
@@ -84,6 +84,7 @@ const HeaderTitle = styled.h1`
     width: 2rem;
     height: 5px;
     background-color: #000000;
+    cursor: default;
   }
 
   &:after {
@@ -95,6 +96,7 @@ const HeaderTitle = styled.h1`
     left: 0;
     bottom: -1rem;
     background-color: #000000;
+    cursor: default;
   }
 `;
 
