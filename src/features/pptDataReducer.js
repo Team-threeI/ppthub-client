@@ -2,7 +2,7 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 
 import PPT_DATA_TYPES from "../config/constants/pptDataTypes";
 import { initializeDiffData } from "./diffDataReducer";
-import { changePreviousSequence } from "./sequenceReducer";
+import { changePreviousSequence, initializeSequence } from "./sequenceReducer";
 
 export const registerData = createAction("registerData");
 export const deleteData = createAction("deleteData");
@@ -48,6 +48,9 @@ const pptDataReducer = createReducer(initialState, {
     }
 
     return state;
+  },
+  [initializeSequence]: () => {
+    return initialState;
   },
 });
 

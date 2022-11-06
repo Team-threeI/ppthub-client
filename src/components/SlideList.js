@@ -1,19 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
 import SlideListSlideSection from "./SlideListSlideSection";
 
-function SlideList({ fileType, onListScroll }) {
-  useEffect(() => {
-    if (!onListScroll) {
-      return;
-    }
-
-    onListScroll(0);
-  }, [onListScroll]);
-
+function SlideList({ fileType }) {
   const { slides, slideWidth, slideHeight } = useSelector(
     ({ pptData }) => pptData[fileType].data,
   );

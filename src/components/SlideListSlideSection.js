@@ -44,7 +44,7 @@ function SlideListSlideSection({ slideData, fileType }) {
     >
       {slideData.items.map((item) => (
         <SlideListItemSection
-          key={item.itemId}
+          key={`${item.order}/${item.itemId}`}
           itemData={{ ...item, slideWidth, slideHeight }}
           slideId={slideId}
           fileType={fileType}

@@ -12,12 +12,18 @@ import SEQUENCES from "../config/constants/sequences";
 import CONFIG from "../config/constants/config";
 import { changeSequence } from "../features/sequenceReducer";
 import { registerData } from "../features/pptDataReducer";
+import { useSetScroll } from "../hooks/useScroll";
 
-function Download({ onListScroll }) {
+function Download() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isFetching, setIsFetching] = useState(false);
+  const setScroll = useSetScroll();
+
+  useEffect(() => {
+    setScroll(0);
+  }, [setScroll]);
 
   useEffect(() => {
     const getPptData = async () => {
@@ -48,7 +54,7 @@ function Download({ onListScroll }) {
 
   const handleListScroll = (event) => {
     const { scrollHeight, offsetHeight, scrollTop } = event.target;
-    onListScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
+    setScroll((scrollTop / (scrollHeight - offsetHeight)) * 100);
   };
 
   if (!isFetching) {
@@ -66,6 +72,7 @@ const DownloadContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+  padding: 0 28vw;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;

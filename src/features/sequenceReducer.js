@@ -1,6 +1,7 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import SEQUENCES, { SEQUENCE_FLOW } from "../config/constants/sequences";
 
+export const initializeSequence = createAction("initializeSequence");
 export const changePreviousSequence = createAction("changePreviousSequence");
 export const changeSequence = createAction("changeSequence");
 export const changeNextSequence = createAction("changeNextSequence");
@@ -22,6 +23,9 @@ const sequenceReducer = createReducer(SEQUENCES.INITIAL_SEQUENCE, {
       currentIndex === 0 ? SEQUENCE_FLOW.length - 1 : currentIndex - 1;
 
     return SEQUENCE_FLOW[previousIndex];
+  },
+  [initializeSequence]: (state) => {
+    return SEQUENCES.INITIAL_SEQUENCE;
   },
 });
 

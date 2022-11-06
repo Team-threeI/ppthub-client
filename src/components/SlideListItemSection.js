@@ -21,15 +21,15 @@ const getItemHighlightByDiffState = (
     return THEME_COLORS.HIGHLIGHT_HOVERED;
   }
 
-  if (fileType === PPT_DATA_TYPES.COMPARABLE_PPT_DATA && isModified) {
+  if (fileType === PPT_DATA_TYPES.ORIGINAL_PPT_DATA && isModified) {
     return isChecked
-      ? THEME_COLORS.HIGHLIGHT_ADDED
-      : THEME_COLORS.HIGHLIGHT_DELETED;
+      ? THEME_COLORS.HIGHLIGHT_DELETED
+      : THEME_COLORS.HIGHLIGHT_ADDED;
   }
 
   return isChecked
-    ? THEME_COLORS.HIGHLIGHT_DELETED
-    : THEME_COLORS.HIGHLIGHT_ADDED;
+    ? THEME_COLORS.HIGHLIGHT_ADDED
+    : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
 function SlideListItemSection({ itemData, slideId, fileType }) {

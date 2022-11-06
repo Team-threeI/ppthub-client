@@ -21,7 +21,7 @@ const getHighlightByDiffState = (isHovered, isChecked) => {
     : THEME_COLORS.HIGHLIGHT_DELETED;
 };
 
-function RightSelectionBarSlideSection({ slideData, diffType }) {
+function RightSelectionBarSlideSection({ slideData }) {
   const dispatch = useDispatch();
   const { slideId, slideName, isChecked, isHovered } = slideData;
   const slideDiffData = useSelector(({ diffData }) => diffData[slideId]);
@@ -29,7 +29,10 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
     slideData.diff === DIFF_TYPES.ADDED ||
     slideData.diff === DIFF_TYPES.DELETED;
   const slideItems = Object.entries(slideData.items ?? {}).filter(
-    (item) => item[1].diff === DIFF_TYPES.MODIFIED || item[1].diff === diffType,
+    (item) =>
+      item[1].diff === DIFF_TYPES.MODIFIED ||
+      item[1].diff === DIFF_TYPES.ADDED ||
+      item[1].diff === DIFF_TYPES.DELETED,
   );
 
   return (
@@ -72,7 +75,6 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
                 key={item[0]}
                 itemData={{ itemId: item[0], ...item[1] }}
                 slideId={slideId}
-                diffType={diffType}
               />
             ))}
           </ModifiedSlideItems>
@@ -85,10 +87,12 @@ function RightSelectionBarSlideSection({ slideData, diffType }) {
 const SlideSectionContainer = styled.li`
   overflow: auto;
 `;
+
 const SlideLabel = styled.label`
   display: block;
   overflow-y: hidden;
 `;
+
 const SlideHeader = styled.h1`
   position: relative;
   margin: 1rem 0 0 2.5rem;
@@ -96,9 +100,11 @@ const SlideHeader = styled.h1`
   text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   color: ${({ highlight }) => highlight};
 `;
+
 const Checkbox = styled.input`
   display: none;
 `;
+
 const ModifiedSlideItems = styled.ul`
   margin-left: 1rem;
 `;
