@@ -18,16 +18,16 @@ PPTHUB는 다른 버전의 PPT 파일을 비교하고 관리할 수 있는 웹 �
 
 # 🌐 Tech Stacks
 ### Client
- `JavaScript, React.js, Redux Toolkit, Styled-Component `
+ `JavaScript, React.js, Redux Toolkit, Styled-Components `
 
 ### Server
- `JavaScript,  Node.js, Express,MongoDB & Mongoose ,AWS S3  `
+ `JavaScript, Node.js, Express, MongoDB & Mongoose, AWS S3  `
 
 ### Test
  `Jest, SuperTest, Cypress`
 
 ### Deployment
- `Netlify , AWS Elastic Beanstalk`
+ `Netlify, AWS Elastic Beanstalk`
 
 # 👋 Introduction
 ### 프로젝트 기간
@@ -60,15 +60,15 @@ PPTHUB는 다른 버전의 PPT 파일을 비교하고 관리할 수 있는 웹 �
 
 
 # 📸 Feature
-- 사용자는 사이트에 확장자명이 pptx인 원본, 비교본 파일을 등록할 수 있습니다.
-- 사용자가 원하지 않은 pptx를 등록했을 경우 되돌리기 버튼을 클릭하여 취소할 수 있습니다.
+- 사용자는 사이트에 확장자명이 .pptx인 PPT 원본 파일, 비교본 파일을 등록할 수 있습니다.
+- 사용자가 원하지 않은 PPT를 등록했을 경우 되돌리기 버튼을 클릭하여 취소할 수 있습니다.
 - 사용자는 원본 비교본에서 어떤 부분이 달라졌는지 한번에 확인이 가능합니다.
   - 슬라이드가 추가되거나 삭제된 경우 : 슬라이드 전체에 빗금처리
   - 슬라이드 안의 컨텐츠가 추가되거나 삭제 된 경우 : 슬라이드 내용 안에 처리
-- 사용자는 자신이 원하는 내용만 피피티에 추가를 할 수 있습니다. EX) 추가 - 녹색, 삭제 - 빨강
-- 사용자가 최종 선택 된 내용을 가지고 피피티를 새로 만들 수 있습니다.
+- 사용자는 자신이 원하는 내용만 PPT에 추가를 할 수 있습니다. EX) 추가 - 녹색, 삭제 - 빨강
+- 사용자가 최종 선택 된 내용을 가지고 PPT를 새로 만들 수 있습니다.
 - 사용자가 다운로드 페이지로 버튼을 누르게 되면 다운로드 페이지로 이동 및 링크가 클립보드에 저장이 됩니다.
-- 다운로드 페이지에서 새로 만들어진 피피티를 다운로드 받을 수 있으며 하루 동안 클립보드에 저장 된 링크로 다운로드 페이지로 이동해 파일을 다운 받을 수 있습니다.
+- 다운로드 페이지에서 새로 만들어진 PPT를 다운로드 받을 수 있으며 하루 동안 클립보드에 저장 된 링크로 다운로드 페이지로 이동해 파일을 다운 받을 수 있습니다.
 
 |<img width="500px" alt="mainpage" src="https://user-images.githubusercontent.com/76609548/198583870-8c8f2a35-a03a-4483-91aa-dd14ca039b2a.png">|<img width="500px" alt="ready" src="https://user-images.githubusercontent.com/76609548/198584373-cacf41f5-ead7-4e8d-9ea1-06a2c8865923.png">|
 |:---:|:---:|
