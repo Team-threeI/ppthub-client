@@ -1,5 +1,5 @@
 <img width="400" alt="PPTHUB" src="https://user-images.githubusercontent.com/76609548/198778424-9a05e2d7-60fb-440a-8aa2-13b6cc8796d4.png">
-PPTHUB는 다른 버전의 PPT 파일을 비교하고 관리할 수 있는 웹 서비스입니다. 두 개의 PPT 파일을 비교해 다른 부분을 찾아내고, 원하는 데이터를 선택해 새로운 PPT 파일을 생성할 수 있습니다.
+PPTHUB는 다른 PPT 파일을 비교하고 관리할 수 있는 웹 서비스입니다. 두 개의 PPT 파일을 비교해 다른 부분을 찾아내고, 원하는 데이터를 선택해 새로운 PPT 파일을 생성할 수 있습니다.
 
 # 𝌞 CONTENTS
 - 🔍 [Preview](#-preview)
@@ -18,10 +18,10 @@ PPTHUB는 다른 버전의 PPT 파일을 비교하고 관리할 수 있는 웹 �
 
 # 🌐 Tech Stacks
 ### Client
- `JavaScript, React.js, Redux Toolkit, Styled-Components `
+ `JavaScript, React, Redux, Redux Toolkit, styled-components `
 
 ### Server
- `JavaScript, Node.js, Express, MongoDB & Mongoose, AWS S3  `
+ `JavaScript, Node.js, Express.js, MongoDB & Mongoose, Amazon S3  `
 
 ### Test
  `Jest, SuperTest, Cypress`
