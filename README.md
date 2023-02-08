@@ -80,14 +80,12 @@ PPTHUB는 다른 PPT 파일을 비교하고 관리할 수 있는 웹 서비스�
 |선택 화면|다운로드 페이지|
 
 # 🏔 Challenges
-## ⚡️ 어떻게 PPT 파일을 javascript에서 다룰 수 있을 까?(parsing)
+- ### **[기술 검증](https://rust-spade-c0e.notion.site/172f9c191966412980536fbd4cab6994)**
+## ⚡️ 어떻게 PPT 파일을 javascript에서 다룰 수 있을 까?(parsing)
 ### 1. 슬라이드 내부 Data 접근하기
 
 - .pptx 파일은, 각 xml 파일들이 모인 하나의 디렉토리가 압축된 파일로 구성되어 있습니다.
 - xml은, html과 마찬가지로 element로 구성되어 있으며, 자식 - 부모 관계로 이루어져 있습니다.
-
-![Screen Shot 2022-10-13 at 23.00.16.png](https://gongjaehyeok.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F699ab829-12ac-4634-ad1a-ceaf719a1ca8%2FScreen_Shot_2022-10-13_at_23.00.16.png?table=block&id=2e3ceb3c-ac10-40c2-9183-d9b84768c1cc&spaceId=09ea7a09-2c83-4c72-b2bc-cf3c50ff58eb&width=1250&userId=&cache=v2)
-
 - xml에 접근하기 위해, xml 데이터를 문자열화해서 그대로 해석해거나 html처럼 DOM으로 데이터에 접근할 수 있는 방안이 있었습니다.
 - 하지만 DOM으로 접근하는 것이 조금 더 친숙하면서 용이한 방식으로 생각되어 해당 방식을 사용하였습니다.
 - DOM으로 다루기 위해서, 문자열화 된 xml data를 javascript의 DOMParser(parseFromString method)를 이용하여 DOM 객체로 변환하였습니다.
