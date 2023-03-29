@@ -8,7 +8,13 @@ PPTHUB는 다른 PPT 파일을 비교하고 관리할 수 있는 웹 서비스�
 - 🔗 [Links](#-links)
 - 📸 [Feature](#-feature)
 - 🏔 [Challenges](#challenges)
+  - ⚡️ [어떻게 PPT 파일을 javascript에서 다룰 수 있을 까?(parsing)](#%EF%B8%8F-%EC%96%B4%EB%96%BB%EA%B2%8C-ppt-%ED%8C%8C%EC%9D%BC%EC%9D%84-javascript%EC%97%90%EC%84%9C-%EB%8B%A4%EB%A3%B0-%EC%88%98-%EC%9E%88%EC%9D%84-%EA%B9%8Cparsing)
+  - ⚡️ [두 개의 PPT 파일을 어떻게 비교할 수 있을까?(diffing)](#%EF%B8%8F두-개의-ppt-파일을-어떻게-비교할-수-있을까diffing)
+  - ⚡️ [하나의 PPT 파일로 합치기(merge)](#%EF%B8%8F하나의-ppt-파일로-합치기merge)
 - 🔥 [Issues](#issues)
+  - ⚡️ [사용자 관리 이슈](#%EF%B8%8F-사용자-관리-이슈)
+  - ⚡️ [상태 관리 라이브러리 도입 이슈](#%EF%B8%8F-상태-관리-라이브러리-도입-이슈)
+  - ⚡️ [파일 데이터베이스 관리 이슈](#%EF%B8%8F-ppt-파일-데이터베이스-관리-이슈)
 - 🎥 [Execute](#-execute)
 - 🤝 [Memoirs](#-memoirs)
 
